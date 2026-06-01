@@ -1,0 +1,31 @@
+
+//  Write Object  and  Write TObject
+//
+TFile *fff = new TFile("MixedRoot.root","RECREATE");
+TH1F *hB = new TH1F("hB","Background",100,0,8);
+hB->FillRandom("gaus",30000);
+     fff->WriteTObject(hB);
+//   fff->WriteObject(hB);  is wrong, 2 param - needs Obj and a new name
+     fff->WriteObject(hB,"was_called_hB");
+fff->ls();
+//
+  TCanvas *cgr = new TCanvas("cgr","Graph");
+  TCanvas *dgr = new TCanvas("dgr","Graph_2");
+hB->Draw();
+fff->WriteTObject(cgr);   //   TCanvas
+//
+TString AName="Histograms are cool";
+// fff->WriteTObject(&AName);   //   TString Write expcts pointer
+   fff->WriteObject(&AName,"Are_Cool");   //   TString needs WriteObject
+// fff->WriteObject( AName,"Are_Cool");   //  would crash, needs pointer
+
+.q
+TFile *fff = new TFile("MixedRoot.root");
+fff->ls();
+TH1F *hShort = (TH1F*) fff->Get("hB");
+fff->ls();
+hShort->Draw();
+TH1F *hLong = (TH1F*) fff->Get("was_called_hB");
+hLong->Draw();
+.q
+

@@ -1,0 +1,6 @@
+Bergen.root
+berlin.root
+cambridge.root
+OSLO.root
+Paris.root
+Roma.root

@@ -1,0 +1,194 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+6_History_for_students.txt
+</big>
+<br>
+<!-- ------------------   6_History_for_students.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="163">
+
+======    OPEN A NEW TERMINAL ========    CTRL-ALT-T   
+ls
+ls -l
+ls -ltr
+ls -ltra
+cd Documents
+pwd
+ls
+cd
+pwd
+
+======    CLOSE THE TERMINAL ========    CTRL-D     ^D
+
+
+======    OPEN A NEW TERMINAL ========    CTRL-ALT-T
+
+cat .bash_history 
+history
+
+# explore the filesystem  ( / is called a root of the system )
+cd /
+pwd
+ls
+ls -l
+cd /
+
+man wc
+ls | wc
+
+cd /usr/bin
+pwd
+ls -l
+man wc
+ls | wc
+cd /usr/share 
+pwd
+ls -l 
+ls | wc 
+pwd
+ls -lr
+ls
+pwd
+cd
+cd /etc
+ls
+ls -l
+cat passwd
+cd /var
+ls
+ls -l
+cd opt
+pwd
+
+hostname
+ssh 129.177.37.75
+
+ls 
+cd /proc
+cat cpuinfo 
+
+#  Going home again     ( also cd ~    )
+cd 
+mkdir AAA
+cd AAA
+ls
+ls -a
+cd ..
+cd AAA
+#     send to file   >   
+ls -la > newfile.txt
+ls -la
+#    append to file, send ater the end  >> 
+ls -a >> newfile.txt
+cat newfile.txt
+cp newfile.txt 
+ls -a >> newfile.txt
+ls -a >> newfile.txt
+ls -a >> newfile.txt
+cat newfile.txt olderfile.txt
+
+cp newfile.txt olderfile.txt
+cp newfile.txt ../olderfile.txt
+
+#    no  "rename"  but   "move"   shortened to mv
+
+mv newfile.txt My_File.txt
+
+mkdir Extra
+#  this moves to another directory - called Extra
+mv olderfile.txt Extra
+
+ls -l Extra
+
+
+ls -a > newfile.txt
+cat newfile.txt 
+ls -a > bbbb2.txt
+ls -l
+cp bbbb2.txt newfile.txt 
+
+#   mysteries - Your environement
+env
+last
+
+finger nfylk
+last
+
+# going to another machine  ....   ssh
+ssh 129.177.37.48
+cd AAA
+ls -l
+cp newfile.txt ~ 
+cp -i newfile.txt ~ 
+
+# Editor   nano tells you what to do ^X  means exit, save and exit etc
+
+nano
+ls -l
+nano newfile.txt 
+
+ifconfig
+hostname
+
+# GOING TO THE WEB-server   it will say -bash-4.1$
+ssh login
+
+cd /Data/www/folk
+
+pwd
+ls
+#  mkdir    YourUNIX_windows_uib_name  as e.g. mar011 
+#           Remember   mar011 AND NOT Mar011 !!!!!! 
+ls -l 
+
+cd  YourUNIX_windows_uib_name
+
+pwd
+date > index.html
+
+nano index.html 
+
+# <br> means new line  - put it into index.html using nano  
+
+
+exit
+
+# Now it does not show the -bash-4.1$      any more
+
+#   on any of the iftlab111111 type machines - some people did
+# TRY THIS      - remember .q to get out 
+
+#   this runs one version of root   - to get out type   .q
+
+/scratch/root5 
+for (i=0;i<10;i=i+1) cout << i << " " << i*i << endl;
+.q
+
+
+alias B='/scratch/root5 -b'
+B
+
+</textarea><br>
+<!-- ---------------------   6_History_for_students.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

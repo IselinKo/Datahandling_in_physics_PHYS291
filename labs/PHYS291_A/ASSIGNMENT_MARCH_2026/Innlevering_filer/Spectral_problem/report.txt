@@ -1,0 +1,60 @@
+Bergen 
+Peak position             4.00 
+Peak Value             1899.85 
+Peak Width (FWHM)         0.99 
+
+berlin 
+Peak position             3.85 
+Peak Value            14210.11 
+Peak Width (FWHM)         0.76 
+
+cambridge 
+Peak position             3.80 
+Peak Value             5413.98 
+Peak Width (FWHM)         0.92 
+
+OSLO 
+Peak position             4.50 
+Peak Value             8561.83 
+Peak Width (FWHM)         1.20 
+
+Paris 
+Peak position             3.99 
+Peak Value             5149.67 
+Peak Width (FWHM)         1.00 
+
+Roma 
+Peak position             4.29 
+Peak Value             1198.60 
+Peak Width (FWHM)         0.99 
+
+Bergen 
+Peak position             4.00 
+Peak Value             1899.85 
+Peak Width (FWHM)         0.99 
+
+berlin 
+Peak position             3.85 
+Peak Value            14210.11 
+Peak Width (FWHM)         0.76 
+
+cambridge 
+Peak position             3.80 
+Peak Value             5413.98 
+Peak Width (FWHM)         0.92 
+
+OSLO 
+Peak position             4.50 
+Peak Value             8561.83 
+Peak Width (FWHM)         1.20 
+
+Paris 
+Peak position             3.99 
+Peak Value             5149.67 
+Peak Width (FWHM)         1.00 
+
+Roma 
+Peak position             4.29 
+Peak Value             1198.60 
+Peak Width (FWHM)         0.99 
+

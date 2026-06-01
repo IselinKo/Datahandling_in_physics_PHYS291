@@ -1,0 +1,102 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+8_commands_by_Lena_extended.txt
+</big>
+<br>
+<!-- ------------------   8_commands_by_Lena_extended.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="71">
+Overview of some basic actions
+(collected by Lena 2016; shortened by L.K. 2018)
+
+pwd             	:present working directory - shows where you are
+ctrl d          	:quit shell, close terminal
+ctrl c          	:stop, quit the running process, return to shell
+clear           	:clear terminal window
+cd              	:change directory  to HOME
+cd ..           	:change directory  to one above (containing your pwd )
+cd foldername   	:change directory  to that called foldername
+ls              	:listing files of the current directory
+ls -l           	:listing files with long format, all information
+ls -la          	:listing all files (also hidden called .name  ) with information
+ls | wc        	 	:counts the files in the currect directory
+#
+#    Head and Tail
+#
+date          	 	:prints out actual date
+head -n 4 filenam	:shows the first 4 lines of the file filenam
+head filenam		:shows 10 first lines of the file filenam
+tail -n 6 file		:shows the last 6 lines of the file filenam
+tail file		:shows 10 last lines of the file filenam
+
+mkdir name     	 	:makes new folder name in the current directory
+rmdir name		:deletes the (empty) folder called name (if not empty, error)
+rm -r name		:deletes folder called name (not empty)
+rm -rf name		:deletes folder name by force
+date > filename		:writes the date into a file called filename 
+
+rm filename     	:deletes (removes -> rm)  the file called filename
+rm filena*              :removes all files filename filename2 filena filenas 
+                         ( star means anything )
+
+man command		:showes information about the command command (help manual)
+command --help		:showes information, help according the command
+
+nano 			:opens a simple texteditor
+cp file1 newfil		:make a copy of file1 to as newfil in the same directory 
+cp file1 path/		:copy the file1  into the directory  path  ( / can be omitted )
+mv oldfile newnam	:changes the name from oldfile to newnam, content unchanged
+mv file1 path/		:moves the file1 into the directory of the path  ( / can be omitted )
+find path -name filn	:finds and shows files or folders with the name; complex options
+
+gnome-screenshot -i	:opens a window to make a screenshot and save it
+exit 			:exits the shell, the same as CTRL-D
+cal 			:shows a calendar; complex options
+cat name		:prints the  content of the file called name
+cmp fileA fileB		:compares two files (fileA and fileB)
+echo			:diplay a text string in the output (screen)
+history			:prints the executed commands
+killall			:kill process by name
+kill			:kill process by specifying its PID (send a signal)
+locate name		:find the file called name
+logname 		:print current login name
+passwd			:modify the user password
+users			:show the users of the system
+diff file1 file2	:shows the differents between file1 and file2
+fuser			:kill/identify the process that is accessing a file
+zip name file1 file2	:zip files in a zipped folder called name
+gzip file		:zips a file
+gunzip file		:unzip a file
+
+use the arrow taps to get previous commands
+
+added   
+ps aux                   :prints all running processes  (about 200 usually)
+top                      :shows the top demanding processes     stop by letter q
+
+ 
+
+</textarea><br>
+<!-- ---------------------   8_commands_by_Lena_extended.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

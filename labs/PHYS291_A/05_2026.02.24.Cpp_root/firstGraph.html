@@ -1,0 +1,19 @@
+// <html> <body> <pre>
+{
+// A stupid graph twice
+int n=5;
+double x[19],y[19];
+x[0]=0; y[0]=5;
+x[1]=3; y[1]=2;
+x[2]=6; y[2]=4;
+TGraph *Gr1=new TGraph(3,x,y);
+Gr1->Draw();
+x[0]=0; y[0]=1;
+x[1]=4; y[1]=4;
+x[2]=6; y[2]=2;
+TGraph *Gr2=new TGraph(3,x,y);
+Gr2->Draw("same");
+
+}
+//  </pre>
+

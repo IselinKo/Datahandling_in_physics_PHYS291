@@ -1,0 +1,104 @@
+2,3c2,3
+< //   This version of the program draws really all of the histograms
+< //   It has been modified to draw and fit all 6 in file in 6 different windows
+---
+> //   This version of program draws only one of the histograms, see k= 
+> //   Modify it to draw and the fit all 6 in file in 6 different windows
+7a8
+> 
+11,13c12,14
+< TString HistName;    // Modified to LL_both, LL_asym .... needs only one, not array
+< TCanvas *canvas[6];     //  Must be made to an array  [6]  (could be [10] or [100])
+< TCanvas *canvfunc[6];    //  Must be made to an array  [6], or [10] ... for this file
+---
+> TString HistName;    // Modified to LL_both, LL_asym .... needs only, not array
+> TCanvas *canvas;     //  Must be made to an array  [6]  (could be [10] or [100])
+> TCanvas *canvfunc;    //  Must be made to an array  [6], or [10] ... for this file
+15c16
+< TH1F *his2peak[6];      //Histograms  must be made [6] make it to his2peak[k]
+---
+> TH1F *his2peak;      //Histograms  must be made [6] make it to his2peak[k]
+17c18
+< TF1 * tryfun[6];       //  also this - function(s) for each name - done here
+---
+> TF1 * tryfun;       //  also this - function(s) for each name - done here
+42c43
+<   for(int k=0;k<6;k++) {
+---
+> //   for(int k=0;k<6;k++) {
+49c50
+<        his2peak[k]=(TH1F*) ggg->Get(HistName);   //  make it to his2peak[k]
+---
+>        his2peak=(TH1F*) ggg->Get(HistName);   //  make it to his2peak[k]
+51,52c52,53
+<        canvas[k] = new TCanvas(Names[k],shist+char(49+k)+" "+Names[k],30+k*150,30+k*20,600,400);
+<        canvfunc[k] = new TCanvas("f"+Names[k],sfunc+char(49+k),30+k*150,300+k*20,600,400);
+---
+>        canvas = new TCanvas(Names[k],shist+char(49+k)+" "+Names[k],30+k*150,30+k*20,600,400);
+>        canvfunc = new TCanvas("f"+Names[k],sfunc+char(49+k),30+k*150,300+k*20,600,400);
+54,62c55,63
+<         canvas[k]->cd();
+<         his2peak[k]->SetTitle(Names[k]);
+< 	    his2peak[k]->Draw();
+< 
+< 		NBINS=his2peak[k]->GetNbinsX();
+< 		lefty = his2peak[k]->GetBinContent(1);
+< 		righty = his2peak[k]->GetBinContent(NBINS-1); 
+< 		leftx = his2peak[k]->GetBinCenter(1);
+< 		rightx = his2peak[k]->GetBinCenter(NBINS-1);
+---
+>         canvas->cd();
+>         his2peak->SetTitle(Names[k]);
+> 	    his2peak->Draw();
+> 
+> 		NBINS=his2peak->GetNbinsX();
+> 		lefty = his2peak->GetBinContent(1);
+> 		righty = his2peak->GetBinContent(NBINS-1); 
+> 		leftx = his2peak->GetBinCenter(1);
+> 		rightx = his2peak->GetBinCenter(NBINS-1);
+67c68
+< 		nparams[k][2]=his2peak[k]->GetMaximum() - (lefty + righty )/2.0;
+---
+> 		nparams[k][2]=his2peak->GetMaximum() - (lefty + righty )/2.0;
+78,79c79,80
+< 		his2peak[k]->SetMinimum(0);   // to start plot from y=0
+< 		canvas[k]->Modified();        
+---
+> 		his2peak->SetMinimum(0);   // to start plot from y=0
+> 		canvas->Modified();        
+82,83c83,84
+<                 tryfun[k] = (TF1 * )twogaus[k]->Clone("tryfun[k]");
+< 		his2peak[k]->Fit(twogausname);  // passing func to fit avoiding "twogaus[k]"
+---
+>                 tryfun = (TF1 * )twogaus[k]->Clone("tryfun");
+> 		his2peak->Fit(twogausname);  // passing func to fit avoiding "twogaus[k]"
+90c91
+<         canvas[k]->Print(Names[k]+".png");
+---
+>         canvas->Print(Names[k]+".png");
+92c93
+< 	canvfunc[k]->cd();
+---
+> 	canvfunc->cd();
+94,96c95,97
+< 		plotfun[k]->Draw();   plotfun[k]->SetMinimum(0);    canvfunc[k]->Modified();
+<                 tryfun[k]->SetLineColor(kGray);
+<                 tryfun[k]->Draw("same");
+---
+> 		plotfun[k]->Draw();   plotfun[k]->SetMinimum(0);    canvfunc->Modified();
+>                 tryfun->SetLineColor(kGray);
+>                 tryfun->Draw("same");
+98,105c99,100
+<         canvfunc[k]->Print(Names[k]+"_fit_funct.png");
+<    } // Ending the k-loop here when all 6 done  
+< 
+<    //   The following  four lines are added to do  the the reporting  
+<    for(int row=0;row<6;row++){
+<        for(int I=0;I<8;I++) printf(" %7.2f ",nparams[row][I]);
+<        cout << "   LL_"<< Names[row] << endl;
+<     }
+---
+>         canvfunc->Print(Names[k]+"_fit_funct.png");
+>   // } // No loop in this task file, loop should end here when all 6 done  
+107d101
+< 

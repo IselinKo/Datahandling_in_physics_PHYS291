@@ -1,0 +1,23 @@
+#! /usr/bin/python3
+# 3 TURTLES parallel  - using Tkinter turtle - Turtle Graphics from Logo
+from turtle import *
+a=Turtle();        b=Turtle();           c=Turtle(); v=30; ang=115; hop=150;
+a.turtlesize(5);   b.turtlesize(3);      c.turtlesize(2);    a.speed(3);
+a.color("red");    b.color("orange");    c.color("blue");    b.speed(3*v);
+a.pencolor("red"); b.pencolor("yellow"); c.pencolor("blue"); c.speed(2*v);
+
+for d in (a,b,c):
+  d.shape("turtle");
+  d.right(ang); d.penup(); d.forward(hop); hop=hop+10;
+  d.pendown(); d.left(ang);
+
+for k in range(1,100):
+  for d in (a,b,c):   d.forward(120-k/3);   d.speed(2+k); d.left(44);
+
+a.penup(); a.left(45); a.forward(200)
+b.penup(); b.left(55); b.forward(190)
+c.penup(); c.left(65); c.forward(180)
+
+import time
+print("Now we will sleep for 2 minutes"); time.sleep(120)
+

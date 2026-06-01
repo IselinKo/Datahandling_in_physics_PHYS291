@@ -1,0 +1,14 @@
+diff p2_hist_fit.C p2b_hist_fit.C > diff_p2_p2b_hist.txt   (this file)
+> 
+2,3c3,5
+< //
+< //    p2_hist_fit.C    needs fitting1.root made by p1_hist.C 
+---
+> //    p2b_hist_fit.C    needs Bergen.root   m 
+> //    origin:  p2_hist_fit.C
+> //    p2_hist_fit.C    needed fitting1.root made by p1_hist.C 
+10c12,13
+< TString filenam="fitting1.root";     TString histnam="h1";
+---
+> 
+> TString filenam="Bergen.root";       TString histnam="BergenHist";

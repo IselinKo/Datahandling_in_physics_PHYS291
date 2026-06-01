@@ -1,0 +1,16 @@
+    Filename    histogram        p0         p1         p2         p3         p4 
+fitting1.root           h1    1057.30     106.03    1316.70       2.04       5.00
+    Filename    histogram        p0         p1         p2         p3         p4 
+ Bergen.root   BergenHist    2503.14     188.38    1899.83       2.85       4.00
+    Filename    histogram        p0         p1         p2         p3         p4 
+   Roma.root     histoROM     903.78      78.34    1198.61       2.80       4.29
+    Filename    histogram        p0         p1         p2         p3         p4 
+ Bergen.root   BergenHist    2503.14     188.38    1899.83       2.85       4.00
+    Filename    histogram        p0         p1         p2         p3         p4 
+fitting1.root           h1    1057.30     106.03    1316.70       2.04       5.00
+    Filename    histogram        p0         p1         p2         p3         p4 
+ Bergen.root   BergenHist    2503.14     188.38    1899.83       2.85       4.00
+    Filename    histogram        p0         p1         p2         p3         p4 
+   Roma.root     histoROM     903.78      78.34    1198.61       2.80       4.29
+    Filename    histogram        p0         p1         p2         p3         p4 
+fitting1.root           h1    1057.29     106.03    1316.69       2.04       5.00

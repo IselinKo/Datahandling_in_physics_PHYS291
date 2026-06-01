@@ -1,0 +1,25 @@
+This is a text which you should analyze using a combination
+programs readGOOD.C and strtokMORE.C.
+The desired result is all the words each on a new line - so this
+should come out:
+This 
+is 
+a 
+text 
+which 
+you 
+should 
+etc
+etc
+How to do it:
+first read lines by readGOOD.C  and print them out to test
+Then merge this into the strtokMORE.C where you make tokens 
+much longer array
+Then use 
+    strcpy(str, line.c_str() ); // (destination string, source string)
+and for each line add the tokens[ ] using the while( pch != NULL )
+GOOD LUCK
+Send the output to a file ...  
+        ofstream fout;
+        ( using the fout << tokens[k] << endl; 
+

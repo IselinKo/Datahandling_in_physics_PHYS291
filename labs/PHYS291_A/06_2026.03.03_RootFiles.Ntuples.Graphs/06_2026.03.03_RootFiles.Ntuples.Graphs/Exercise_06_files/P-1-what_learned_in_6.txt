@@ -1,0 +1,132 @@
+///////////////////////////////////////
+small.C
+///////////////////////////////////////
+
+here introduced the READ FROM FILE 
+
+   ifstream m_in;
+   m_in.open("filenam.txt");
+//  Transfer data from file to variables
+   m_in >> x >> y >> z;    
+//  detect end of the data, input "not good" any more
+      if (!m_in.good()) break;      
+
+///////////////////////////////////////
+mbasic.C
+///////////////////////////////////////
+
+Extended  the above
+added the following:
+// Root file
+   TFile *fff = new TFile("basic.root","RECREATE");
+// Histogram
+   TH1F *h1 = new TH1F("h1","x distribution",100,-4,4);
+// TNtuple
+   TNtuple *ntup = new TNtuple("ntup","data from file","x:y:z");
+//  fill it in a loop
+   ntuple->Fill(x,y,z);
+
+   h1->Draw();      // we knew this one
+
+
+
+   fff->Write();    // This writes all TTree, TNtupe, TH1F ...
+                    // But we had problems with this
+
+
+// The safest way and a flexible one is
+   fff->WriteTObject(ntup,"ntuplename");
+   fff->ls();
+//   where you can even choose a new name
+//   This can write any ROOT object
+//   and fff->ls()  checks if it has been done
+
+ALSO QUICK CHECK OF ANY ROOT FILE      DO NOT USE "RECREATE" here !!!
+//      
+//   TFile *fftest = new TFile("anyrootfile.root");
+//   fftest->ls()
+//
+
+///////////////////////////////////////
+readBasic.C
+///////////////////////////////////////
+
+readBasic.C is a small file 
+but contains     MANY VERY   useful  tricks
+
+   TFile *fold = new TFile("basic.root");  
+//  get the ntuple from the root file  
+   TNtuple *ntp  = (TNtuple*) fold->Get("ntuple"); 
+
+   ntp->Draw("x");
+   ntp->Draw("y");
+
+This is a general rule  - you must know the histname
+
+   TH1F oldhist =  ( TH1F* ) fold->Get("histname");
+   TF1 myfunc =  ( TF1* )  fold->Get("funcname");
+//     and funcname; or a TString, TCanvas
+
+THIS IS USEFUL - many TCanvas windows  reuse this often
+   TCanvas *c1= new TCanvas("c1","Canv 1",30,30,600,400);
+   TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+   TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+
+   c1->cd();   oldhist->Draw();
+   c2->cd();   myfunc->Draw();
+///////////////////////////////////////
+writeBasics.C 
+///////////////////////////////////////
+
+Define a histogram, DRAW TNtuple into it using     >>
+   TH1F *name_hx = new TH1F("name_hx","Some Name",100,-4,4);
+   ntp->Draw("x>>hx","","HIST");
+Advantage: you manipulate the histogram attributes, line colors etc
+Advantage:   
+   SAVE THE HISTOGRAM (from TNtuple) into a file
+   ff= new TFile("basicX.root","RECREATE");
+   name_hx->Write();
+   ff->Close();
+
+
+///////////////////////////////////////
+testBasics.C 
+///////////////////////////////////////
+This is a demo; no work was needed
+opening root files
+
+INTRODUCING CLONING OF OBJECTS
+   TH1F * H1 = (TH1F*) ff->Get("hz");
+   H1->Draw();
+   TH1F * H2 = (TH1F*) H1->Clone("H2");   // cloning 2 versions
+   H2->Fill(3,150);   //   modify in one point
+   TH1F * H3 = (TH1F*) H2->Clone("H3"); 
+Syntax : The new object Oname must be in the parameter of Clone("Oname")
+
+Warning    ff->Close()   might empty the drawn histograms
+Warning    Bug or Feature ?  Who knows
+///////////////////////////////////////
+test_more_Basics.C 
+///////////////////////////////////////
+This is a demo; no work was needed
+
+   TNtuple *ntp  = (TNtuple*) fil1->Get("ntuple");
+   fil2 = new TFile("basicX.root","UPDATE"); // open to modify
+   fil2->WriteTObject(ntp,"mytuple");
+ntuple from fil1  saved as mytuple  in fil2
+
+SAVING A CANVAS OR ANYTHING:
+   fil2->WriteTObject(cplot,"A_canvas");
+   fil2->ls();
+
+
+///////////////////////////////////////
+check_canvas.C 
+///////////////////////////////////////
+
+DISPLAYING THE SAVED CANVAS:  ( three -lines file )
+
+   fil2 = new TFile("basicX.root","UPDATE"); // open - to read or modify
+   TCanvas * QQQ = (TCanvas *) fil2->Get("A_canvas");
+   QQQ->Draw();
+

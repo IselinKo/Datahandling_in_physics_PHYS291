@@ -1,0 +1,119 @@
+TCanvas * WALKS; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+
+
+TMarker *mk = new TMarker(1.0, 1.5, 29);
+mk->Draw();
+mk->SetMarkerSize(3); WALKS->Update(); WALKS->Modified();
+
+// without the  WALKS->Upda.... You must click on the canvas
+// So far, so good. 
+
+double xx, yy;   // are zero by C++
+
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();
+mk->SetX(xx);mk->SetY(yy); 
+// Perhaps nothing happens;
+// Add WALKS->Update();WALKS->Modified();
+WALKS->Update();WALKS->Modified();
+
+//  O.K. Now we can move randomly
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();
+mk->SetX(xx);mk->SetY(yy); 
+WALKS->Update();WALKS->Modified();
+
+//   PUT IT IN A FUNCTION - best on ONE LINE
+void movve(double x, double y){mk->SetX(x);mk->SetY(y);WALKS->Update();WALKS->Modified();}
+
+
+//  Now easier, faster
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+
+// You easily repeat (paste) many times, eventually star disappears
+
+xx=0;yy=0;movve(xx,yy);
+
+
+//  BETTER - new function randstep:
+
+void randstep(){xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();movve(xx,yy);}
+randstep();
+randstep();
+//   ...   It walks away .... dx, dy allways positive
+randstep();
+randstep()
+randstep();
+
+//  New function - from -0.5 to 0.5
+void rando(){xx=xx+gRandom->Rndm()-0.5;yy=yy+gRandom->Rndm()-0.5;movve(xx,yy);}
+
+rando();
+rando();
+rando();       // do that many times
+
+// getline() below waits for Enter
+// hit enter 4 to 5 times - no motion
+for(int kk=0;kk<4;kk++){ rando();string E; getline(cin,E);} 
+
+// the above does not draw; missing is      gSystem->ProcessEvents();
+
+for(int kk=0;kk<100;kk++){ rando();gSystem->ProcessEvents();string E; getline(cin,E);}
+
+
+// NOW RESTART ROOT
+
+TCanvas * WALKS; TLine *AA; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+TMarker *m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetMarkerSize(3);
+double xx, yy;
+
+void movve(double x, double y){m->SetX(x);m->SetY(y);WALKS->Update();WALKS->Modified();}
+
+movve(9,9);
+
+void rando(){xx=xx+gRandom->Rndm()-0.5;yy=yy+gRandom->Rndm()-0.5;movve(xx,yy);}
+rando();
+rando();
+rando();
+rando();
+
+//   Simple use of TTimer:
+
+TTimer *animTimer;
+animTimer=new TTimer();
+
+animTimer->SetTime(100);    //    (100 millisec)
+
+animTimer->SetCommand("rando()");
+animTimer->TurnOn();
+
+O.K. it walks; when it walks out, type in 
+xx=0;yy=0;
+
+
+xx=0;yy=5;
+animTimer->SetTime(0);       // This goes fast! 
+
+xx=0;yy=0;
+animTimer->SetTime(2000);    // send it to sleep, 2 seconds between steps!!
+xx=0;yy=0;
+
+animTimer->SetTime(1);   //  goes very fast ( changing speed while it moves)
+//  use this to get it back
+xx=0;yy=0;
+
+//  Make it automatic:   if abs(xx) or abs(yy)  larger than 12, put it back to 0,0
+//  It must be in function rando(); either restart OR 
+//  make rando2() 
+//  and     animTimer->SetCommand("rando2()");
+
+
+

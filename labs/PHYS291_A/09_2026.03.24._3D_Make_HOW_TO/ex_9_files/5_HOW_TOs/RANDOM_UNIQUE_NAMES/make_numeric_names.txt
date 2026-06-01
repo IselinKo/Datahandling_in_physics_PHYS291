@@ -1,0 +1,36 @@
+
+//  Interactive root try-it
+
+//  You  want to make in a program names
+//  Hname1, Hname2,  etc   here step 5
+
+int k=5
+char str[100]; 
+sprintf(str,"%d",k)
+str
+TString H="Hname"+str   // does not work
+TString Op            // make a help TString
+Op=str
+H="Hname"
+H=H+Op
+
+//   Or do the sprintf directly
+sprintf(str,"Hname%d",k);
+H=str;
+
+// So the  whole code
+TString H[10];
+char str[100];
+for(int k=0;k<10;k++) { 
+    sprintf(str,"Hname%d",k); 
+    H[k]=str;
+}
+// And to test it
+for(int k=0;k<10;k++) {
+   cout<< H[k] << endl;
+}
+
+
+
+
+

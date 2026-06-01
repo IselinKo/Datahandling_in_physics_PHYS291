@@ -1,0 +1,25 @@
+//  About cloning 
+  TFile *ff = new TFile("graphsdata.root");
+  ff->ls();
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+  ntp->Draw("y:x","","l");  
+
+  TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+  c1->cd();
+ 
+  TGraph *tempgraph;
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+  c3->cd(); tempgraph->Draw();
+
+  c1->cd(); ntp->Draw("w:x","","l"); //  Breaks the drawing
+
+//  Solution   - get again the Primitive Graph, and clone it!
+
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");  // Get it again
+  TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+  c3->cd(); mygraph->Draw("ACL");
+
+//   Now the c1 changes, c3 not destroyed
+ 
+  c1->cd(); ntp->Draw("y:x","","l"); //  Now the drawing OK
+

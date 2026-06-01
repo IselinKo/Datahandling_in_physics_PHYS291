@@ -1,0 +1,2570 @@
+<html>
+<head>
+    
+    <meta charset="utf-8">
+    <title>Exercise 10 Week 07.04.2026</title>
+
+
+</head>
+
+
+<body style="font-family:monospace; font-size: 14pt; color:#202020">
+<a name="absTOP10"> <br>
+
+
+<big><b>PHYS291 - Exercise 10  - Week 07.04.2026</b></big>
+<br>
+<big><b>Structures, Files, TNtuple and TTree</b></big>
+<br>
+<hr>
+<br>
+
+As  <a href="#TOP10">the list of topics</a> shows, this week's topics are spread over several <br>
+areas: from data types - structures (predecessors of classes in C), File operations, using <br>
+time functions (here to name files by time-stamp) to text manipulating (split to words), then <br>
+working with trees and ntuples and root files. <br><br>
+There is also a short 
+<a href="#STRTOKTASK"> PRACTICAL TASK </a> </b> on the strings splitting to words.
+<br>
+<br>
+This year we have already visited structures in the lectures - but we keep the old text here.<br>
+The structures - defined by <b>struct</b> - can form really very structured data.<br>
+We start by a detailed show_struct.C demonstrating many features and showing "tricks".<br>
+Generally, in typical examples the structures would have the form of database entry, <br>
+e.g. the data about a person: name, age, dates of visits etc. <br>
+Here we look at sort of 'meaningless' structures - to imply that really anything can be <br>
+put into strucured data - and then again, some structured data can become elements <br>
+(in C, C++ context we say <b>members</b> instead of elements, like members of your body) <br>
+(From structures will soon follow the classes also in the exercises - also discussed this year) 
+<br>
+<br>
+The simple arrays we have used are in root generalized to classes TNtuple and TTree.<br>
+These are structed data, i.e. classes, which contain also lots of "methods", i.e. 
+functions, <br>
+to operate on them, construct them, save them, manipulate them.<br>
+There were some simple examples on TNtuples in exercise 6.<br>
+
+Here are several examples, mostly to show what and how can be done.<br>
+
+For many course projects these examples can become very useful<br>
+
+<br>
+Today's files are in the provided file 10.zip ; 
+Here is <a href="#TREE10">the tree of today's files below</a> )<br>
+
+<br>
+<!-- --------    FETCH FILES    ------------------------- 
+&nbsp; &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFEE"
+cols="70" rows="7">
+
+      wget https://folk.uib.no/nfylk/10_2024/10.zip
+      unzip 10.zip 
+
+      see the tree of the files just below here - exercise_10_files
+      You can also download 10.zip  from the mitt.uib
+</textarea><br> 
+&nbsp; &nbsp; &nbsp; &nbsp;(
+<a href="#TREE10">see the tree of today's files</a> )<br><br>
+-->
+<hr>
+One reminder about comments - in C-family // - in bash, python etc #
+<br>
+NOTE  #  means comment for bash - try this   type in  <br>
+bash-4.1 $  # This does nothing             <br>
+bash-4.1 $       <br>
+...  it really does nothing because of the #
+<hr>
+
+ <a name="TOP10"> <br>
+   <a href="#absTOP10">To the Top of the page</a>
+<br><hr>
+<a href="#LABEL10_1">
+1. Structures and Structures with structure elements (most important) </a> <br>
+
+
+<a href="#LABEL10_5">
+2. reading text files with automatic stop (very important)  </a> <br>
+
+<a href="#LABEL10_6">
+3. Time, date, C-functions      (important)   </a> <br>
+
+<a href="#LABEL10_7">
+4. Manipulating "sentences" - multi-word textstrings </a>  including <b>
+<a href="#STRTOKTASK"> PRACTICAL TASK</a></b>. Study also the 
+<b><a href="#NEW_CPP_2024"> C++ Clean and split</a></b><br>
+
+<a href="#LABEL10_2">
+5. TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME) (includes 2 plots)</a> <br>
+
+<a href="#LABEL10_3">
+6. Tree filling via branch interface TTree with simple branches (includes 2 plots)   </a> <br>
+
+<a href="#LABEL10_4">
+7. Tree Filling and reading with structures (somewhat special) </a> <br>
+
+<a href="#TREE10">
+<br>
+ <a name="TREE10">
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#101010; background-color:#FFFFFF"
+cols="90" rows=" 22">
+
+1. Structures and Structures with structure elements
+   === FOLDER 1_STRUCTURES
+2. reading text files with automatic stop
+   Entering "sentences" into a text string
+   ==== FOLDER 2_FILEREAD
+3. Time, date, C-functions
+   learn to use time_t
+   create a filename carrying the date  
+   ==== FOLDER 3_STIME_strings
+4. Manipulating "sentences" - multi-word textstrings
+   ==== FOLDER 4_STRING_TOKENIZE
+5. TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME)
+   a) repeat the TNtuple
+   b) the plots from TTree
+   c) Fill TNtuple as TTupl->Fill(x,y,z);
+   ==== FOLDER 5_TTree_and_TNtuple
+6. Tree filling via branch interface TTree with simple branches
+   ==== FOLDER 6_SIMPLE_TTree
+7. Tree Filling and reading with structures
+   ==== FOLDER 7_SSTRUCT_TREE
+</textarea><br>
+
+tree of this exercise file collection
+
+<br>
+<!-- ------------------   tree.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000000; background-color:#FFFFFF"
+cols="90" rows="47">
+exercise_10_files/
+|-- 1_STRUCTURES                  Structures and Structures with structure elements
+|   |-- show_struct.C
+|   |-- a_struct.C
+|   |-- b_struct2.C
+|   |-- TRIPPLES_man.C
+|   `-- tripples.C
+|-- 2_FILEREAD                     reading text files with automatic stop
+|   |-- datain.txt
+|   |-- ofstream_ifstream .txt
+|   |-- readEOF.C
+|   |-- readGOOD.C
+|   `-- read_write_file.c.txt
+|-- 3_TIME_strings                 Time, date, C-functions, learn to use time_t
+|   |-- name_file_today.C        create a filename carrying the date  
+|   |-- time.cpp
+|   `-- timeroot.C
+|-- 4_STRING_TOKENIZE             Manipulating "sentences" - multi-word textstrings
+|   |-- Cpp_strtok.cpp            to be compiled  - see a better 2024 below
+|   |-- Nstrtok.c                 to be compiled
+|   |-- strtokA.C
+|   |-- strtokMore.C 
+|   |-- read_lineGOOD.C         For the task
+|   |-- err_solution.C          For the task - SOLUTION WITH ERRORS
+|   |-- article.txt             For the task
+|   |-- make_one_big_string.C   2024  For the task - make a single string
+|   |-- clean_split.cpp         2024  For the task - a new C++ compile version
+|   |-- non_strtok_split.cpp    alternative C++, using getline ; compiled 
+|   `-- getline_vector.cpp         --- similar, using std::vector class
+|-- 5_TTree_and_TNtuple         TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME)
+|   |-- TTree_TNtuple_ReadFile.txt
+|   |-- tmpfile.txt
+|   `-- tmpfile3.txt
+|-- 6_SIMPLE_TTree             Tree filling via branch interface TTree with simple branches
+|   |-- grow_TTree.C
+|   |-- look_TTree.C
+|   |-- look_charTree.C
+|   |-- make_TTree.C
+|   |-- make_charTree.C
+|   |-- simple_TTree.html
+|   `-- tree1.root
+`-- 7_STRUCT_TREE              Tree Filling and reading with structures
+    |-- struct_from_tree.C
+    |-- struct_to_tree.C
+    `-- treestruc.root
+</textarea><br>
+<!-- ---------------------   tree.txt    END  TEXT ----------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    1       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_1">
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+
+
+
+<big><b>
+1. Structures and Structures with structure elements  </b> </big><br><br>
+   === FOLDER STRUCTURES <br>
+
+
+<b> TASK:  Study the files in root interactively and fill in the missing structures </b>
+<br>
+
+The struct is an important element to understand the classes <br>
+
+The usual collection from previous years 
+<a href="#old_struct"> follows below</a>, after the "new" part.<br>
+
+<br>
+Here we start with a new part demonstrating structures with copy, pointers, new and arrays.<br>
+Study it and run as   <b> root show_struct.C  </b>
+
+   
+   
+<br><br>
+<b>
+show_struct.C
+</b><br>
+<!-- ------------------   show_struct.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="50">
+{
+struct demstruct {  int    Num; 
+                  double Val; 
+                  char   labeL[30]; };
+demstruct exampl;                                //  Note the syntax of ; }; in struct above
+//
+system("clear");   //  useful trick;
+exampl.Num=11; exampl.Val=1.0; strcpy(exampl.labeL,"Study_me");
+cout << "\n\nThis line is a copy of the actual assignement in the code \n";
+cout << "exampl.Num=11; exampl.Val=1.8; strcpy(exampl.labeL,\"Study_me\"); \n"; // print the code
+cout << "\ncheck it:                                      <===============\n";
+cout << "exampl.Num: "<< exampl.Num << "    exampl.Val: "<<exampl.Val;
+cout << "   labeL: "<< exampl.labeL <<endl;                    // this continues the above print
+cout << "\ndefine:  demstruct Twin;   assign: Twin=exampl; \n";
+//
+demstruct Twin;
+//
+//              Copy the structure object exampl   into a new object Twin
+Twin=exampl;
+cout << "Twin.Num: "<< Twin.Num << "    Twin.Val: "<<Twin.Val;
+cout << "  Twin.labeL: "<< Twin.labeL <<endl;                  // this continues the above print
+//
+//       Using pointer to a structure;  using new (in root and C++ only, not in C)
+//
+cout << "\nUse pointer: demstruct *Spoint; Spoint=new demstruct; \n";
+demstruct *Spoint;
+Spoint=new demstruct;       //  The structure pointed to by Spoint created by new
+*Spoint=Twin;               //  Filled by copy as Twin above
+cout << "\n*Spoint=Twin , Spoint->labeL is " << Spoint->labeL << endl;
+//   Spoint will now point to the original exampl 
+Spoint=&exampl;
+strcpy(Spoint->labeL, "OtherText");     Spoint->Val=333.33; 
+cout << "\npointer Spoint now points to demstruct exampl\n";
+cout << "code does:   strcpy(Spoint->labeL, \"OtherText\");      Spoint->Val=333.33;       \n";
+cout << "\ncheck it:     (as in above, look at exampl )   <===============\n";
+cout << "exampl.Num: "<< exampl.Num << "    exampl.Val: "<<exampl.Val;
+cout << "   labeL: "<< exampl.labeL <<endl;                    // this continues the above print
+//    
+cout << "\n\nConstruct an array of  structs  - for your further experiments      \n";
+//
+demstruct ManyStructs[300];
+ManyStructs[100].Val=123.456;     strcpy(ManyStructs[100].labeL,"Number 100");
+cout<<ManyStructs[100].Num << " " <<ManyStructs[100].Val<< " " << ManyStructs[100].labeL<< endl;
+// experiment with this:
+ManyStructs[55]=exampl; 
+cout<<ManyStructs[55].Num << " " <<ManyStructs[55].Val<< " " << ManyStructs[55].labeL<< endl;
+
+}
+
+</textarea><br>
+<!-- ---------------------   show_struct.C    END  TEXT ----------------- -->
+   
+   
+ <a name="old_struct">
+ <br>
+ <br>
+ The "traditional part" on structures in structures <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   a_struct.C  <br>
+<!-- --------    a_struct.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 7">
+{
+struct atripple {int a; int b; int c;}  ; // must have ; !
+atripple s;
+s.a=8; s.b=4; s.c=18;
+cout << "s.b " << s.b << endl;
+}
+</textarea><br>
+
+
+<!-- --------    a_struct.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   b_struct2.C  <br>
+<!-- --------    b_struct2.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 26">
+{
+struct btripple {
+              int a; 
+              int b; 
+              char str[100];} ; 
+btripple s;
+s.a=8; s.b=4; 
+strcpy(s.str,"Long String Entry");
+
+btripple t22;
+sprintf(t22.str,"Number %d",34);
+t22.a=64; t22.b=16;
+
+//  Access the elements of the structure with .
+
+cout << "s.b " << s.b << endl;
+
+btripple * sss = new btripple;
+sss->a=11; sss->b=11;
+sprintf( sss->str, "%s -> %s", "alpha", "beta");
+
+//    what about arrays?
+//    Task: try out   btripple Arr[10]
+//          and       btripple *BArr[10] (must use new or e.g. &Arr)
+}
+</textarea><br>
+
+
+<!-- --------    b_struct2.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   TRIPPLES_man.C  <br>
+<!-- --------    TRIPPLES_man.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 69">
+{
+// Both this script,  TRIPPLES_man.C and the tripples.C
+// can be run as:  root TRIPPLES_man.C
+// and you can then continue by entering line-commnds
+// as e.g.    cout << K.S2.addr << endl;
+// This running checks that there are no misprints
+/*
+struct tstst {int  i; int k; char nam[10]; char addr[20];};
+
+Visualize this:   tstst:   ( INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy )
+
+struct dobstr { tstst S1; tstst S2;};     
+
+                  dobstr:  ( S1: INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy
+                             S2: INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy  )
+
+struct trippl {dobstr Comp; tstst Simp;};
+
+                  trippl:  Comp: ( S1: INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy
+                                   S2: INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy  )
+                           Simp:  (    INT  INT  CHARxxxxxx    CHARyyyyyyyyyyyy  )
+
+tstst A;
+has these 4 elements named as:   
+             A.i   A.k    A.nam   A.addr
+
+dobstr K;
+has these 8 elements named and structured as:   
+             K.S1.i  K.S1.k    K.S1.nam   K.S1.addr
+             K.S2.i  K.S2.k    K.S2.nam   K.S2.addr
+
+trippl TTri;
+has these  12 elements  named and structured as:
+             TTri.Comp.S1.i  TTri.Comp.S1.k    TTri.Comp.S1.nam   TTri.Comp.S1.addr
+             .....  fill in the rest
+             TTri.Simp.i   ....  fll in the rest           
+*/
+//  int -> simple assignments  strings: use  strcpy(element,c-string)
+//                                   or use  sprintf(element,formatstr,possible_data)
+struct tstst {int  i; int k; char nam[10]; char addr[20];};
+struct dobstr { tstst S1; tstst S2;};
+struct trippl {dobstr Comp; tstst Simp;};
+tstst A;
+A.i=5; A.k=25; strcpy(A.nam,"AAA BBB");
+strcpy(A.addr,"AAA BBB 45 N-5009");
+
+tstst B;
+B=A;                   //  does it work? YES; copying the whole structure - its elements
+cout << B.addr << endl;
+
+//         struct dobstr { tstst S1; tstst S2;};
+dobstr K;
+K.S1=A; K.S2=B;       // Try also  dobstr Zz;  Zz=K; and check all eight Zz.S2.i etc
+cout << K.S2.addr << endl;
+
+trippl TTri;
+TTri.Comp=K;
+TTri.Simp=A;
+cout << "TTri.Comp.S1.i is: " << TTri.Comp.S1.i << endl;
+cout << "TTri.Comp.S1.addr is " << TTri.Comp.S1.addr  << endl;
+cout << "TTri.Simp.addr is " << TTri.Simp.addr  << endl;
+cout << "TTri.Simp.i    is " << TTri.Simp.i     << endl;
+trippl TWWW;
+TWWW=TTri;
+cout << "TWWW.Comp.S1.i is: " << TWWW.Comp.S1.i << endl;
+}
+
+
+</textarea><br>
+
+
+<!-- --------    TRIPPLES_man.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   tripples.C  <br>
+<!-- --------    tripples.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 34">
+{
+// Both this script, tripples.C and the  TRIPPLES_man.C 
+// can be run as:  root tripples.C 
+// and you can then continue by entering line-commnds
+// as e.g.    cout << K.S2.addr << endl;
+// This running checks that there are no misprints
+
+struct tstst {int  i; int k; char nam[10]; char addr[20];};
+
+tstst A;
+A.i=5; A.k=25; strcpy(A.nam,"AAA BBB");
+strcpy(A.addr,"AAA BBB 45 N-5009");
+
+tstst B;
+B=A;                   //  does it work?
+cout << B.addr << endl;
+
+struct dobstr { tstst S1; tstst S2;};
+dobstr K;
+K.S1=A; K.S2=B;
+cout << K.S2.addr << endl;
+struct trippl {dobstr Comp; tstst Simp;};
+trippl TTri;
+TTri.Comp=K;
+TTri.Simp=A;
+cout << "TTri.Comp.S1.i is: " << TTri.Comp.S1.i << endl;
+cout << "TTri.Comp.S1.addr is " << TTri.Comp.S1.addr  << endl;
+cout << "TTri.Simp.addr is " << TTri.Simp.addr  << endl;
+cout << "TTri.Simp.i    is " << TTri.Simp.i     << endl;
+trippl TWWW;
+TWWW=TTri;
+cout << "TWWW.Comp.S1.i is: " << TWWW.Comp.S1.i << endl;
+}
+</textarea><br>
+
+
+<!-- --------    tripples.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    5       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_5">
+<br>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+<br>
+
+
+
+
+
+
+<big><b>
+2. reading text files with automatic stop   </b> </big><br><br>
+   Entering "sentences" into a text string <br><br>
+   ==== FOLDER FILEREAD <br><br>
+
+Here are both C-style and C++ style file operations.<br>
+For reading, the files (yellow) are executable as  <br>
+root readGOOD.C<br>
+root readEOF.C<br><br>
+Added are also files with general features of input/output - blue texts<br>
+<br>
+<b> TASK: study these methods; You will most probably need them in your project work
+</b>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+<br>   readGOOD.C  <br>
+<!-- --------    readGOOD.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 40">
+{
+   //  C++ style file reading stop auto
+   //  in-file-stream called  m_in here
+   //  using     m_in >> variables .....
+   //  stops on false  m_in.good()  
+   ifstream m_in;
+   m_in.open("datain.txt");
+   double x,y;
+   int n=0;
+   while (1){
+       m_in >> x >> y ;
+       if ( !m_in.good()) break; 
+       n=n+1;
+       printf(" %lf   %lf \n", x,y);
+   }
+   printf(" %d lines from datain.txt\n", n);
+   m_in.close();
+  m_in.open("datain.txt");
+   string line;    
+   char LINE[256];
+   n=0;
+   while (1){   
+         //   GETLINE ( STREAM, STRING ) 
+         //   access by name.c_str()   
+       getline (m_in,line);
+         //   
+       if ( !m_in.good()) break; 
+         //  extra if, also needed by fgets()
+       if (line.length() > 1 ) {
+           n=n+1;
+           strcpy(LINE, line.c_str() );
+           sscanf(LINE, " %lf %lf", &x, &y);
+           printf(" %lf   %lf \n", x,y);
+       }
+   }
+    cout << n << " lines from datain.txt\n" ;
+    m_in.close();  
+}
+
+</textarea><br>
+
+
+<!-- --------    readGOOD.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   readEOF.C  <br>
+<!-- --------    readEOF.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 38">
+{
+  //  fgets enters a whole line
+  //  that can be treated by read from string 
+  //  fgets  ->  sscanf
+  
+   // automatic stop on end of file
+   // using both fscanf()
+   // and fgets()  - get a whole line
+   
+   FILE *fil_in;
+   fil_in=fopen("datain.txt","r");
+   double x,y;
+   int n=0;
+   while (fscanf(fil_in," %lf %lf", &x, &y) !=EOF ){
+       n=n+1;
+       printf(" %lf   %lf \n", x,y);
+   }
+   printf(" %d lines from datain.txt\n", n);
+   fclose(fil_in);
+   
+   char LINE[256];
+   n=0;
+   fil_in=fopen("datain.txt","r");
+   
+   while ( fgets( LINE, 255, fil_in) ){
+      // note: without this if it does
+      // not stop on empty last line
+      if(strlen(LINE)>1) {  
+         sscanf(LINE, " %lf %lf", &x, &y);
+         n=n+1;
+         printf(" %lf   %lf \n", x,y);
+       }
+   }
+   printf(" %d lines from datain.txt\n", n);
+   fclose(fil_in);
+}
+
+</textarea><br>
+
+
+<!-- --------    readEOF.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   ofstream_ifstream .txt  <br>
+<!-- --------    ofstream_ifstream .txt   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 26">
+
+
+// WRITE TO FILE   ofstream, open  <<  use
+
+{
+double x,y,z;
+x=1.0; y=2.0; z=3.0;
+
+ofstream m_out;
+m_out.open("testout.txt");
+m_out << x<< " " << y << " " << z  << endl;
+cout << x<< " " << y << " " << z  << endl;
+m_out.close();
+}
+
+{
+ ifstream m_in;
+   m_in.open("testin.txt");
+   double x,y,z;
+      m_in >> x >> y >> z;
+      cout << x<< " " << y << " " << z  << endl;
+   m_in.close();
+}
+
+
+</textarea><br>
+
+
+<!-- --------    ofstream_ifstream .txt   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   read_write_file.c.txt  <br>
+<!-- --------    read_write_file.c.txt   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 36">
+
+// skeleton of C-style write to file
+
+#include <stdio.h>
+int main ()
+{
+
+   FILE  *fil_out;
+   fil_out = fopen("dataout.txt","w");
+   int n;
+   double x,y;
+
+   fprintf (fil_out,"   %d  \n", n  );
+
+              printf("  %8.5f    %8.5f \n",x,y);
+   fprintf(fil_out,"  %8.5f    %8.5f \n",x,y);   
+
+   fclose (fil_out);
+}
+
+// skeleton of C-style read from file
+
+#include <stdio.h>
+int main ()
+{
+   FILE *fil_in;
+   fil_in=fopen("datain.txt","r");
+   int n;
+   double x,y;
+
+   fscanf(fil_in," %d", &knum);
+   fscanf(fil_in," %f %f", &x, &y);
+
+   fclose(fil_in);
+}
+</textarea><br>
+
+
+<!-- --------    read_write_file.c.txt   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    6       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_6">
+<br>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> 
+
+<br>
+
+
+
+<big><b>
+3. Time, date, C-functions           </b> </big><br><br>
+   learn to use time_t<br>
+   create a filename carrying the date  <br>
+   ==== FOLDER STIME_strings <br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br> run &nbsp; &nbsp; &nbsp;  <b> root  name_file_today.C </b> <br>
+<!-- --------    name_file_today.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 30">
+{
+//   name_file_today.C     
+//   root script to construct a date based filename
+//   run             root name_file_today.C
+//   or enter line by line
+//
+//   time_t    localtime()  asctime()  
+//   strftime(outstring,80,"%format",localtime(&tt))
+//
+    time_t tt;
+    char datepart_num[100];
+    time(&tt); 
+    cout << "\n                        ";
+    cout << asctime( localtime( &tt ) );
+
+    strftime(datepart_num,80,"%F",localtime(&tt));
+
+    char filename[100];
+    sprintf(filename,"data_%s.txt",datepart_num);
+    
+    cout << "the suggested filename is\n";
+    cout << "\n                        ";
+    cout << filename << "\n";
+//
+// other possibilities replacing "%F" are listed
+// in here:
+// http://www.cplusplus.com/reference/ctime/strftime/
+
+}
+</textarea><br>
+
+
+<!-- --------    name_file_today.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<br> This is C++ - can be compiled as shown - File  time.cpp  <br>
+<!-- --------    time.cpp   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 19">
+#include <iostream>
+#include <ctime>
+//
+//     compile by       g++ time.cpp -o mytime
+//     run by           ./mytime
+//
+using namespace std;
+
+int main()
+{
+   time_t tt;
+   
+   time( &tt );
+   
+   cout << asctime( localtime( &tt ) );
+   return 0;
+}
+
+</textarea><br>
+
+
+<!-- --------    time.cpp   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   timeroot.C - Just notes, links and one C-style program <br>
+<!-- --------    timeroot.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 49">
+Notes and links; about ctime, time_t      etc   
+
+time_t tt; struct tm * ti; 
+time(&tt); ti = localtime(&tt); asctime(ti)
+
+time_t tt; tm *ti;
+
+time(&tt); asctime(localtime(&tt))
+
+
+http://www.cplusplus.com/reference/ctime/strftime/
+
+
+==================== save and compile - C-file ==================
+/* strftime example */
+#include <stdio.h>      /* puts */
+#include <time.h>       /* time_t, struct tm, time, localtime, strftime */
+
+int main ()
+{
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer [80];
+
+  time (&rawtime);
+  timeinfo = localtime (&rawtime);
+
+  strftime (buffer,80,"Now it's %I:%M%p.",timeinfo);
+  puts (buffer);
+
+  return 0;
+}
+==================== END save and compile ==================
+
+
+DATE ONLY:
+
+  time_t rawtime;
+  struct tm * timeinfo;
+  char buffer [80];
+  time (&rawtime);
+  timeinfo = localtime (&rawtime);
+ strftime (buffer,80,"%F",timeinfo)
+ strftime (buffer,80,"Now it's %I:%M%p.",timeinfo);
+buffer
+strftime (buffer,80,"%F",timeinfo)
+buffer
+cout << buffer << endl;
+</textarea><br>
+
+
+<!-- --------    timeroot.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    7       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_7">
+<br>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+<br>
+
+
+
+
+<big><b>
+4. Manipulating "sentences" - multi-word textstrings   </b> </big><br><br>
+   ==== FOLDER STRING_TOKENIZE  <br><br>
+
+
+When we have text strings with many parts as input,<br>
+we must use fgets() C-style or getline() C++ style <br>
+and manipulate them further to our purposes<br>
+See the part 5 where fgets()  and  getline()  are used.<br>
+<br>
+For example line <br><br>
+3.16 2.34  This is measurement Tuesday<br><br>
+We want it to become 2 integers and one string<br>
+<br><br>
+There our work will be simplified using strtok
+<br><br>
+<b>
+TASK: Explore the examples, the last also interactively; <br>
+look at the strings what is happening at each call<br>
+Replace the while by doing the steps manually - see the pointer changing</b><br>
+(Use the pch = strtok (NULL, " ,.-") without semicolon!)
+<br>
+In the file collection there is also a file showing an "application" of such <br>
+a text manipulation in root - using TString as example
+<br>
+<br>
+The first two files are a C-program and a C++ program. Thus you can compile them.<br>
+These are based on some generic examples I've found in some tutorials some time ago.
+
+<br>
+<!-- --------    compile example    ------------------------- -->
+&nbsp; &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFFF"
+cols="50" rows="6">
+  gcc -o prognam prognam.c
+  ./prognam
+=================================
+  g++ -o progNAM progNAM.cpp
+  ./progNAM
+</textarea>
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 21">
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+	char str[] = "strtok needs to be called several times, to split a string";
+	int init_size = strlen(str);
+	char delim[] = " ,.";
+
+	char *ptr = strtok(str, delim);
+
+	while (ptr != NULL)
+	{
+		printf("'%s'\n", ptr);
+		ptr = strtok(NULL, delim);
+	}
+
+	return 0;
+}
+
+</textarea><br>
+
+
+<!-- --------    Nstrtok.c   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   Cpp_strtok.cpp  <br>
+<!-- --------    Cpp_strtok.cpp   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 20">
+#include <cstring>
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    char str[] = "parrot,owl,sparrow,pigeon,crow";
+    char delim[] = ",";
+    cout << "The tokens are:" << endl;
+    char *token = strtok(str,delim);
+    while (token)
+    {
+        cout << token << endl;
+        token = strtok(NULL,delim);
+    }
+    return 0;
+}
+
+</textarea><br>
+
+
+<!-- --------    Cpp_strtok.cpp   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   strtokA.C  <br>
+<!-- --------    strtokA.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 14">
+
+
+  char str[] ="- This, a sample string.";
+  char * pch;
+  printf ("Splitting string \"%s\" into tokens:\n",str);
+  pch = strtok (str," ,.-");
+  while (pch != NULL)
+  {
+    printf ("%s\n",pch);
+    pch = strtok (NULL, " ,.-");
+  }
+
+
+</textarea><br>
+
+
+<!-- --------    strtokA.C   TEXT    END      ------------------------- -->
+
+
+  
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+strtokMore.C
+</big>
+<br>
+<!-- ------------------   strtokMore.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#EEEEFF"
+cols="90" rows="21">
+{
+  char str[] ="- This, and that,  sample string.";
+  char * pch;
+  TString tokens[100];    // added    why?
+  int Count=0;            // added
+  printf ("Splitting string \n\"%s\" \n into tokens:\n",str);
+  pch = strtok (str," ,.-");
+  while (pch != NULL)  {
+    printf ("%s\n",pch);   
+    tokens[Count]=pch; Count=Count+1;
+    pch = strtok (NULL, " ,.-");
+  }
+  cout << "=================================\nreversed order\n";
+  for (int k=Count;k>0;k=k-1){
+    cout << tokens[k-1] << " ";
+  }
+  cout << endl;
+}
+</textarea>
+<a name="STRTOKTASK">
+<br>
+<!-- ---------------------   strtokMore.C    END  TEXT ----------------- -->
+ 
+ <br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> 
+
+&nbsp;&nbsp;&nbsp;    <a href="#LABEL10_7">To the  start of this STRTOK section</a>
+<br><br>
+
+NOTE: 2025: for time reasons, prefer just to use the provided 
+solution <a href="#err_solution">
+err_solution.C</a>, <br>the proposed construction can take too much time.<br><br>
+<b>
+
+PRACTICAL TASK </b>- there is a file  <b> article.txt</b> which describes the task:<br>
+Find the single words in all the lines and print each word on one line; <br>
+For that combine the above strtokMore.C with a provided simplified version <br>
+of the file readGOOD.C from FILEREAD - reading whole lines called here <br>
+<b>read_lineGOOD.C</b>. If it takes too long - use alternatively the provided <br>
+solution <a href="#err_solution">
+err_solution.C</a> below
+ - but as the name suggests this solution has errors.<br>
+<b>Find the three errors ( root err_solution.C  runs and does nothing ! )
+</b><br>   
+If you find strtok somewhat uncomfortable, there are 2 variations on C++ streams <br>
+and getline, which also "split" long strings  <a href="#strtok_split_getline">
+non_strtok_split.cpp  and  getline_vector.cpp </a>.
+<br>
+Some of us might prefer that more transparent method based on the clear structure of the <br>
+getline(stream, target, separator). When the "text" can contain both space, comma, dot, <br>
+newline or even exclamation mark and question mark, strtok might have the advantage that multiple <br>
+separators can be specified.
+
+<br><br>
+<a href="#NEW_CPP_2024">There is a new, modernized C++ version</a>
+of tokenizing using the standard C++  std::string  object methods <br>
+which one should at least visit and try to compile and run. It is followed by one more root script<br>
+which combines C++ strings into one big string - it could be useful for alternative solution.
+
+    
+   <br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+article.txt     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  this is the file to be used
+in the strtok tests. <br>It can be replaced, only an example. 
+</big>
+<br>
+<!-- ------------------   article.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#EEEEFF"
+cols="100" rows="26">
+This is a text which you should analyze using a combination
+programs readGOOD.C and strtokMORE.C.
+The desired result is all the words each on a new line - so this
+should come out:
+This 
+is 
+a 
+text 
+which 
+you 
+should 
+etc
+etc
+How to do it:
+first read lines by readGOOD.C  and print them out to test
+Then merge this into the strtokMORE.C where you make tokens 
+much longer array
+Then use 
+    strcpy(str, line.c_str() ); // (destination string, source string)
+and for each line add the tokens[ ] using the while( pch != NULL )
+GOOD LUCK
+Send the output to a file ...  
+        ofstream fout;
+        ( using the fout << tokens[k] << endl; 
+
+</textarea><br>
+<!-- ---------------------   article.txt    END  TEXT ----------------- -->
+   
+   
+     
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+read_lineGOOD.C
+</big>
+<br>
+<!-- ------------------   read_lineGOOD.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#EEEEFF"
+cols="100" rows="28">
+{
+   //  C++ style file reading stop auto   (shortened version of readGOOD.C)
+   //  in-file-stream called  m_in here
+   //   using    getline (m_in,line);  cf  getline (cin,line); 
+   //  stops on false  m_in.good() (i.e. when reading is NOT succesful) 
+   ifstream m_in;
+   m_in.open("article.txt");
+   string line;    
+   char LINE[256];
+   n=0;
+   while (1){   
+         //   GETLINE ( STREAM, STRING ) 
+         //   access by name.c_str()   
+        getline (m_in,line);
+         //   
+       if ( !m_in.good()) break; 
+         //  extra if, also needed by fgets()
+       if (line.length() > 1 ) {
+           n=n+1;
+           strcpy(LINE, line.c_str() );
+           cout << LINE << endl;
+       }
+   }
+    cout << n << " lines from article.txt\n" ;
+    m_in.close();  
+}
+
+</textarea><br>
+<!-- ---------------------   read_lineGOOD.C    END  TEXT ----------------- -->
+   
+  
+<a name="err_solution">   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+err_solution.C
+</big>
+<br>
+<!-- ------------------   err_solution.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#EEEEFF"
+cols="100" rows="52">
+{  //  Combining read_lineGOOD.C and  strtokMore.C examples
+   //  
+   //  Split lines in article.txt into single words, one word per line
+   //
+   //  C++ style file reading stop auto
+   //  in-file-stream called  m_in here
+   //  using    getline (m_in,line);  cf  getline (cin,line); 
+   //  stops on false  m_in.good()  
+   int nl=0; n_tok=0;
+   string line;        // for reading
+   char LINE[256];
+   TString tokens[100];      // Number of words  10000 enough here
+   char *str; str=LINE;      // array is pointer; str from strtok points to LINE
+   char * pch;   
+
+   ifstream m_in;
+   m_in.open(" article.txt");
+
+   nl=0;
+   while (1){   
+         //   GETLINE ( STREAM, aSTRING ) 
+         //   access by aSTRING.c_str()   
+       getline (m_in,line);
+         //   
+       if ( !m_in.good()) break; 
+       if (pine.length() > 1 ) {
+           nl=nl+1;
+           strcpy(LINE, line.c_str() );    
+ 
+           printf ("Splitting string \n\"%s\" \n into tokens:\n",str);
+           pch = strtok (str," ,.-");
+           while (pch != NULL)
+              {
+               printf ("%s    %d\n",pch, n_tok);   
+               tokens[n_tok]=pch; n_tok=n_tok+1;
+               pch = strtok (NULL, " ,.-");
+              }
+          }
+   }
+   m_in.close();  
+   ofstream fout("words.txt");
+   for (int k=0;k<n_tok;k=k+1){
+       cout << tokens[k] << endl;
+       fout << tokens[k] << endl;
+    }
+   
+   cout << nl << " lines from article.txt gave n_tok words\n" ;
+   fout.close()
+   //  cout << "program finished with " <<  n_tok << " words\n" ;
+}
+</textarea><br>
+
+   
+<!-- ---------------------   err_solution.C    END  TEXT ----------------- -->
+   
+ 
+
+   
+ <a name="strtok_split_getline">  
+ <br>
+ <hr>  
+ C++ string-split  tricks without strtok: <b> non_strtok_split.cpp </b> and <b> getline_vector.cpp   </b>
+ <hr>
+ <br>
+
+   
+   
+<br> 
+  Note that  istringstream is used in logical tests here
+ <br>  <br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+non_strtok_split.cpp
+</b></span><br>
+<!-- ------------------   non_strtok_split.cpp    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="23">
+// C++ program to print words in a sentence
+// Using getline() function
+
+#include <iostream>
+#include <sstream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string sentence = "Hello World have a nice day";
+    string word;
+ 
+    istringstream iss(sentence);
+    while (getline(iss, word, ' ')) {
+        cout << word << endl;
+    }
+ 
+    return 0;
+}
+ 
+</textarea><br>
+<!-- ---------------------   non_strtok_split.cpp    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+  <br> 
+  Note that  istringstream is used in logical tests here
+ <br>  
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+getline_vector.cpp
+</b></span><br>
+<!-- ------------------   getline_vector.cpp    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="22">
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+   // inputs
+   string TheStr("alfa,beta,gamma");
+   char split_char = ',';
+
+   // work
+   istringstream Tosplit(TheStr);
+   vector<string> tokens;
+   for (string each; getline(Tosplit, each, split_char); tokens.push_back(each));
+
+   // now use "tokens"
+
+   for(int i=0;i<tokens.size();i++) {cout << tokens[i] <<endl;}
+}
+
+</textarea><br>
+<!-- ---------------------   getline_vector.cpp    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+ <br>
+The following root script uses the istringstream but avoids using it in logical tests
+<br>
+ <br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+
+</b></span><br>
+<!-- ------------------   getline_vector.cpp    TEXT    BEGIN    ------------------- -->
+<br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+vecSTR_2025.C  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; root - string vector(s)
+</b></span><br>
+<!-- ------------------    vecSTR_2025.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="16">
+{ 
+   // explicit  use istringstream getline - instead of - while(getline())
+
+   string TheStr("alfa beta gamma delta eta zeta sigma rho");
+   char split_char = ' ';
+
+   istringstream Tosplit(TheStr);
+   vector<string> tokens; int tr=1; string word="";
+   
+   while(tr){ word=""; 
+              getline(Tosplit, word, split_char); tr=word.length();
+              if(tr) tokens.push_back(word); }
+    
+   for(int i=0;i < tokens.size();i++) {cout << tokens[i] <<endl;}
+}
+</textarea><br>
+
+
+<!-- ---------------------    vecSTR_2025.C      END  TEXT ----------------- -->
+     
+   
+   
+   
+   
+   
+   
+   
+   
+  <br><br> 
+   
+   
+   
+   
+ <a name="NEW_CPP_2024">
+
+  
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+clean_split.cpp  </b>  &nbsp;   &nbsp;   &nbsp;   removes spaces before and after, removes multiple spaces
+</span><br>
+<!-- ------------------   clean_split.cpp    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="60">
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+string clean(string spacy) {
+   //  clean - takes away initial and trailing spaces, removes multiple spaces
+   char Las=' '; int pos=0; int i;
+   unsigned long slen=spacy.size();    //  works with 2 char[ ] arrays 
+   char *Spac=new char[slen+1];   // slen+1
+   char *Tigh=new char[slen+1];   // for (char)0
+   strcpy(Spac, spacy.c_str() );       //  copies std::string to char Spac[ ]
+   // First remove trailing spaces, to avoid one of them at the end
+   for (i=slen-1;i>0;i--) {if (Spac[i]!=' ') break; Spac[i]=(char)0; }
+   // Now copy if not space and if not multiple space
+   for(i=0;i<slen;i++) { 
+      if (Spac[i]!=' ' )  { Tigh[pos]=Spac[i]; pos++; Las=Spac[i]; continue;}
+      if (  Las  !=' ' )  { Tigh[pos]=Spac[i]; pos++; Las=Spac[i];} // copies one space
+      }
+   Tigh[i]=(char) 0;
+   string cl(Tigh);   delete[](Spac); delete[](Tigh); // avoid memoryleak
+   return(cl);
+}
+
+vector<string> split(const string& Qstr, char delimiter) {
+  vector<string> tokens;  
+  size_t start = 0; size_t it;
+  while (start < Qstr.size()) {
+    it = Qstr.find(delimiter, start); cout << "it " << it << endl;
+    if (it > Qstr.size())  { tokens.push_back(Qstr.substr(start)); break; }
+    if (it < Qstr.size())  { tokens.push_back(Qstr.substr(start, it-start)); }
+    start = it+1; }
+  return tokens;
+}
+
+int main() {
+   vector <string> parts;
+   string INs="   one    two   three four five      ";
+   cout << INs << "...__checking trailing" << endl;
+   string Q= clean(INs);
+   cout << Q << "...__checking trailing"  << endl;
+   parts=split( Q, ' ');
+   for (int i=0; i< parts.size(); i++) cout << parts[i] << "  length "<< parts[i].size() << endl;
+
+   cout << "   Now repeats the same for a string without unnecessary spaces (checking) \n";
+
+   vector <string> parts2;
+   INs="six seven eight nine ten";
+   cout << INs << "...__checking trailing" << endl;
+   Q= clean(INs);
+   cout << Q << "...__checking trailing"  << endl;
+   parts2=split( Q, ' ');
+   for (int i=0; i< parts2.size(); i++) cout << parts2[i] << "  length "<< parts2[i].size() << endl; 
+
+   return(0);
+}
+</textarea><br>
+<!-- ---------------------   clean_split.cpp    END  TEXT ----------------- -->
+   
+   
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+make_one_big_string.C   &nbsp;  &nbsp;  &nbsp;  &nbsp;  Combines C++ standard strings   
+</b></span><br>
+<!-- ------------------   make_one_big_string.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="19">
+{
+    cout << "many lines to a mammut single string\n";
+    string line1="many numbers";
+    string Spa=" ";
+    string line2="one two three";
+    string line3="four five six";
+    string line4="seven eight nine";
+    string TheText=line1 + Spa + line2 + Spa+ line3 + Spa + line4 + Spa;
+    string Input;
+    cout << "enter a line with a sentence, several words or numbers\n";
+    getline(cin,Input);
+    TheText = TheText + Input + Spa;
+    cout << "enter a line with a sentence, several words or numbers\n";
+    getline(cin,Input);
+    TheText = TheText + Input + Spa;
+    cout << "\n\nHere comes the accumulated long string:\n";
+    cout << TheText << endl;
+}
+</textarea><br>
+<!-- ---------------------   make_one_big_string.C    END  TEXT ----------------- -->
+   
+  
+   
+
+
+
+
+
+
+
+
+
+      
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+<br>
+<hr>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+<br>
+
+
+
+
+
+<!-- PART    2       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_2">
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+<br>
+<br>
+
+
+
+<big><b>
+5. TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME)  </b> </big><br><br>
+   a) repeat the TNtuple as done in exercise 6 <br>
+   b) the plots from TTree  <br>
+   c) Fill TNtuple as TTupl->Fill(x,y,z);  <br><br>
+   ==== FOLDER TTree_and_TNtuple  <br><br>
+
+In  the text box are three sets of statements corresponding to above a) b) c).<br>
+<br>
+<b>TASK: explore them interactively, compare the figures (the same?). <br>
+&npsp; &npsp; &npsp;  make the corresponding C-file for each of them </b>
+
+<br><br>
+This is a special type of tree/ntuple filling, different from the next part 3<br>
+Note that the file to use and the text file are in  the folder 
+<b>TTree_and_TNtuple</b> <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   TTree_TNtuple_ReadFile.txt  <br>
+<!-- --------    TTree_TNtuple_ReadFile.txt   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows="80">
+//   file tmpfile3.txt
+/*  nano 
+0.0  1.0     5.0
+0.5  1.45    4.0
+1.0  2.45    3.5
+2.0  3.45    1.8
+3.0  5.45    0.0
+CTRL-X and save
+*/
+
+
+//  TNTUPLE  from FILE - read and use TNtuple::Fill( x, y, z, ....)
+
+   ifstream m_in;
+   m_in.open("tmpfile3.txt");
+   double x,y,z;
+   TNtuple *TTupl = new TNtuple("NTuple","NTUPLE reading text file","x:y:z"); 
+   int nlines = 0;
+   int counter=0;
+   while (1) {
+      m_in >> x >> y >> z;
+      TTupl->Fill(x,y,z);
+      if (!m_in.good()) break;      
+   }
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTupl->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTupl->Draw("y:x","","l");
+
+//
+//    TNTUPLE     NTUPLE using  TTi->ReadFile(FILENAME)
+
+TNtuple * TTupl = new TNtuple("NTuple","NTUPLE using TTupl->ReadFile(FILENAME)","x:y:z"); 
+nlines = TTupl->ReadFile("tmpfile3.txt","x:y:z"); 
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTupl->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTupl->Draw("y:x","","l");
+
+// In the above, somewhat limited functionality
+// Below is some less known magic to get out the
+// Graph Data -> send them to a standard TGraph
+// These can be manipulated, moved to TMultiGraph etc
+
+TCanvas *c3= new TCanvas("c3","y:x and z:",560,60,600,400);
+
+  TTupl->Draw("y:x","","goff");      //     "goff"  means graphics off
+
+  TGraph *gr = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr->Draw("ACP");
+  TTupl->Draw("z:x","","goff");      //     "goff"  means graphics off
+  TGraph *gr2 = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr2->SetLineColor(49);
+  gr2->Draw("SAME");
+
+
+//    TTree    - TREE using  TTi->ReadFile(FILENAME)
+
+TTree * TTi = new TTree("simpletree","TREE using  TTi->ReadFile(FILENAME)"); 
+nlines = TTi->ReadFile("tmpfile3.txt","x:y:z"); 
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTi->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTi->Draw("y:x","","l");
+
+// In the above, somewhat limited functionality
+// Below is some less known magic to get out the
+// Graph Data -> send them to a standard TGraph
+// These can be manipulate, moved to TMultiGraph etc
+
+TCanvas *c3= new TCanvas("c3","y:x and z:",560,60,600,400);
+  TTi->Draw("y:x","","goff");
+  TGraph *gr = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr->Draw("ACP");
+  TTi->Draw("z:x","","goff");
+  TGraph *gr2 = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr2->SetLineColor(49);
+  gr2->Draw("SAME");
+</textarea><br>
+
+
+<!-- --------    TTree_TNtuple_ReadFile.txt   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    3       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_3">
+<br>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+<br>
+
+
+
+
+<big><b>
+6. Tree filling via branch interface TTree with simple branches  </b> </big><br><br>
+   ==== FOLDER SIMPLE_TTree <br><br>
+
+<b>Work with simple TTree structures - simple branches </b>
+<br><br> 
+There are many possible structures (Case A to Case E) of TTree. <br><br>
+Here we look at the simplest, close to the TNtuple;<br>
+but allowing storing any single variables, also char strings<br>
+<br><br>
+Here are make_TTree.C, look_TTree.C grow_TTree.C<br>
+and      make_charTree.C  look_charTree.C<br>
+
+In these files, the terminal input is somewhat uncomfortable. <br>
+Instead of this, use the file reading mechanism as used in the first example<br>
+of the previous part 2 (<a href="#LABEL10_2">
+TTree and TNtuple using nlines ...... </a>)
+<br>
+<b>TASK: modify all the 5 files to read from file tmpfile3.txt and similar</b>
+<br>
+<br>
+
+<br>   make_TTree.C  <br>
+<!-- --------    make_TTree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 42">
+{   
+    //     make_TTree.C
+    // Constructing a simple tree with simple-variable branches
+
+   TTree *t1 = new TTree("t1","TTree with simple variables");
+
+//         PPx, PPy, PPz,     EEv 
+//         are "the interface" to the branches
+//         The names are arbitrary; the type is important
+
+   float PPx, PPy, PPz;     int EEv;
+
+   t1->Branch("px",&PPx,"px/F");    // Branch defined through
+   t1->Branch("py",&PPy,"py/F");    // its "outer" interface
+   t1->Branch("pz",&PPz,"pz/F");    // F,I,D type specification
+   t1->Branch("ev",&EEv,"ev/I");
+   int quest=1;
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      t1->Fill()
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 3 numbers: \n";
+      cin >> PPx >> PPy >> PPz;     // Data are placed in 
+      EEv = i;                      // the "interface"
+      t1->Fill();                   // Data copied to the tree
+                                    // to all branches
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;            // This only for demo
+   }
+   // Here: when the tree is constructed it can be stored
+   // You can change  the title
+   t1->SetTitle("changed title: My TTree N"); // or comment out
+   TFile *f = new TFile("tree1.root","UPDATE");
+   f->ls();   // before the TTree Write
+   // The tree knows how to be written to the file
+   t1->Write();        // or use f->WriteTObject(t1); 
+   f->WriteTObject(t1); 
+// f->Close();         // happens automatically when root exits
+   f->ls();    // after the TTree Write
+}
+
+</textarea><br>
+
+
+<!-- --------    make_TTree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   look_TTree.C  <br>
+<!-- --------    look_TTree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 30">
+{ 
+   // inspect the TTree generated by make_TTree.C 
+   // saved in the root file     tree1.root
+
+   TFile *f = new TFile("tree1.root");
+   TTree *t1 = (TTree*)f->Get("t1");
+//         MMx, MMy, MMz,     IIv 
+//         are "the interface" to the branches  
+//         here they have different names; they are arbitrary
+//         NOT CONNECTED with  the TTree 
+   Float_t MMx, MMy, MMz;   int MMv;
+
+   t1->SetBranchAddress("px",&MMx);  //t1->Branch("px",&PPx,"px/F");
+   t1->SetBranchAddress("py",&MMy);
+   t1->SetBranchAddress("pz",&MMz);
+   t1->SetBranchAddress("ev",&MMv);
+   //read all entries 
+   int nentries = t1->GetEntries();  // How many "levels" in the tree
+
+   for (int i=0; i<nentries; i++) {
+   
+      t1->GetEntry(i);     // copy i-th level to the interface       
+      printf(" %4d %10.4f %10.4f %10.4f\n", MMv, MMx, MMy, MMz);
+   }
+   new TBrowser ();
+   t1->StartViewer();   // You can also use the 
+                        // TBrowser and Tree Viewer
+   
+}
+</textarea><br>
+
+
+<!-- --------    look_TTree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   grow_TTree.C  <br>
+<!-- --------    grow_TTree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 45">
+{   
+    //     grow_TTree.C   
+    //        use parts of make_TTree.C and look_TTree.C
+    //  Adding extra ENTRIES an eisting tree with simple-variable branches
+
+   TFile *f = new TFile("tree1.root","UPDATE");
+   //   TTree *t1 = new TTree("t1","TTree with simple variables");
+   //        instead fetch the existing
+   TTree *t1 = (TTree*)f->Get("t1");
+   
+//         PPx, PPy, PPz,     EEv 
+//         are "the interface" to the branches
+//         The names are arbitrary; the type is important
+
+   float PPx, PPy, PPz;     int EEv;
+
+   t1->Branch("px",&PPx,"px/F");    // Branch defined through
+   t1->Branch("py",&PPy,"py/F");    // its "outer" interface
+   t1->Branch("pz",&PPz,"pz/F");    // F,I,D type specification
+   t1->Branch("ev",&EEv,"ev/I");
+   int quest=1;
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      t1->Fill()
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 3 numbers: \n";
+      cin >> PPx >> PPy >> PPz;     // Data are placed in 
+      EEv = i;                      // the "interface"
+      t1->Fill();                   // Data copied to the tree
+                                    // to all branches
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;            // This only for demo
+   }
+   // Here: when the tree is MODIFIED it can be stored
+   // You should change  the title
+   t1->SetTitle("Extended Previous TTree "); 
+   cout << "File content before t1->Write() \n";
+   f->ls();   // before the TTree Write
+
+   t1->Write();        // or use f->WriteTObject(t1); 
+   cout << "list after  t1->Write() \n";
+   f->ls();    // after the TTree Write
+}
+
+</textarea><br>
+
+
+<!-- --------    grow_TTree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   make_charTree.C  <br>
+<!-- --------    make_charTree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 37">
+{
+   //  make_charTree.C  the same as  make_TTree.C
+   //  Some of the branches can be C-strings   char aName[ ]
+   //  NOTE:   Names  does not need & Names, 
+   //          it is already an address (pointer)
+   
+   TTree *tch = new TTree("tch","Tree with char");
+//         PPx, Names, EEv 
+//         are "the interface" to the branches
+   Float_t PPx;
+   char Names[50]; 
+   int EEv;
+
+   tch->Branch("px",&PPx,"px/F");      // Branch defined through
+   tch->Branch("str",Names,"str/C");   // its "outer" interface
+   tch->Branch("ev",&EEv,"ev/I");      // F I  C  type 
+                       // F float   D double  I int    C char
+                       
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      tch->Fill()
+   // fill the tree
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 1 numbers and a single word string \n";
+      cin >> PPx >> Names;
+      EEv = i;
+      tch->Fill();
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;
+   }
+   TFile *f = new TFile("tree1.root","UPDATE");
+   f->ls();   
+   tch->Write();
+// f->Close();
+}
+
+</textarea><br>
+
+
+<!-- --------    make_charTree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   look_charTree.C  <br>
+<!-- --------    look_charTree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 26">
+{ 
+   //       look_charTree.C      modification of  look_TTree.C   
+   //    reeds a tree  constructed by 
+   //       make_charTree.C 
+
+   TFile *f = new TFile("tree1.root");
+   TTree *tch = (TTree*)f->Get("tch");
+   //         Ux, Texts, EEv 
+   //         are "the interface" to the branches
+   Float_t Ux;
+   Int_t Eev;
+   char Texts[300];    //  Texts is a pointer, thus NOT &Texts
+   
+   tch->SetBranchAddress("px",&Ppx);
+   tch->SetBranchAddress("str",Texts);  //  Texts is a pointer
+   tch->SetBranchAddress("ev",&Eev);    //  thus NOT &Texts
+
+
+   int nentries = (int) tch->GetEntries();
+   for (int i=0; i<nentries; i++) {
+      tch->GetEntry(i);    // copy i-th level to the interface 
+                           // including the string in Texts[] 
+      printf(" %4d %10.4f %s \n", Eev, Ux, Texts);
+   }
+}
+</textarea><br>
+
+
+<!-- --------    look_charTree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<!-- PART    4       ------------------------------------ -->
+<br>
+<hr>
+<a name="LABEL10_4">
+<br>
+<br>
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+<br>
+
+
+<big><b>
+7. Tree Filling and reading with structures  </b> </big><br><br>
+   ==== FOLDER SSTRUCT_TREE <br><br>
+
+Here we modified the files from part 3 to use a tree with one of the structures<br>
+from part 1.<br>
+<br>
+<b>TASK: study how this works - both the "to-tree" and "from-tree" part.<br>
+Check the structures, and modify the file to fill the structure from a text file.<br>
+<br>
+Make a text file for filling of several structures.<br>
+Consider an array of structures , like  tstst MyArr[20]<br>
+<br>
+
+
+
+<br>   struct_to_tree.C  <br>
+<!-- --------    struct_to_tree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 18">
+  TTree *tch = new TTree("tch","Tree with char");
+struct tstst {int  i; int k; char nam[10]; char addr[20];};
+tstst A;
+A.i=5; A.k=25; strcpy(A.nam,"AAA BBB");
+strcpy(A.addr,"AAA BBB 45 N-5009");
+tstst B;
+B=A;
+strcpy(A.addr,"--- --- 3456 89");
+A.i=255; A.k=(-10); strcpy(A.nam,"sss sss sss 456");
+A.i - B.i
+tch->Branch("stru1", &A);
+tch->Fill();
+A=B;
+tch->Fill();
+  TFile *f = new TFile("treestruc.root","UPDATE");
+tch->Write();
+
+</textarea><br>
+
+
+<!-- --------    struct_to_tree.C   TEXT    END      ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   struct_from_tree.C  <br>
+<!-- --------    struct_from_tree.C   TEXT    BEGIN    ------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 27">
+
+
+struct tstst {int  i; int k; char nam[10]; char addr[20];};
+tstst A;
+
+  TFile *f = new TFile("treestruc.root","UPDATE");
+   
+   TTree *tch = (TTree*) f->Get("tch");
+
+//  tch->SetBranchAddress("stru1",&A); 
+//            Wrong; pointer to pointer
+// Error in <TTree::SetBranchAddress>: 
+// The address for "stru1" should be the address of a pointer!
+  //O.K. but it was  tch->Branch("stru1", &A);
+
+tstst * Apointer;
+Apointer=&A;
+tch->SetBranchAddress("stru1", &Apointer);
+  
+  tch->GetEntry(0);    
+     cout << A.i  <<"  "<< A.k <<" ";
+     cout << A.nam <<"  "<< A.addr << endl;
+                      
+  tch->GetEntry(1);    
+     cout << A.i  <<"  "<< A.k <<" ";
+     cout << A.nam <<"  "<< A.addr << endl;
+ </textarea><br>
+
+
+<!-- --------    struct_from_tree.C   TEXT    END      ------------------------- -->
+
+
+
+<br>
+<a href="#TOP10">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP10">Top of the page</a>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="#TREE10">to the tree of today's files</a> <br>
+
+ <br> <br>
+
+
+
+<a href="#LABEL10_1">
+1. Structures and Structures with structure elements (most important) </a> <br>
+
+
+<a href="#LABEL10_5">
+2. reading text files with automatic stop (very important)  </a> <br>
+
+<a href="#LABEL10_6">
+3. Time, date, C-functions      (important)   </a> <br>
+
+<a href="#LABEL10_7">
+4. Manipulating "sentences" - multi-word textstrings  (somewhat special)     </a> <br>
+
+<a href="#LABEL10_2">
+5. TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME) (includes 2 plots)</a> <br>
+
+<a href="#LABEL10_3">
+6. Tree filling via branch interface TTree with simple branches (includes 2 plots)   </a> <br>
+
+<a href="#LABEL10_4">
+7. Tree Filling and reading with structures (somewhat special) </a> <br>
+
+
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#101010; background-color:#FFFFFF"
+cols="90" rows=" 22">
+
+1. Structures and Structures with structure elements
+   === FOLDER STRUCTURES
+2. reading text files with automatic stop
+   Entering "sentences" into a text string
+   ==== FOLDER FILEREAD
+3. Time, date, C-functions
+   learn to use time_t
+   create a filename carrying the date  
+   ==== FOLDER STIME_strings
+4. Manipulating "sentences" - multi-word textstrings
+   ==== FOLDER STRING_TOKENIZE
+5. TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME)
+   a) repeat the TNtuple
+   b) the plots from TTree
+   c) Fill TNtuple as TTupl->Fill(x,y,z);
+   ==== FOLDER TTree_and_TNtuple
+6. Tree filling via branch interface TTree with simple branches
+   ==== FOLDER SIMPLE_TTree
+7. Tree Filling and reading with structures
+   ==== FOLDER SSTRUCT_TREE
+</textarea><br>
+
+tree of this exercise file collection
+
+<br>
+<!-- ------------------   tree.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000000; background-color:#FFFFFF"
+cols="90" rows="41">
+exercise_10_files/
+|-- STRUCTURES                  Structures and Structures with structure elements
+|   |-- TRIPPLES_man.C
+|   |-- a_struct.C
+|   |-- b_struct2.C
+|   `-- tripples.C
+|-- FILEREAD                     reading text files with automatic stop
+|   |-- datain.txt
+|   |-- ofstream_ifstream .txt
+|   |-- readEOF.C
+|   |-- readGOOD.C
+|   `-- read_write_file.c.txt
+|-- TIME_strings                 Time, date, C-functions, learn to use time_t
+|   |-- name_file_today.C        create a filename carrying the date  
+|   |-- time.cpp
+|   `-- timeroot.C
+|-- STRING_TOKENIZE              Manipulating "sentences" - multi-word textstrings
+|   |-- Cpp_strtok.cpp
+|   |-- Nstrtok.c
+|   |-- strtokA.C
+|   `-- strtokMore.C
+|-- TTree_and_TNtuple            TTree and TNtuple  using  nlines = TTi->ReadFile(FILENAME)
+|   |-- TTree_TNtuple_ReadFile.txt
+|   |-- tmpfile.txt
+|   `-- tmpfile3.txt
+|-- SIMPLE_TTree             Tree filling via branch interface TTree with simple branches
+|   |-- grow_TTree.C
+|   |-- look_TTree.C
+|   |-- look_charTree.C
+|   |-- make_TTree.C
+|   |-- make_charTree.C
+|   |-- simple_TTree.html
+|   `-- tree1.root
+`-- STRUCT_TREE              Tree Filling and reading with structures
+    |-- struct_from_tree.C
+    |-- struct_to_tree.C
+    `-- treestruc.root
+7 directories, 30 files
+</textarea><br>
+<!-- ---------------------   tree.txt    END  TEXT ----------------- -->
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+ <br>
+
+ <br>
+
+ <br>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

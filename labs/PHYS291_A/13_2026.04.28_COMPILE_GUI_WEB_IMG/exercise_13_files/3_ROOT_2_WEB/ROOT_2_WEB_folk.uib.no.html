@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>ROOT_2_WEB  and its discussion at folk.uib.no</title>
+  </head>
+  <body style="font-family:monospace; font-size: 14pt; color:#202020">
+    <h4>Demonstration, video, sources, display ROOT_2_WEB as R2W
+    <br>
+    <a  href="https://folk.uib.no/nfylk/R2W/">folk.uib.no/nfylk/R2W/</a></h4><br>
+    <br>
+    WHY THIS:&nbsp; It should be helpful in your design of your report.<br>
+    <br>
+    In short, this package demonstrates how one can use a root script and simple shell commands<br>
+    to construct a web site served by a local webserver, with LaTeX math and animated content
+    <br>
+    Some of you are experts - then just look at this little demo.<br>
+    It is a bit fun ...<br>
+    <br>
+    <b>A SHORT  WHAT IS THIS?</b><br>
+    <br>
+    A root script makes a webpage showing plots-examples<br>
+    <br>
+    It also shows how to use LaTeX formula - for that one usually needs
+    <br>
+    the assistence of a webserver - thus the root script via<br>
+    <br>
+    system(command)<br>
+    <br>
+    starts a local webserver.<br>
+    <br>
+    Sources, comments and video are shown.<br>
+    <br>
+    IT IS RECOMMENDED THAT YOU DOWNLOAD&nbsp; ROOT_2_WEB.zip to a linux<br>
+    or macOS machine with root and some of our bash-scripts (present in
+    your bin/ directory)<br>
+    <br>
+    unzip <br>
+    <br>
+    cd ROOT_2_WEB<br>
+    <br>
+    make<br>
+    <br>
+    <b>(cf the video)</b><br>
+    <br>
+    Note that the " system (command)&nbsp; " calls are also listed
+    explicitely<br>
+    <h4>unzip ROOT_2_WEB.zip - cd to ROOT_2_WEB and type &nbsp; &nbsp;  make</h4>
+    <br>
+    <br>
+    Here are some further details:
+    <br><br>
+    <span style="font-family:monospace;font-size: 14pt;  color:#000000">
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFF0"
+cols="110" rows="13">
+
+  unzip ROOT_2_WEB.zip
+
+  cd ROOT_2_WEB
+  make
+                           ##  webserver and anim write, but following can be entered
+  make stop
+  make go
+  make anim
+
+  make clean
+
+</textarea>   
+   
+<table><tr>   
+<td>
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+before_make
+</b></span><br>
+<!-- ------------------   before_make    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="55" rows="25">
+
+ROOT_2_WEB/
+
+-rw-r--r-- ladi  501 May 15 08:46 mathjax.fil
+-rwxr-xr-x ladi  157 May 26 16:56 nswap*
+-rw-r--r-- ladi 2612 May 26 17:15 about_html_2.txt
+-rw-r--r-- ladi 6619 May 27 10:34 root_to_webN.C
+-rw-r--r-- ladi  203 May 27 13:47 Makefile
+-rw-r--r-- ladi 1621 May 27 14:02 animate.fil
+
+Makefile (compacted) =================================
+all: start
+start:
+    root -q root_to_webN.C
+stop: 
+    rm -f swap; mKILL python 9
+go:
+    python3 -m http.server 8000 &
+anim:
+    cp -f nswap swap; ./swap &  
+clean:
+    rm -f *.png *.html swap; mKILL python  9 
+
+</textarea><br>
+<!-- ---------------------   before_make    END  TEXT ----------------- -->
+   
+   
+ </td>  
+   
+  <td> 
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+after_make
+</b></span><br>
+<!-- ------------------   after_make    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="65" rows="25">
+
+ROOT_2_WEB/
+
+-rw-r--r-- ladi   501 May 15 08:46 mathjax.fil
+-rwxr-xr-x ladi   157 May 26 16:56 nswap*
+-rw-r--r-- ladi  2612 May 26 17:15 about_html_2.txt
+-rw-r--r-- ladi  6619 May 27 10:34 root_to_webN.C
+-rw-r--r-- ladi   203 May 27 13:47 Makefile
+-rw-r--r-- ladi  1621 May 27 14:02 animate.fil
+-rw-r--r-- ladi 26454 May 28 16:45 pict0.png
+-rw-r--r-- ladi 26386 May 28 16:45 pict1.png
+-rw-r--r-- ladi 23541 May 28 16:45 pict2.png
+-rw-r--r-- ladi  3668 May 28 16:45 index.html.html
+-rw-r--r-- ladi  7130 May 28 16:45 root_to_webN.C.html
+-rw-r--r-- ladi 14087 May 28 16:45 index.html
+-rw-r--r-- ladi  3128 May 28 16:45 about_html_2.txt.html
+-rw-r--r-- ladi  1621 May 28 16:45 animate.html
+-rwxr-xr-x ladi   157 May 28 16:45 swap*
+-rw-r--r-- ladi 26386 May 28 16:45 c2.png
+</textarea><br>
+<!-- ---------------------   after_make    END  TEXT ----------------- -->
+   
+  </td>
+</tr>
+</table> 
+   
+   <br><br>
+  </body>
+</html>

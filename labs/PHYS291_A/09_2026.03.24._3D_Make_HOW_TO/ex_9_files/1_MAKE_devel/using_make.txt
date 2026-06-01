@@ -1,0 +1,50 @@
+
+An important part of software developement - automatic
+production - compilation - of programs or documents
+
+Utility make - standard on Unix   
+
+Makefile: contains entries - what to make and how
+
+make all   - the standard for all programs
+make all is the same as simply
+make 
+
+label "all" must contain all the "products" to be made
+
+IMPORTANT - what triggers any of the steps?
+            dependence   - C_comp needs only be compiled
+                           when comp.c  has changed
+                  ( test it, just add a blank line or similar )
+
+VERY IMPORTANT:  all the executable lines start by TAB (not spaces)
+from our example - there is a TAB before gcc - and nothing happens
+before comp.c has been flagged as modified
+
+C_comp: comp.c
+	gcc -o C_comp comp.c
+
+it is usual to have label clean - removing all the "products"
+and e.g. label test.
+
+HOW TO USE - test this
+========================
+make                            produces the indicated elements, files, documents
+make clean                      you write in a command cleaning whatever you need
+make test                       run it and see
+
+
+EXERCISE - TASK   Try all this
+There are 2 more codes, binar.c and ctest_fgets.c.
+Modify the Makefile to produce also these 2 new
+how to compile - written in both source codes
+
+Files here:
+
+using_make.txt     this file
+Makefile           --  program for the make utility
+comp.c             tiny C program used in exercise 3
+comp.f             tiny fortran program used in exercise 3
+ctest_fgets.C      entering multi-word lines
+binar.c            decimal - binary coversion
+

@@ -1,0 +1,28 @@
+// <html><body style="font-family:monospace; font-size: 14pt; color:#000000;"><pre>
+{
+// making simple tree
+TTree *t1 = new TTree("t1","TTree with simple variables");
+//  t1  is the tree to be constructed
+float PPx, PPy, PPz;     int Eev;
+   t1->Branch("px",&PPx,"px/F");    // Branch defined through
+   t1->Branch("py",&PPy,"py/F");    // its "outer" interface
+   t1->Branch("pz",&PPz,"pz/F");    // F,I,D type specification
+   t1->Branch("ev",&Eev,"ev/I");    //  three floats, one integer
+   PPx=0.01;  PPy=1.034; PPz=0.7;   Eev=100;
+     t1->Fill();               //   one "row" is filled
+   PPx=2.1;   PPy=2.02;  PPz=0.1;   Eev=78;
+     t1->Fill();               //   next "row" is filled
+   PPx=-4.1;  PPy=8.1;   PPz=12.3;  Eev=16;
+     t1->Fill();               //   next "row" is filled
+   t1->SetTitle("changed title: My TTree N"); 
+   //   height of the tree         t1->GetEntries()
+   cout << "t1->GetEntries()      " << t1->GetEntries()   << endl;
+   t1->GetEntry(0);
+   cout << PPx << " " << PPy << " " << PPz << " Eev= " << Eev << endl;
+   t1->GetEntry(1);
+   cout << PPx << " " << PPy << " " << PPz << " Eev= " << Eev << endl;
+   t1->GetEntry(2);
+   cout << PPx << " " << PPy << " " << PPz << " Eev= " << Eev << endl;
+   
+}
+// </pre></body>

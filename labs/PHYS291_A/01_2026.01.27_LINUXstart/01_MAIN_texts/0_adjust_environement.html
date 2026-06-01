@@ -1,0 +1,175 @@
+<html>
+<title>Adjust environement: Part of Exercise 1 Week 27.01.2025</title>
+<head>
+
+</head>
+
+
+<body style="font-family:monospace;font-size: 14pt;  color:#000000">
+
+<b>PHYS291 - Part of Exercise 1 - Week 27.01.2025</b>
+
+
+   
+   
+<br><br>   
+   
+   
+   
+   
+   
+   
+From text file &nbsp; &nbsp;
+<b>
+0_adjust_environement.txt
+</b>
+<br>
+<!-- ------------------   0_adjust_environement.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="115">
+#
+#   The standard environement is dangerous for unexpeienced
+#   You can by chance destroy all your work
+#   We shall now demostrate it
+#   Then we fix that for "ever"
+#
+# First, your environment:
+#                            comments start  by #
+
+# type this
+env
+
+# OK, let us keep it (I have no chance to try, My env is so much changed ....)
+
+env > saved.environment.txt
+
+# Now let us work in your "pure" environment
+# OK, we shall use root, type root ENTER
+
+root
+
+#  bad luck no root
+
+# On Linux terminal - select a piece of text  by dragging the pressed-button-mouse
+#       over the text   (that is already "copy" - no need for CTRL-C )
+
+#        place the mouse (un-pressed) there the paste should go
+#        press the middle button - i.e. press the wheel  
+#        that is paste
+
+#  Practice this - copy as described above each of the following
+#  lines and watch the result:
+mkdir JUNK
+cd JUNK
+date
+date > filedat.txt
+cat filedat.txt
+cp filedat.txt morejunk.txt       #  copy it
+rm filedat.txt                    #  remove, delete it
+cat filedat.txt                   # error, you should expect it (is removed)
+
+#   You see, the filedat.txt  is gone, removed  
+#   Removed without quesions FOR EVER, no dustbin, or RECYCLE_BIN
+
+#  Once more:    (you are still in JUNK  ?
+pwd
+date > filedat.txt
+date > other.txt
+ls
+rm *.txt
+ls
+
+# Now all txt-files are gone, JUNK is empty
+
+
+# ====================================================================
+#    Adjusting your work environement - bash and own commands 
+# ====================================================================
+
+# Behaviour of your "bash" and commands is governed
+# by file .bashrc and in some situations also 
+# by      .profile    and  .login
+# On our machines we have prepared some useful files in /scratch
+#                                       /scratch is a different disk volume
+#                                       where we can all write
+ls  /scratch
+
+# You will notice with capital letters  SETINGS_2024. 
+
+
+# In the file  /scratch/SETINGS_2024.zip  is a collection of your new environment
+# then change to your home:
+cd
+#      are you at HOME ?     it shoud contain ~ (tilde) in the prompt
+pwd
+
+echo $HOME             
+#   if you are at $HOME   you will now install your new "environment" files
+
+#  the following results in much output
+unzip /scratch/SETINGS_2024.zip
+
+ls -ltraF
+
+ls -ltra bin/
+
+ls -ltrF
+
+# These two above command show you (list) what I made you to import
+# you will see relative new .bashrc .login  
+
+#  close the terminal;
+#  start a new terminal
+
+Try:
+# first try root
+
+#    you get out of root by  .q   (dot q )
+root
+3*5
+k=4; k*k+k
+.q
+
+# your first meeting with root
+
+date > junk.txt
+rm junk.txt
+#    should ask!
+#    repeat all the JUNK from above - now you should be prevented 
+#    from harming  your work   
+
+whichKL
+KLIEN  and press tab [ -->| ]  expands to 
+KLIENTtable
+
+xklient  5   #   uses ssh  might not work yet - the tightened security
+
+explore these features (what is in xklient ?)
+
+# TRY:               (if you are security checked ..... )
+xklient 2
+xklient 10
+
+
+</textarea><br>
+<!-- ---------------------   0_adjust_environement.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+</body>
+
+
+

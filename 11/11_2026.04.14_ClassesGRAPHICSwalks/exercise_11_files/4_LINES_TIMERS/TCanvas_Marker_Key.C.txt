@@ -1,0 +1,84 @@
+
+root  
+//  animation via pressed ENTER
+
+string SS; int xx,yy; TCanvas *WALKS;
+
+// demonstarte wait - repeat in terminal
+
+for(;;) {getline(cin, SS); cout <<"-------------------------------------------";}
+
+for(;;) {getline(cin, SS); cout <<"-------------------------------------------\n\n";}
+
+for(;;){ {getline(cin, SS); cout <<"-------------------------------------------\n\n";}
+
+for(;;) {getline(cin, SS); system("clear"); cout<<"-------------------------------------------\n\n"; }
+//  system("clear");  means empty terminal screen, go to top
+
+// if making line in terminal like this, why not moving the marker
+
+
+
+string SS; int xx,yy; TCanvas * WALKS; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500); 
+WALKS->Range(-12,-12,12,12); 
+TMarker *mk = new TMarker(1.0, 1.5, 29); mk->SetMarkerSize(9); mk->Draw();
+xx=0;yy=0;
+xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); WALKS->Update();WALKS->Modified();
+
+//  arrow UP, Enter    star moves;    NEXT:   arrow UP, Enter   star moves; 
+//  use the getline() trick, in infinite loop
+
+for(;;) {getline(cin, SS); xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); WALKS->Update();WALKS->Modified();}
+
+//   NOTHING HAPPENS - GRAPHICS IS NOT PROCESSED until all input processed
+// TAKE CTRL-C     - then the star "does all the suppressed jumps" - goes somewhere
+
+// How to make graphics to be drawn NOW!!     enter gSystem->ProcessEvents();
+
+
+//  SO THIS WORKS  - but FOKUS WINDOW must be the terminal
+for(;;) {getline(cin,SS);xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); WALKS->Update();WALKS->Modified(); gSystem->ProcessEvents();}
+
+// Click on WALKS, The TCanvas is in focus: Try the following
+WALKS->WaitPrimitive();  mk->SetX(10000); WALKS->WaitPrimitive(); mk->SetX(0);
+
+mk->SetX(10000);WALKS->WaitPrimitive();WALKS->Modified();
+mk->SetX(    0);WALKS->WaitPrimitive();WALKS->Modified();
+
+// This is then keyboard steered animation   FOCUS on TCanvas WINDOW
+ for(;;) { WALKS->WaitPrimitive();xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); WALKS->Update();WALKS->Modified();gSystem->ProcessEvents();}
+
+// This is then keyboard steered animation   FOCUS on TERMINAL WINDOW
+for(;;) {getline(cin,SS);xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); WALKS->Update();WALKS->Modified(); gSystem->ProcessEvents();}
+
+//  Summary code 
+root
+string SS; int xx,yy; TCanvas * WALKS; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500); WALKS->Range(-12,-12,12,12); 
+TMarker *mk = new TMarker(1.0, 1.5, 29); mk->SetMarkerSize(9); mk->Draw();
+
+xx=0;yy=0;
+//          single random move   
+//          the one-liners from above are spread over 3 or more lines here
+xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();
+mk->SetX(xx);mk->SetY(yy); 
+WALKS->Update();WALKS->Modified();
+
+// This is keyboard steered animation   FOCUS on TCanvas WINDOW    10 steps
+ for(int k=0;k<10;k++) { 
+       WALKS->WaitPrimitive();
+       xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx);mk->SetY(yy); 
+       WALKS->Update();WALKS->Modified();
+       gSystem->ProcessEvents();   }
+
+// This is keyboard steered animation   FOCUS on TERMINAL WINDOW    10 steps
+for(int k=0;k<10;k++) { 
+       getline(cin,SS);
+       xx=xx-3+6*gRandom->Rndm(); yy=yy-3+6*gRandom->Rndm();mk->SetX(xx); mk->SetY(yy); 
+       WALKS->Update();WALKS->Modified(); 
+       gSystem->ProcessEvents();   }
+
+
+
+

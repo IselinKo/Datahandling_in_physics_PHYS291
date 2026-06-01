@@ -1,0 +1,68 @@
+OUTPUT from    root find_histograms.C > root_files.txt
+====================================================
+
+Processing find_histograms.C...
+====================================================
+file No. 0  filename: Bergen.root
+ Class string: TH1F Obj Name: BergenHist Title: Bergen Data File: Bergen.root
+In No. 0 name: Bergen.root found 1 histograms
+====================================================
+file No. 1  filename: OSLO.root
+ Class string: TH1F Obj Name: histOslo Title: Oslo Data File: OSLO.root
+In No. 1 name: OSLO.root found 1 histograms
+====================================================
+file No. 2  filename: Paris.root
+ Class string: TH1F Obj Name: PariHist Title: Paris.root File: Paris.root
+In No. 2 name: Paris.root found 1 histograms
+====================================================
+file No. 3  filename: Roma.root
+ Class string: TH1F Obj Name: histoROM Title: Roma.root File: Roma.root
+In No. 3 name: Roma.root found 1 histograms
+====================================================
+file No. 4  filename: berlin.root
+ Class string: TH1F Obj Name: Hberlin Title: berlin.root File: berlin.root
+In No. 4 name: berlin.root found 1 histograms
+====================================================
+file No. 5  filename: cambridge.root
+ Class string: TH1F Obj Name: H_Cambridge Title: Cambridge Data File: cambridge.root
+In No. 5 name: cambridge.root found 1 histograms
+====================================================
+file No. 6  filename: canv2.root
+ Class string: TCanvas Obj Name: BergenHisthis2 Title: BergenHist Cloned Histogram File: canv2.root
+ Class string: TCanvas Obj Name: histoROMhis2 Title: histoROM Cloned Histogram File: canv2.root
+In No. 6 name: canv2.root found 0 histograms
+====================================================
+file No. 7  filename: d_2018.root
+ Class string: TH1F Obj Name: hist2 Title: x distribution File: d_2018.root
+ Class string: TH1F Obj Name: HIST_2 Title: x distribution File: d_2018.root
+ Class string: TH1F Obj Name: diff_X Title: x distribution File: d_2018.root
+ Class string: TH1F Obj Name: oppos Title: x distribution File: d_2018.root
+ Class string: TH1F Obj Name: mod2 Title: x distribution File: d_2018.root
+In No. 7 name: d_2018.root found 5 histograms
+====================================================
+file No. 8  filename: fitting1.root
+ Class string: TH1F Obj Name: h1 Title: Generated from plotfun File: fitting1.root
+In No. 8 name: fitting1.root found 1 histograms
+====================================================
+file No. 9  filename: graphpict.root
+ Class string: TCanvas Obj Name: c1 Title: c1 File: graphpict.root
+In No. 9 name: graphpict.root found 0 histograms
+
+=========================================================
+10 files processed  12histograms TH1F  found
+=========================================================
+   1       Bergen.root____BergenHist   max:        3698.00
+   2           OSLO.root____histOslo   max:       12958.00
+   3          Paris.root____PariHist   max:        9997.00
+   4           Roma.root____histoROM   max:        1791.00
+   5          berlin.root____Hberlin   max:       19428.00
+   6   cambridge.root____H_Cambridge   max:        9783.00
+   7            d_2018.root____hist2   max:         358.00
+   8           d_2018.root____HIST_2   max:        1612.00
+   9           d_2018.root____diff_X   max:         467.00
+  10            d_2018.root____oppos   max:         755.00
+  11             d_2018.root____mod2   max:         846.00
+  12             fitting1.root____h1   max:        1852.00
+=========================================================
+OUTPUT from    root find_histograms.C > root_files.txt
+

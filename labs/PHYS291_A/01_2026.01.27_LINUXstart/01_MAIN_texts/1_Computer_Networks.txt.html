@@ -1,0 +1,77 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+1_Computer_Networks.txt
+</big>
+<br>
+<!-- ------------------   1_Computer_Networks.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="46">
+Computer Networks
+Addresses of computers; Communication by ssh
+
+There is IPv4 and there is IPv6
+most of the internet is still on v4, migration to v6 is going on 
+(for already at least 5 years; it will not change this year)
+
+v4: each computer is assigned an address consisting of 4 8-bit integers
+largest 8 bit number (unsigned) is 255
+the address could thus be up to
+255.255.255.255  except that this is not allowed, neither is 0.0.0.0
+(255 is never allowed, highest allowed would be 254.254.254.254)
+all UiB computers have addresses  129.177.x.y
+
+login.uib.no which we shall use a lot has address  129.177.13.204
+
+thus
+ssh abc012@login.uib.no
+and
+ssh abc012@129.177.13.204
+
+both bring you to our university entry machine (actually spate.uib.no)
+NOTE: this is now very "secured". You must use TWO-FACTOR in any connection!
+
+our lab machines are ()
+ssh abc012@129.177.37.75
+ssh abc012@129.177.37.219
+ssh abc012@129.177.37.79
+
+( discuss the following hint:
+  4 228 250 625 vs 255*255*255*255,   python: (255*255*255*255)/(4.2282*10**9) 
+                                   or matlab: (255*255*255*255)/(4.2282*10^9)
+  what is that?    )
+
+The lab machines are behind a (soft) firewall ( I can not reach them from home)
+once you are working on login.uib.no  you can do the these three further logins
+
+Once at UiB, inside, you can reach all from all.
+
+THIS IS MORE RELEVANT IF WE MUST DO ZOOM AND HOME OFFICE
+
+Our tool will be ssh (secure shell) running from your terminal
+
+whatever system you use, you have a terminal (even on your android phone, sort of)
+we will do it (see it) on windows, macOS and on linux
+</textarea><br>
+<!-- ---------------------   1_Computer_Networks.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

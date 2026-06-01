@@ -1,0 +1,139 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+Windows_commands.txt
+</big>
+<br>
+<!-- ------------------   Windows_commands.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="55" rows="108">
+REM commands which you can use on Windows in cmd.exe
+
+REM   Do this - make a new directory/folder to avoid
+REM   messing up your other files
+mkdir PHYS291_A
+cd PHYS291_A
+
+REM to make quickly a file, we do   dir > file.txt
+REM the sign >  means send   output to a (new) file
+REM the sign >> means append output to an  old file 
+
+mkdir U
+cd U
+dir > anyfile.txt
+
+copy tt.txt gg.dat
+rename gg.dat gg.txt
+cd ..
+
+REM look at present directory by windows file manager
+
+explorer .\
+
+
+
+REM open the directory U you made above 
+explorer U
+
+REM  Get help on any command, e.g. dir or more
+help dir
+help more
+
+cd ..
+
+dir /W
+dir /OD 
+REM  if output too long, use paging
+dir /OD | more
+
+REM      "more" command exists also on linux
+
+REM to start editor from cmd.exe
+notepad commands.txt
+
+mkdir most
+cd most
+dir > a.txt
+dir > b.txt
+dir > c.txt
+
+REM and many more (REM is a remark, comment)
+REM on Unix we use # as REM
+
+dir /OD
+cd ..
+dir most
+del most\*
+REM it asks for confirmation
+
+rmdir most
+REM only empty directory can be removed
+
+REM renaming and moving files
+mkdir funny
+cd funny
+dir > a.dat
+# rename the file 
+rename a.dat ab.txt
+#  you make one more txt file
+dir > bc.txt
+# you want to move all txt files to a new directory
+mkdir ..\newdir
+move *.txt ..\newdir
+# dir gives you now empty
+dir
+cd ..
+rmdir funny
+
+REM a simple way to  write to a file (new file)
+REM copy the console to the file
+
+copy con aaa.txt
+  I want to write into a file
+  using this copy console to a file
+  on unix they use cat
+  try it now
+  on windows copy con filename.txt
+CTRL-C
+
+#  You end the "copy con aaa.txt " by pressing CTRL-C 
+
+REM you wrote into a file aaa.txt
+REM to see what is in file     type file.txt
+REM The result - print file to terminal
+
+type aaa.txt
+  I want to write into a file
+  using this copy console to a file
+  on unix they use cat
+  try it now
+  on windows copy con filename.txt
+
+
+REM you should make a list of the commands
+REM especially those you are trying 
+
+</textarea><br>
+<!-- ---------------------   Windows_commands.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  

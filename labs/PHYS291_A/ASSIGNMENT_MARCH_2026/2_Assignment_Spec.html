@@ -1,0 +1,479 @@
+   
+ <html>
+<head><title>PHYS291 - 2. Assignment  Specifications 2026 </title>
+</head>
+  
+   
+   
+   
+   
+   
+ 
+<body style="font-family:monospace; font-size: 14pt; color:#00000">
+ 
+ <br><br>
+ 
+<table width="1500"><tr><td width="30" style="font-family:monospace; font-size: 14pt; background-color:#D9EFD9" >     &nbsp; &nbsp; </td>
+<td style="font-family:monospace; font-size: 14pt; background-color:#D9EFD9">
+
+
+
+ <br><br>
+ <h3>PHYS291 -  Assignment File 2. Specifications 2026 - PRELIMINARY </h3>
+
+There are some changes from 2025, described in the new files, but the main features<br>
+remain unchanged. Nevertheless, the new features should be also mentioned here.<br>
+Also, the submissions from last year illustrated some new trends in your colleagues' <br> 
+(and thus perhaps also yours) style of work.<br>
+<br>
+The FILES and the description are now modified and tested, but the present text should<br>
+be - and will be - revised. So this should be considered a preliminary version.<br>
+<br>
+This specification is most relevant for the finishing parts of the assignment, so you can <br>
+start your work immediately. For the staqrt, you should review your work in the work <br>
+sessions. Also, you are invited to ask as many questions as you find necessary.<br>
+<br>
+The purpose of this assignment is to "stabilize and complete" your experience from the <br>
+exercise sessions, perhaps also replace the missing parts where you could not take <br>
+part in the scheduled time.<br>
+<br>
+This is about expanding your experience, not about producing a report. The process is <br>
+more important than the product. So it is task for you, not for so called AI. Thanks! <br>
+<br>
+ <br><br>
+ <h3>PHYS291 -  The Specifications for 2025, based on 2023 original </h3>
+
+<br>
+<!-- ------------------            TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="20">
+
+Assignment March 2025 (based on 2023 text) 
+
+You are asked to work out in more detail the two independent work tasks 
+which were part of exercise 5 (this year 24.02.2026) and exercise 7 (10.03.2026).
+
+Work with these two tasks will give you a good training for further work with 
+the course, especially the project work.
+
+We have now passed more than a half of the organized exercises 
+and the present small tasks are in a way similar to small projects.
+
+In both cases here (5 and 7) you are recommended to base your work on existing 
+programs, basically modifying parts of scripts and combining pieces of different 
+codes to make them work together. There is no need to reinvent the wheel, rather 
+try to reuse stuff as much as possible and adjust code parts to work together. 
+This namely requires to seek understanding of how things work, instead of 
+memorizing some miraculous and the only correct art of programming.
+</textarea>
+<br>
+
+
+<b><big>1. Exercise 5.  The Membership discount problem  </big> </b> <br> <br>
+
+
+<!-- ------------------            TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="27">
+1. Exercise 5.  "The Membership discount problem" (two versions, same numbers).
+-----------------------------------------------------------------------------
+The description gives useful hints and the solution can be based on the code
+called multigraph.C - also discussed in exercise 5. In fact, a modified version
+called multigraphMOD.C might be preferred. It contains the title and axes labels
+as well as a zero-level line.
+(Hint - .The 0 level:  when the difference of the two costs crosses zero)
+
+To be delivered: The code in the form of a script/macro discount.C
+The discount.C should also deliver the drawing showing the intersection of 
+the two cost lines (or their difference crossing zero). 
+To remind you, it is the TCanvas who produces the pictures,
+     MyCanvas->Print("discount.png"); 
+if you defined your TCanvas * MyCanvas. 
+If not, root made a standard canvas named c1, thus 
+     c1->Print("discount.png"); will output the picture in that case.
+
+In this part we ask for 3 files: 
+       discount.txt 
+       discount.C and 
+       discount.png 
+(the first txt should contain the result and very brief description/discussion)
+
+</textarea>
+<br>
+
+
+<BR><br>
+
+<b><big>2. Exercise 7, The Student Collaboration Peak analysis <br> <br>
+<br>
+(continues below the textframe)   </big> </b> 
+
+</td></tr></table><br>
+
+
+<table width="1500"><tr><td width="30" style="font-family:monospace; font-size: 14pt; background-color:#FFFFEF" >     &nbsp; &nbsp; </td>
+<td style="font-family:monospace; font-size: 14pt; background-color:#FFFFEF" >
+<br><br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505080; background-color:#FFFFF0"
+cols="100" rows="92">
+
+2. Exercise 7, The Student Collaboration Peak analysis (2023 text)
+---------------------------------------------------------
+
+(read, but do not follow;)
+Instructions more relevant for the present version are described below this textarea)
+This text is kept here for several good points - and to avoid multiple versions
+=====================
+So here is the 2023
+=====================
+The tasks are formulated in detail, but this year you also got 3 new files, also 
+mentioned in the text. You should base your work on the file p3_hist_fit.C using 
+the relevant parts of test_root_2.C
+
+For simplicity you can start by producing three files derived from 
+p2_hist_fit.C which print the result of the fit as it does it. 
+A more "elegant" version would be to combine all in one script, but in that case 
+you might be meeting problems with scope of variables which might require 
+too much time at this stage.
+
+After that, copy this into 3 new files, insert the changes to fetch the relevant 
+histograms.  When this works and all deliver a satisfactory fits, insert code
+to do the reporting and printing of the histogram with fits at the end of each 
+of the files.
+
+This method is naturally not suitable if we have many files, more than the three
+discussed now. As mentioned, now we propose 6 files
+
+Results from this version would be:
+    3 scripts, one for each root-file  (with your explanatory comments )
+    3 drawings of the histograms (the Canvas->Print("image.png") type)
+    the logbook.txt (or a manually produced equivalent containing the 3 results)
+    A very short description.txt summarizing your work
+You organize these file in two directories - perhaps corresponding the provided
+ones in the zip-file  - and add a little description of your "package" - 
+again as a little training for your final project.
+
+3. Alternative/Further work on Exercise 7, The Student Collaboration Peak analysis.
+--------------------------------------------------------------------------------------
+
+Alternative/Further work  (still 2023 text)
+However, we ask you to do a bit "more advanced" version of the task 2.
+There are files provided which can find the name of the histogram automatically.
+All these are in the directory  2_Root_Files_TASK (see the tree) together with
+those used in the Lab exercise.
+
+The aim is to make a script with a list of root files (as root_test_3auto.C, which only 
+shows a test), combine with functionality of p4_hist_fit.C 
+and produce a general code which takes all the (now 6, with Paris.root etc) root files
+and produces the fits and reports the fitted FWHM and positions etc.
+
+NOTE: study the extragr_p2.C  in the directory    1_fitting_example 
+      There the FWHM etc are demonstarted  and shown
+
+The structure of a large script with many functions is demonstrated by a very elementary
+program in a file
+      main_program_example.C
+That file shows the necessary structure:
+    globals
+    function prototypes (when necessary)
+    main function (in root case not int main() - rather the same as the file name)
+    function
+    function ......
+So the task is to combine          root_test_3auto.C   with p4_hist_fit.C  
+into a pattern represented by      main_program_example.C
+
+--------------------------------
+
+How to submit the solutions: - as discussed above - but there is one more suggestion:
+
+You might also try to organize it with the help of html - you can present your 
+whole assignment to be explored by some index.html pointing to your various 
+results, as the txt-files, C-files and the png-pictures. Imagine how much that 
+would simplify our work with commenting on your submission.
+
+The whole resulting package should come as a zip-file. The details of the submission 
+will be specified later, as we approach the deadline. In no case shall we accept 
+a "rar-file" or any other "advanced" or "more efficient" packing system. 
+
+As you might know, just this zip is the basis of all 
+         docx, pptx, xlsx, odt, ods, and odp 
+files (they are all zip-files) which makes zip one of the most used file formats, 
+probably only preceeded by the jpg photos from all the photos by the mobile phones 
+of some 5 to 6 billion of people.
+
+=============================================================
+2025
+========
+The above text shows the path to this year's version as follows just under here
+========
+</textarea><br>
+<br>
+
+</td></tr></table>
+
+
+<table width="1500"><tr><td width="30" style="font-family:monospace; font-size: 14pt; background-color:#D9EFD9" >     &nbsp; &nbsp; </td>
+<td style="font-family:monospace; font-size: 14pt; background-color:#D9EFD9">
+
+
+<br><br>
+
+<b><big>2025 preferred version </big> </b> <br> <br>
+
+<!--        1_fitting_example 2_Many_Root_Files 3_Real_Task_files 4_Learn_more           
+ -->
+
+The files provided this year for the peak-fitting part are in 4 directories: <br>
+
+&nbsp; &nbsp; 
+  1_fitting_example &nbsp; &nbsp; 2_Many_Root_Files
+  &nbsp; &nbsp;  3_Real_Task_files  &nbsp; &nbsp; 4_Learn_more    <br>
+
+the first two are  preparing you for working out the advanced solution <br>
+while the third  3_Real_Task_files/             <br>
+contains the six root files with the data, with identical copies<br>
+of the relevant files from both &nbsp; 1_fitting_example/ and 2_Many_Root_Filesand/ <br>
+In the fourth directory there is a collection of possibly useful example scripts
+<br><br>
+In previous years we provided scripts <b>root_test_1.C </b> and  <b>root_test_2.C</b> <br>
+ which list and analyze the three root files and their content. They are in the <br>
+ "less relevant folder", since the script <b>find_histograms.C </b>is much more powerful,<br>
+ it analyses all the root files and finds all the histograms. But it is more complex!<br>
+ <br>
+ You might start from the first or second directory; They are provided by copies of the scripts.<br>
+ Here we start by part II, since it might appear "more dramatical".<br>
+ <br>
+ <b><big>Working  in  2_Many_Root_Files/   </big> </b>
+ <br>
+ 2. Start in the directory 2_Many_Root_Files which features the <b>find_histograms.C</b> <br>
+ You will see various histograms, even 2 peaks or no spectral peak etc. Figure out <br>
+ how  the <b>find_histograms.C </b> works, perhaps change the output of filename/hist.name etc<br>
+ A special feature added here is the ordered display with 1 second breaks of the windows, <br>
+ instead of an avelanche of frames which we had in the work sessions.<br>
+ <br>
+ The special line "doing the magic" is this:    <br>
+  
+ &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="2">
+ Ncanv[kk]->Update();Ncanv[kk]->Modified();gSystem->ProcessEvents(); sleep(1);
+
+ // or  in general schematic (one always needs to do the last graphics, the Canvas)
+
+ ThisCanvas->Update(); ThisCanvas->Modified(); gSystem->ProcessEvents(); sleep(1);
+</textarea><br><br>
+ In this directory we also learn how to maintain many Canvases without losing their<br>
+ content. This is done in try_canvases.C, featuring the good_canvas(x) and bad_canvas(x)<br>
+ including the time delay, with the above "sleep(1);" <br>
+
+   
+   
+<!--     TEXTAREA    ------------------------------------------------------ -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="18">
+
+ Proposed steps:
+ (a)   explore  try_canvases.C read it and run it - see how it works and why, and why is
+       this a problem at all? (in most graphing systems the designers "waited" until all
+       the "work" is done, only then do the displaying. It is a design choice, not a 
+       necessity; in "step by step" the display is immediate)
+       This will explain it all to you ...
+ (b)   Explore the find_histograms.C: it contains this "sleep(1)" too. Note that
+       if you comment out  <b>   gSystem->ProcessEvents()  </b> the code will just 
+       read/write and wait some 10 sec before doing anything, then showing 
+       all the graphics in immediate sequence (very funny, but not useful)
+ (c)   Make a copy of find_histograms.C and comment out all the graphics, 
+       i.e. all TCanvas, their creation, even eclarations, all - after
+       cp  find_histograms.C  list_histo.C
+       editing the  list_histo.C - just keep the display of histograms' names/FILES
+       This  list_histo.C  will be great for the great single code version
+
+</textarea><br>
+ <br>
+ <b><big>Working  in  1_fitting_example/   </big> </b>
+
+<br>
+You could start in 1, the <b>1_fitting_example</b>, or continue there after the above 
+<br>
+1. work in <b>1_fitting_example</b>.  There are script fitting of single peak reviewed.<br>
+ <br>
+ Study the methods, they have been used in the work sessions. <br>
+ Explore the p2_hist_fit.C, and p2b_hist_fit.C and the FWHM extra in this directory 
+ <br><br> 
+ ph2_hist_fit.C works with extra example fitting1.root <br>
+ p2b_hist_fit.C is for the Bergen.root <br>
+
+
+
+  
+<!--     TEXTAREA    ------------------------------------------------------- >
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="8">
+ Change  p2b_hist_fit.C to a function call version
+   copy   p2b_hist_fit.C  to  hist_fit.C; edit like this
+   insert line  void hist_fit()  before the first line in void hist_fit()
+        now     root hist_fit.C  will work just like   root p2b_hist_fit.C
+   edit further  hist_fit.C
+        comment out the line containing
+        TString filenam="Bergen.root";       TString histnam="BergenHist";
+</textarea><br>
+   
+   
+   make a block in which you copy and un-comment these two lines so that the file <br>
+   now starts by (the rest is unchanged)
+
+ <!--     TEXTAREA    ------------------------------------------------------- >
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="9">  
+   {
+   TString filenam="Bergen.root";       TString histnam="BergenHist";
+   hist_fit();   
+   }
+   void hist_fit()
+   {
+       etc
+   </textarea><br>
+       
+  again, if you have done all correctly <br>
+  root hist_fit.C       will work just like        root p2b_hist_fit.C <br>
+  <br>
+  Now the last change: you want to reuse the string names
+
+<!--     TEXTAREA    ----------------------------------------------------  - -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="11"> 
+{  
+   TString filenam;       TString histnam;
+   filenam="Bergen.root";       histnam="BergenHist";
+   hist_fit();   
+}
+void hist_fit() 
+{     b
+       etc ...
+  </textarea><br>
+
+1_fitting_example
+        
+Now you are prepared for as many pairs   filenam   histnam  as needed; <br>
+first combine in the example file fitting1.root  where histnam is "h1" <br>
+   &nbsp; &nbsp; &nbsp; &nbsp;              (see the p2_hist_fit.C ) <br>
+<br>
+<!--     TEXTAREA    -----------------------------------------------------  -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="14"> 
+{  
+   TString filenam;       TString histnam;
+   filenam="Bergen.root";       histnam="BergenHist";
+   hist_fit();   
+   filenam="fitting1.root";       histnam="h1";
+   hist_fit();  
+}
+void hist_fit()
+{     etc
+
+ </textarea><br>
+<br>
+Now you can copy the hist_fit.C  to the directory 3_Real_Task_files and make first version
+<br>
+<br>
+ <b><big>Working  3_Real_Task_files/  </big> </b>
+
+<b><big> 3. Time for real work: </big></b> <br><br>
+Work in <b>3_Real_Task_files</b>. The easiest approach is to take <br>
+(perhaps somewhat modified find_histograms.C) to print you <br>
+the pairs filename/histogram-name<br>
+
+You have made hist_fit.C and you can now replace fitting1.root by OSLO.root and <br>
+add the 2 lines for cambridge.root<br>
+<br>
+Note: all the results will accumulate in report.txt.<br>
+<br>
+You can even do this for all the six files. It is simpleminded, but does the job.<br>
+for 17 files it would be possible, but not acceptable. <br>
+It takes time and it is not "elegant". <br>
+<br>
+You can make the PNG-images (some of the example files are "printing them") etc.<br>
+<br>
+The report.txt accumulates all your tests etc. Remove it and make a clean run.<br>
+<br>
+It might need editing - you only print the heading line once, for example.<br>
+How? You move it into the top part, before the pairs of lines. Or similar.
+<br><br>
+It is possible to fuse together the functionality into one code in several possible ways.
+<br>
+Provided that you already have  list_histo.C from part 2, the stripped version <br>
+of find_histograms.C with graphics removed, you can insert (weave in) the first <br>
+block of hist_fit.C into  list_histo.C <br>
+
+  
+<!--     TEXTAREA       ------------------------------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="20">
+
+steps  
+ 1. copy  list_histo.C  to  loop_fit.C and add empty lines
+ 2. add   hist_fit.C     to  this  loop_fit.C 
+ 3. edit  this new  loop_fit.C  
+      - move the declaration of TStrings to the beginning of the code
+      - move the next two lines, def. of filenam and histnam as well as
+        the call  hist_fit(); 
+        into the loop where they were printed in the  list_histo.C 
+        remove the empty block
+
+ This new script  loop_fit.C  should handle all the files present at the runtime
+ in this directory (hint: you can hide some to reduce the number during testing)
+
+ history of editing described above:    
+ find_histograms.C        -->   list_histo.C   -->        loop_fit.C
+  (searches files, plots)     (searches files prints)    ( as hist_fit.C, but for ALL)
+    (provided)                  (you made in 2_many... )   (you made hist_fit.C in 1_)
+</textarea><br>
+   
+ <br>
+
+
+Alternatively, <br>
+You might even find your own approach of doing this (from two to three to six) <br>
+
+<br>
+<br>
+
+
+You have thus extracted the positions of the shape of the peaks. Are they the same? <br>
+The files p2_hist_fit.C (and p2b_hist_fit.C have a nice output into a report file. <br>
+ <br>
+ You should also experiment with the format of report.txt
+
+ <br>
+ <br>
+
+<hr>
+<br>
+
+<!-- ---------------------   The_Assignment.txt    END  TEXT ----------------- -->
+   
+   
+   
+  </td> </tr> </table>
+   
+   
+<!--     TEXTAREA    ------------------------------------------------------- >
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="2">
+
+</textarea><br>
+   
+   
+   
+   
+   

@@ -1,0 +1,19 @@
+.L mammals2019org.cpp
+Mammal *Spot=new Dog() 
+Spot->Speak()
+Cat *Mini = new Cat() 
+Mammal *One= new Cat() 
+One->Speak()
+//
+//   The virtual method used example - "for all animals do ---"
+//
+    Mammal * ourAnimals[10];
+    ourAnimals[0]=new Dog()
+    ourAnimals[1]=new Cat()
+    ourAnimals[2]=new Cat()
+    ourAnimals[3]=new Dog()
+    ourAnimals[4]=new Dog()
+    
+for (int i=0;i<5;i++) ourAnimals[i]->Speak();
+
+

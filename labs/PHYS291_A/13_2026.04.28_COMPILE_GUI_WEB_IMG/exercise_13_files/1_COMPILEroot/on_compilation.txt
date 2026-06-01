@@ -1,0 +1,75 @@
+The here shown prescription should work allways;
+if it does not work for your case, you must add more 
+header files (e.g. TAxis.h) 
+The present examples did not work when
+we added the axis calls - it worked when
+#include "TAxis.h"
+has been added. Note that  "root graph2.C" works
+when NO compilation is attempted without any #include  - root interpreter
+              includes everything needed (but the compilers of root do not)
+
+For full compilation to an executable program we have an example Makefile.
+make          makes the  ./graph2 and ./getRand
+make clean    removes all the compiled and *.so files
+
+graph2 examples are very simple and nothing is gained by compilation
+getRand examples take time (order 20 sec) Added is system date so that you
+can find out what is the speed gain
+(The filling can be done MUCH faster by another call. Here is chosen
+an unnecessary lengthy way - calling each random - to see the effect)
+
+DO THIS TO SEE WHAT IS NEEDED for full compilation to an executable program
+    a) see the Makefile
+    b) do the    diff graph2.cpp graph2.C
+                 diff getRand.cpp getRand.C
+
+1. COMPILING TO A LIBRARY.so 
+============================
+  File graph2.C        can be run normally as 
+
+                root graph2.C
+
+  or be compiled to a library 
+
+                root graph2.C+
+  This produces 3 files
+                graph2_C.d      ( can be deleted, text file info )
+                graph2_C_ACLiC_dict_rdict.pcm    (needed)
+                graph2_C.so                      (the library wanted)    
+
+  then run in root 
+
+               root
+               .L graph2_C.so
+               graph2();
+
+2. STAND-ALONE COMPILATION
+============================
+file graph2.cpp        -    To be compiled
+
+The graph2.C change to  graph2.cpp involves addition of all necessary
+    header files and the prgram must contain the int main() 
+
+    In addition, one must have the line #include "TApplication.h"
+
+Otherwise the code after int main() must have 
+    TApplication theApp("App", 0, 0);
+       the rest is unchanged
+but after all the commands of graph2.C (defining theApp), run theApp
+     theApp.Run();
+
+//  in the datalab 2022,   export ROOTSYS=/scratch/root
+//  REPLACE the path for ROOTSYS; then enter the next 3 lines 
+//  (Actually, at present, you do not need the first two lines
+//    when on our lab machine; but use them to be sure)
+ 
+ export ROOTSYS=/scratch/root
+ source $ROOTSYS/bin/thisroot.sh
+ g++ graph2.cpp -o graph2 `root-config --cflags --libs`
+
+ run as     
+         ./graph2
+ 
+ On a private unix machine (example) :
+ source ~/bin/ROOT20/root/bin/thisroot.sh 
+

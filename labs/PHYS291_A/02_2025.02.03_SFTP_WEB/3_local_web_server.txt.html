@@ -1,0 +1,97 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+5_local_web_server.txt
+</b></span><br>
+<!-- ------------------   5_local_web_server.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="57">
+
+There is a local webserver modul in python
+
+with the settings usual on typical systems now the python code
+you should run in a terminal is:
+====================================
+      python3 -m http.server 7800
+====================================
+The number at the end is the "port number"
+    ports are the identificators of the data packets sent
+    over the network
+    ssh "is on port"  22, normal http is on port 80  https port 443
+    NTP time server usually port 123
+    YOU CAN CHOOSE ANY HIGH NUMBER    (this server can not do https )
+    e.g.
+    python3 -m http.server 8002
+
+So what to do:  
+mkdir mylittleWeb
+cd mylittleWeb
+mv ../somefiles  .     # you have some files here then
+megaind                #  makes index   you can skip that, check what happens!!
+python3 -m http.server 7800
+
+##   Now that is the webserver, you can view only on the saqme machine HERE
+
+If you for some reason need to run python 2
+====================================
+       python -m SimpleHTTPServer 7800
+====================================
+ACCESSING THE SERVER
+
+if you run       python3 -m http.server 7800
+
+your browser  should point to
+                http://127.0.0.1:7800/filename.html
+or simply 
+                http://127.0.0.1:7800/   
+
+In our lab the IT department blocks the ports except of 22 (ssh)
+so you can not run between the machines. 
+Server and Client must be the same machine
+
+Fortunately we have a "terminal text only browser"  elinks
+
+run       cd Downloads
+          python3 -m http.server 7890
+in a new terminal  run
+          elinks http://127.0.0.1:7890/
+or point your firefox to
+          http://127.0.0.1:7890/
+In a normal world with allowed high number ports
+you could run
+          elinks http://129.177.37.75:7890/
+on any of the lab machines if your python runs on xklient 1
+
+You can check this on your private machine using your phone as 
+internet provider and your PC as web server
+
+
+
+
+your browser  should point to
+                http://127.0.0.1:7800/filename.html 
+
+
+</textarea><br>
+<!-- ---------------------   5_local_web_server.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

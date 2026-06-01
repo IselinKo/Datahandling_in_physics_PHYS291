@@ -1,0 +1,6 @@
+echo "removing all the PNG files produced by FIT scripts"
+echo "rm -f *.png"
+rm -f *.png
+echo "all png files removed"
+
+

@@ -1,0 +1,35 @@
+
+// skeleton of C-style write to file
+
+#include <stdio.h>
+int main ()
+{
+
+   FILE  *fil_out;
+   fil_out = fopen("dataout.txt","w");
+   int n;
+   double x,y;
+
+   fprintf (fil_out,"   %d  \n", n  );
+
+              printf("  %8.5f    %8.5f \n",x,y);
+   fprintf(fil_out,"  %8.5f    %8.5f \n",x,y);   
+
+   fclose (fil_out);
+}
+
+// skeleton of C-style read from file
+
+#include <stdio.h>
+int main ()
+{
+   FILE *fil_in;
+   fil_in=fopen("datain.txt","r");
+   int knum;
+   double x,y;
+
+   fscanf(fil_in," %d", &knum);
+   fscanf(fil_in," %f %f", &x, &y);
+
+   fclose(fil_in);
+}

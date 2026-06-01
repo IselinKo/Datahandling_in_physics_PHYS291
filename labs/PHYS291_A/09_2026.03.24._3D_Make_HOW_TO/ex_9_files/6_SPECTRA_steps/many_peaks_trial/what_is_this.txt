@@ -1,0 +1,9 @@
+
+root manypeak.C
+
+// inside of root session run
+.x manyfit.C
+.q
+
+
+questions: 

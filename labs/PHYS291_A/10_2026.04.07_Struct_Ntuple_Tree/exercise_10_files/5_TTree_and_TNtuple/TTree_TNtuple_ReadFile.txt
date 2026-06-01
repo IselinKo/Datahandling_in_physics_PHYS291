@@ -1,0 +1,78 @@
+//   file tmpfile3.txt
+/*  nano 
+0.0  1.0     5.0
+0.5  1.45    4.0
+1.0  2.45    3.5
+2.0  3.45    1.8
+3.0  5.45    0.0
+CTRL-X and save
+*/
+
+
+//  TNTUPLE  from FILE - read and use TNtuple::Fill( x, y, z, ....)
+
+   ifstream m_in;
+   m_in.open("tmpfile3.txt");
+   double x,y,z;
+   TNtuple *TTupl = new TNtuple("NTuple","NTUPLE reading text file","x:y:z"); 
+   int nlines = 0;
+   int counter=0;
+   while (1) {
+      m_in >> x >> y >> z;
+      TTupl->Fill(x,y,z);
+      if (!m_in.good()) break;      
+   }
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTupl->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTupl->Draw("y:x","","l");
+
+//
+//    TNTUPLE     NTUPLE using  TTi->ReadFile(FILENAME)
+
+TNtuple * TTupl = new TNtuple("NTuple","NTUPLE using TTupl->ReadFile(FILENAME)","x:y:z"); 
+nlines = TTupl->ReadFile("tmpfile3.txt","x:y:z"); 
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTupl->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTupl->Draw("y:x","","l");
+
+// In the above, somewhat limited functionality
+// Below is some less known magic to get out the
+// Graph Data -> send them to a standard TGraph
+// These can be manipulate, moved to TMultiGraph etc
+
+TCanvas *c3= new TCanvas("c3","y:x and z:",560,60,600,400);
+
+  TTupl->Draw("y:x","","goff");      //     "goff"  means graphics off
+
+  TGraph *gr = new TGraph(nlines,   TTupl->GetV2(), TTupl->GetV1());
+  gr->Draw("ACP");
+  TTupl->Draw("z:x","","goff");      //     "goff"  means graphics off
+  TGraph *gr2 = new TGraph(nlines,   TTupl->GetV2(), TTupl->GetV1());
+  gr2->SetLineColor(49);
+  gr2->Draw("SAME");
+
+
+//    TTree    - TREE using  TTi->ReadFile(FILENAME)
+
+TTree * TTi = new TTree("simpletree","TREE using  TTi->ReadFile(FILENAME)"); 
+nlines = TTi->ReadFile("tmpfile3.txt","x:y:z"); 
+TCanvas *c1= new TCanvas("c1","z:x",30,60,600,400);
+TTi->Draw("z:x","","l");
+TCanvas *c2= new TCanvas("c2","y:x",30,560,600,400);
+TTi->Draw("y:x","","l");
+
+// In the above, somewhat limited functionality
+// Below is some less known magic to get out the
+// Graph Data -> send them to a standard TGraph
+// These can be manipulate, moved to TMultiGraph etc
+
+TCanvas *c3= new TCanvas("c3","y:x and z:",560,60,600,400);
+  TTi->Draw("y:x","","goff");
+  TGraph *gr = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr->Draw("ACP");
+  TTi->Draw("z:x","","goff");
+  TGraph *gr2 = new TGraph(nlines,   TTi->GetV2(), TTi->GetV1());
+  gr2->SetLineColor(49);
+  gr2->Draw("SAME");

@@ -1,0 +1,2887 @@
+<html>
+<title>Exercise 5 - Tuesday/Wednesday  24.02.2026</title>
+<head>
+
+<script>
+
+function hide_text(THEDIV)
+{
+    document.getElementById(THEDIV).style.display='none';  
+}
+
+function show_text(THEDIV)
+{
+    document.getElementById(THEDIV).style.display='block';    
+}
+</script>
+
+</head>
+
+
+<body style="font-family:monospace; font-size: 14pt; color:#202020">
+
+<a name="LABEL_TOP_5">
+<hr>
+<br>
+<big><b>PHYS291 - Exercise 5 - Tuesday/Wednesday  24.02.2026 </b></big>
+<br><br>
+<b><big>More features of C++ and ROOT. Task: Graphical Solution of a problem 
+<a href="#LABEL_5_4"> (See Topic 6) </a>
+</big></b><br><br>
+<hr><br>
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#FFFF00; background-color:#FF0000"
+cols="95" rows="12">
+
+Because of a time loss due to the problems with entering the login.uib.no
+I decided to leave the text unchanged from the last year's version
+
+Also the zip-file(s) are unchanged (2025-versions on folk.uib.no)
+
+Instead a "new invention" is added - uploading the code-files as prog_C.html or prog_py.html
+using a minor set of html elements
+You can view them and you can       root      prog_C.html 
+as well as                          python3   prog_py.html  
+
+</textarea><br>
+
+<br>
+<br>
+
+&nbsp; Note a strange error<a href="#O5_num_hash"> now corrected here:</a>
+  (added for completeness, also other such pitfalls exist)<br>
+
+
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000000; background-color:#FFE0E0"
+cols="95" rows="5">
+// In the box on sizeof()           This has been corrected in this version (INSERTED SPACE)
+                                    // Next line: problem of HTML standard    
+ptr= &num; sizeof(*ptr)                 // !!! Note: this appeared before as " &num; " because
+ptr= & num; sizeof(*ptr)            // &amp;num; translates to &num; even in text-area!!!
+</textarea><br>
+
+<br><br>
+
+<b>Prolog</b>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+ <a href="#5_Descript">Description of the main tasks</a>  
+  &nbsp; &nbsp; &nbsp; &nbsp; 
+ <a href="#LABEL_5_listings">Links to individual topics</a>
+
+ <br><br>
+In the lecture we meet pointers, discuss data types and "sizeof". In other connections are also <br> 
+mentioned 
+the logical data, Boolean, or type bool. Before following the previous <br>
+years' program you can use some minutes on the following demonstration.<br>
+
+   
+   
+   
+   
+   
+   
+
+<br>
+<!-- ------------------   part0.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="71">
+//  In the lecture we met pointers - and other places we met bool - logical
+//  Before the usual work, a short "show" with you as the performer
+//  enter each of the lines in the root - and try to guess the answers
+//  before hitting ENTER  (the statements are mostly without ';' - to type values)
+
+// YOU CAN ENTER THE WHOLE LINE, including comments (then think and then ENTER)
+// copy - paste this whole session with outputs, put a <pre> at the beginning
+// and place it on your web - add some comments perhaps too
+// to amuse and enlighten us others !!
+
+//=======================================================================
+
+//  boolean -logical - type bool      ==  means is equal   !=   is unequal
+//  bool variables assigned logical values   // we meet them all the time
+bool L=( 3 == 7 )      //  L must be false but  (3 != 7) is true 
+int k=4                //  now, k=4
+L=( k==4 )             // now L is true - check  
+k=12;
+L=( k==4 )       //  YOU MUST REPEAT IT, it is assignment what is L now - true?
+//
+// warning: root gets very helpful suggesting below
+//    ROOT_prompt_31:1:6: 
+//        note: use '=' to turn this equality comparison into an assignment
+// ignore that, or rother wonder a bit
+
+//=======================================================================
+
+//     POINTERS   -  very few comp languages have pointers
+//                   none other of the populars
+//                   important, useful, dangerous
+//
+//                   one should know pointers before causing disasters
+//
+int A=5        // varible named A 
+A=6            // well, it is variable, let it vary
+int B=17       // another named variable
+int *poA       // POINTER (to a location, to a variable; no value now)
+poA = &A       // the value of the pointer is the address (pointer) to A
+*poA           // poA points to a location which contains (yes, A, it was 6)
+poA = &B       // Now the poA points to position of B
+*poA           // and in that "memory cell" is what?  
+*poA == A
+*poA == A      // does poA point to A ?
+*poA == B      // does poA point to B ? (yes, true)
+
+int Arr[]={0,1,2,3,4,5,6,7,8,9}   // we make an array 
+Arr[5]
+poA=Arr   // what is that - yes array names are also pointers and vice versa
+poA[8]
+Arr[8]=(-8); poA[8]    // so what is poA[8]  now ? it was 8 last time
+int *poB; poB = poA+6  // another pointer; shifted from poA by 6
+poB[2]          //  so what is the second element from start shifted by 6
+poB[2] == poA[8]      // I hope you guessed it; poB[2] == poA[8]
+poA[8] = poA[8]+8; poB[2]    //  and what is poB[2]  now ( was -8 last time)
+Arr[8]   //  What about the original array ?
+* (Arr + 7 )   // This must be wrong! Or ?
+* (poA+7)
+* (poA+7) = 42;  //  what does the array say?
+Arr[7]
+poA[7]           // so poA[ ]  and Arr[7]  behave the same way ....
+Arr              // returns the wholle array Arr   but poA
+poA              // explain
+//               warning  this is a "teaching" feature of root
+//               you can not output a whole array using cout
+cout <<  Arr[7]  << endl;    // O.K. for one element
+cout <<  Arr << endl;         //  surprise ??
+Arr
+cout <<  poA << endl;
+poA                      // as we did above
+</textarea><br>
+<!-- ---------------------   part0.txt    END  TEXT ----------------- -->
+<a name="O5_num_hash">
+<br>
+&nbsp; Work with sizeof( ) <br><br>
+<!-- ------------------    part1.txt   sizeof()  TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="95" rows="21">
+
+// now some sizeof()
+
+int num;  sizeof(num)
+int nums[5];  sizeof(nums)
+sizeof(int)                  //  what ? int is not a variable!?
+sizeof(nums[2])
+double pos; sizeof(pos)
+int  *ptr;  sizeof(ptr)                  //  Next line: problem of HTML standard
+ptr= & num; sizeof(*ptr)                 // !!! Note: this read before  &num; because 
+                                         // &amp;num; translates to &num; even in text-area!!!
+short s; sizeof(s)            // how many bytes can be "short" ?
+char c='c'; sizeof(c)         // how many bytes can be a sign, char ?
+sizeof(char)
+
+// How to use sizeof
+int assig[]={ 3, 5, 7, 11, 2,3,5,6,7,8,1,4,5,6};
+int length_of_assig =  ( sizeof(assig) / (float) sizeof(int) )
+// why using "cast" float ? being too careful - remember  6/4 == 1   )
+</textarea><br>
+<!-- ---------------------   part0.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+<a name="5_Descript">
+<br><br>
+<big>
+<b>Description of the tasks</b> </big> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+
+<a href="#LABEL_5_listings">Links to topics</a> 
+&nbsp; &nbsp; &nbsp; &nbsp; 
+
+<a href="#files_5">Downloading the files</a>  
+<br><br>
+
+
+In this exercise, you we first warm up by working with GUI - learning how to fit a histogram <br>
+with the help of graphical tool Fit Panel (part 1). There is a movie demonstrating what to do, <br>
+so that it should not take a long time (the movie is at 
+<br>
+- right click and open in new tab/window or download from there. 
+If you are not in the lab, <br
+just watch the movie)<hr>
+
+Next (part 2) we learn about various types of scripts (macros) - the small root <br>
+programs. There are unnamed (nameless) and named scripts, which contain a function <br>
+of the same name as the file itself. <br>
+<hr>
+Further (part 3) we shall try in root command some basic programming features, <br>
+i.e. conditions and loops, the most basic elements of any code.
+<br><hr>
+Next (part 4) you will explore some data types in C++, numerical, logical, strings. 
+<br>
+<hr>
+Then we turn to comparing functions in the same plot (part 5), <br>
+i.e. combining several graphs int one "multigraph" ( TGraph() to TMultiGraph() )<br>
+and how to enhance them. Using the Draw("SAME") as before vs TMultiGraph().
+<br>
+<hr>
+Finally (in part 6) you will solve graphically a beer-drinking problem from CERN.<br> 
+For those who do not drink this will become a general membership discount problem. <br>
+(We keep both tasks - with the same parameters)<br>
+Your challenge is to develop a small script (e.g. by modifying an example)<br><hr>
+At the end   (part 7) there is a short exploration section on 
+<b>histograms vs plots of functions</b> <br>
+and how to relate them (histogram -> to graph)<br>
+<hr>
+During all this you will also try several short C++ and ROOT programs. <br>
+Please try to keep the indicated times for each part.<br><br>
+Part 6 is the most important, since it is your first really independent work.<br>
+<hr>
+There is also an additional demo of how to write a function simplifying <br>
+adding the axes labels, as well as the method gROOT->ProcessLine(".q") etc
+
+
+<a name="files_5">
+<hr>
+<br><big>
+<b>Downloading the files</b> </big> 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_5_listings">Links to individual topics</a>
+
+
+<br><br>
+File downloads from <a href="https://folk.uib.no/nfylk/5_2025/">
+  folk.uib.no/nfylk/5_2025/</a>
+<br>
+
+To get the files to your local machine: get the zipfiles (see yellow below)<br>
+The movies can be watched at <a href="https://folk.uib.no/nfylk/FIT/">
+https://folk.uib.no/nfylk/FIT/</a> 
+<br><br>
+To get the <b>script files to the LAB machine: </b>
+<br>
+get the zipfile 5.zip (see yellow below) by the command <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; wget  https://folk.uib.no/nfylk/5_2025/5.zip
+<br>
+or use the browser and get 5.zip from <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="https://folk.uib.no/nfylk/5_2025/">https://folk.uib.no/nfylk/5_2025/</a>
+<br><br>
+&nbsp; &nbsp;<b>
+    Note the two equivalent ways above</b>- is wget pretending to be a browser? (No password ...)
+<br><br>
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFCC"
+ cols="90" rows="36">
+You can see this tree by using the command       tree
+here somewhat edited with added coments 
+-------------------------------------------------------------
+|----  Ex_05_2025.html                This file
+-------------------------------------------------------------
+https://folk.uib.no/nfylk/5_2025/5.zip     contains the scripts
+in directory 05_Exercise_5
+-------------------------------------------------------------
+`----  1_histo--fit--movie/         directory for part 1
+        |----  osloFig.C
+        |----  nonzero.C            fitting - background
+        |----  bergenFig.C
+        `----  1_histo--fit--2019       for trying   root *.C
+                |----  osloFig.C
+                |----  nonzero.C
+                `----  bergenFig.C
+`----  2_scripts_macros/         directory for part 2 |      |----  script_two.C
+       |----  script_one.C
+       |----  scriptnamed.C        for "hidden names" problem
+       |----  collection.C         using  .L collection.C
+       `----  strange.C            unique names - strange behaviour 
+`----  5_multi--graphs/          directory for part 5
+       |----  twolines.C
+       |----  noname.C
+       |----  multigraph.C     - combining graphs (use for part 4)
+       `----  labels.txt       - labels on xaxis, yaxis
+`----  7_Graph_vs_Histogram
+       `----  graph_vs_histo.C     cos values histo vs cos graph
+`----  9_extra_labels/          Axes Labels extra demo
+       |----  labels.txt
+       |----  axlabel.C         use as     .L  axlabel.C
+       |----  lmultigraph.C     .L  axlabel.C    .x lmultigraph.C
+       |----  TOTmultigraph.C   using gROOT->ProcessLine(".L axlabel.C")
+       `----  TOTnoname.C       using gROOT->ProcessLine(".L axlabel.C")
+</textarea><br>
+
+<br>
+
+
+<a name="LABEL_5_listings">
+<br>
+
+
+<br>
+<big>
+<b>Links to the individual topics</b></big><br><br>
+&nbsp;&nbsp;&nbsp;
+
+1. Fitting of Gaussian peaks in histograms using Graphical User Interface</a>
+  <!-- <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+   &nbsp;
+                                          (10 min)
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_0">
+2. Ways of using root: Types of scripts/macros and their formats and uses</a>
+   &nbsp;
+                                             (10 min)
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_1">3. Simple programming constructs</a> 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ( 10 minutes )
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_2">4. Data types, sizeof(), Structures and strings </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                                               ( 15 minutes )
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_3">5. Graphs - plots of several functions</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ( 10 minutes )
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_4">6. The task: Graphical solution of membership discount problem</a>
+  &nbsp;
+                                                <b>(35 minutes)</b>
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_5">7. Graphs vs histograms</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           ( 10 minutes )
+
+<br>
+&nbsp;&nbsp;&nbsp;
+ <a href="#LABEL5_axisLAB">Extra part on simpler function to enter labels/units on axes</a>
+<a name="LABEL_5_m1">
+<br><hr>
+<br>
+<a href="#LABEL_TOP_5">Start of the text with 'Prolog'</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+
+<a href="#5_Descript">Start of the description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  
+<br>
+<br>
+<hr>
+<big><b>
+1. Fitting of Gaussian peaks in histograms using Graphical User Interface ( GUI )
+</b></big> <hr><br>
+Last time we have been exploring the graphical user interface to histograms<br>
+and some of you tried the fitting panel tool already.<br>
+<br>
+We have a movie about this and your first task is to try the<br>
+fitting on the same examples as in the movie.<br>
+<br>
+The files producing the histograms are in directory <b>1_histo-fit-movie</b><br>
+in today's files.<br>
+<br>
+The movies can be watched at <a href="https://folk.uib.no/nfylk/FIT/">
+https://folk.uib.no/nfylk/FIT/</a>  and see also zip files above.<br>
+<br>
+The point is to try this fitting procedure using the GUI. Later we shall<br>
+do this with the help of programs and commands.<br>
+<br>
+You should have a short look at the functions for fitting in the scripts.<br>
+They are defined with the help of formulas with parameters. Again, this will <br>
+be done in much detail later, here is just a first preliminary look at<br>
+the function objects.<br>
+As an example, here is the file nonzero.C<br>
+<!-- ---------------------------     TEXT AREA  nonzero.C   --------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="20">
+void nonzero()
+{
+TString backgr = "[0]-x*[1]";
+TString efunc = "+[2]*exp(-(x-[4])*(x-[4])*[3])";
+TF1 *plotter=new TF1("plotter",backgr+efunc,0.0,8.0);
+
+plotter->SetParameter(0,4);        // lin backgr  large
+plotter->SetParameter(1,0.03);      // lin steepness nearly 0
+plotter->SetParameter(2,4.0);
+plotter->SetParameter(3,2.8);
+plotter->SetParameter(4,4.0);      //peak position
+
+
+TCanvas *Cbackgr = new TCanvas("Cbackgr","Background",300,200,700,500);
+TH1F *hB = new TH1F("hB","Background",100,0,8);
+hB->FillRandom("plotter",30000);
+hB->SetMinimum(0);
+hB->Draw();
+}
+</textarea><br><br>
+<!-- ---------------------------     TEXT AREA    nonzero.C   --------------------- -->
+When starting, direct your terminal to this directory 1_histo-fit-movie <br>
+and type in the terminal:
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+    root *.C                  <br><br>
+It will show you all the 3 diagrams, placed at different positions. <br>
+Look how that is done. <br>
+But, do not use the same root session for the fitting of several histograms<br>
+(see the video which went wrong.) <br>
+Once you are looking at this, try the last years version in <b>1_histo-fit-2019</b>
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp;  cd  1_histo-fit-2019  <br>
+&nbsp; &nbsp; &nbsp; &nbsp;  root *.C  <br>    
+&nbsp; &nbsp; &nbsp; &nbsp;  <br> <br>
+<b>What went wrong?</b> <br> <br>
+After this continue with the fitting. If you prefer the written version, here it is:
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#505050; background-color:#FFFFFF"
+ cols="90" rows="19">  
+    go to the histogram  ( using the difficult, nonzero.C)
+    Menu View - Editor   - you can edit the properties
+             click on curve -until the color in Editor matches
+                    click on the colored square - select a new color
+                    -----1 next to it - select thicker line (e.g. 5)
+    Menu Tools  - item 3 - Fit Panel
+              Click on button Fit (bottom)  
+ VERY BAD FIT 
+             On Fit panel - upper part Operation
+                Click [Add]      - just under appears  gaus(0)
+                    modify  gaus(0)   to  gaus(0) + 250
+                    BECAUSE the background is about 250
+            After typing gaus(0) + 250    HIT RETURN (otherwise forgotten!)
+
+                    NOW   gaus(0)+250  appears in the grey zone
+
+            Now, click on FIT    (success?)
+</textarea><br><br>
+
+
+
+<a name="LABEL_5_0">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+
+<br>
+<hr>
+<big><b>
+2. Ways of using root: Types of scripts/macros and their formats and uses
+</b></big> 
+<hr>
+<br>
+
+
+There is a little problem to solve at 
+<a href="#5QUESTION">the end of these textboxes</a>
+
+<br><br>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="27">
+Ways of using root
+
+1. as we did, interactive;   
+           enter line by line 
+           or paste in multiple lines  (useful for testing and exploring)
+
+2. running scripts in root
+   root   
+   .x scriptnamed.C
+
+3. Loading a script in root and calling a function defined in the script
+   root
+   .L collection.C
+   fun_one(4);
+   mesg("Hi there");
+       //   here fun_one(int cnt) and mesg(char * Ttext ) are defined
+       //   in the file collectin.C
+
+4. from command line
+
+   root script_one.C
+                      runs script script_one.C   
+                                         or as we have done
+   root *.C      
+                      runs all the C-files in the directory
+
+</textarea>
+<!-- ---------------------------   END  TEXT AREA    ----------------------------- -->
+
+<br><br>
+&nbsp; Examples of script files - also called macro or script <br>
+&nbsp; The files shown below are all in the directory <b>2_scripts_macros/</b>
+
+<br><br>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="80">
+
+==================  CUT FROM HERE ============= also in 2_scripts_macros/======
+//================ file script_one.C
+{
+//  This is an unnamed script - unnamed macro
+//  The variables defined here are known also to the other
+//  programs;   you can try the following
+//       root script_one.C
+//       cout << nn << endl;
+//       NN
+//
+    int nn=20;  int NN=40;
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d  and  NN is %d \n\n", nn, NN);
+}
+=============================================================
+
+
+==================  CUT HERE ============ also in 2_scripts_macros/===
+//================ file scriptnamed.C =========================
+void scriptnamed()
+{
+//  This is an named script - named macro
+//  it contains a function of type void  (i.e. returns nothing)
+//
+//  The variables defined here are PRIVATE, NOT KNOWN to the other
+//  programs
+    int nn=20;  int NN=40;
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d  and  NN is %d \n\n", nn, NN);
+}
+=============================================================
+
+
+==================  CUT HERE ============= also in 2_scripts_macros/==
+//================ file script_two.C =========================
+void printnnNN()
+{
+//  This is  script -  macro - containing a function
+//  it contains a function of type void  (i.e. returns nothing)
+//
+//  IT CAN NOT BE RUN as named script; file name is different
+//     root
+//     .L script_two.C
+//     printnnNN();
+//
+//  The variables defined here are PRIVATE, NOT KNOWN to the other
+//  programs
+    int nn=20;  int NN=40;
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d  and  NN is %d \n\n", nn, NN);
+}
+=============================================================
+
+
+==================  CUT HERE ============== also in 2_scripts_macros/===
+//================ file collection.C =========================
+//
+//    run:   .L  collection.C
+//           fun_one(3);
+//           mesg("Hello there");
+//
+//  This is a collection of functions 
+//  it contains several functions of any type 
+//
+//
+void fun_one(int nn)
+{
+    //
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d   \n\n", nn );
+}
+void mesg(const char * Ttext)
+{
+    printf("====================\nThe message is %s\n", Ttext);
+    printf("====================\n");
+}
+=============================================================
+</textarea>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+<a name="5QUESTION">
+
+<br><br>
+<b>A problem to solve:</b><br>
+Run two root sessions in parallel placed Terminals<br>
+in Terminal 1 run  script_one.C (shown as blue), <br>
+in Term. 2. run scriptnamed.C   (shown as yellow)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (both script_one.C and  scriptnamed.C are shown above)
+<br>
+As second input both terminals enter the same printf line - as shown <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<span style="background-color: #a0ffa0;">
+printf("   nn from script -- nn= %d and NN= %d \n", nn, NN); </span><br> 
+Above you could see that the bodies of  script_one.C and  scriptnamed.C are identical.<br>
+<br>
+So why the first printf finds nn and NN (in blue) while the second case results in error?<br>
+
+<br>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#CCCCFF"
+ cols="90" rows="11">
+root
+root [0] .x script_one.C 
+
+    Simple program doing not much
+
+        nn is 20  and  NN is 40 
+
+root [1] printf("   nn from script -- nn= %d and NN= %d \n", nn, NN);
+   nn from script -- nn= 20 and NN= 40 
+root [2] 
+</textarea><br>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+The terminal 1 shown as blue case runs O.K. <br>
+But the terminal with scriptnamed.C - shown here yellow - crashes and complains<br>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFCC"
+ cols="90" rows="9">
+root
+root [0] .x scriptnamed.C 
+
+    Simple program doing not much
+
+        nn is 20  and  NN is 40 
+
+root [1] printf("   nn from script -- nn= %d and NN= %d \n", nn, NN);
+</textarea>
+<!-- ---------------------------     TEXT AREA    ----------------------------- -->
+<br>
+<span style="background-color: #FFFFCC;">
+&nbsp;&nbsp;
+input_line_12:2:54: <b>error: use of undeclared identifier 'nn'</b>   <br>
+&nbsp;&nbsp;
+ (printf("   &nbsp;&nbsp;
+   nn from script -- nn= %d and NN= %d \n", nn, NN))   <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                     <BIG><BIG>^</BIG></BIG>     <br>
+&nbsp;&nbsp;
+input_line_12:2:58: <b>error: use of undeclared identifier 'NN' </b>   <br>
+&nbsp;&nbsp;
+ (printf("  &nbsp;&nbsp;
+  nn from script -- nn= %d and NN= %d \n", nn, NN))      <br>       
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                           
+ <BIG><BIG>^</BIG></BIG>     </span>      <br>
+&nbsp;&nbsp;
+root [2] <br>
+<b>
+<a href="javascript:show_text('HINT');">Do not see it? Show the hint </a>    &nbsp;&nbsp;&nbsp; </b>
+<a href="javascript:hide_text('HINT');">Hide  the hint table </a>
+
+
+
+<div id="HINT" style="display:none;  visibility:visible;">
+
+ 
+<table><tr>
+<td>
+<textarea readonly style=
+"font-family:monospace; font-size: 10pt; color:#505050; background-color:#CCCCFF"
+ cols="65" rows="14">
+ //================ file script_one.C
+{
+//  This is an unnamed script - unnamed macro
+//  The variables defined here are known also to the other
+//  programs;   you can try the following
+//       root script_one.C
+//       cout << nn << endl;
+//       NN
+//
+    int nn=20;  int NN=40;
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d  and  NN is %d \n\n", nn, NN);
+}
+</textarea> 
+</td>
+
+<td>
+<textarea readonly style=
+"font-family:monospace; font-size: 10pt; color:#505050; background-color:#FFFFCC"
+ cols="65" rows="14">
+//================ file scriptnamed.C =========================
+void scriptnamed()
+{
+//  This is an named script - named macro
+//  it contains a function of type void  (i.e. returns nothing)
+//
+//  The variables defined here are PRIVATE, NOT KNOWN to the other
+//  programs
+    int nn=20;  int NN=40;
+    printf("\n\nSimple program doing not much\n");
+    printf("\n\n   nn is %d  and  NN is %d \n\n", nn, NN);
+}
+</textarea>   
+</td>
+</tr></table>
+
+</div>
+
+<br><br>
+<a href="#LABEL_5_0"> Back to start of part
+2. ....  Types of scripts/macros and their formats and uses</a>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<a name="LABEL_5_1">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+
+<br>
+<hr>
+<big><b>3. Simple programming constructs</big></b>
+<hr><br>
+
+<br>
+<!-- ---------------------------     FILENAME  1    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="83">
+Enter line by line; note that some lines have ;  some do not
+
+int k=4;
+ //         Explore boolean (logical - after Boole - check who)
+k==5
+
+k==4
+
+k>3
+
+k<3
+
+//   CONDITIONAL EXECUTION   
+
+if (k == 5) {cout << "YES" << endl;} else {cout << "NO" << endl;}
+
+k=5;
+if (k == 5) {cout << "YES" << endl;} else {cout << "NO" << endl;}
+
+//   Now the little line program will interact with you
+//    - IT  WAITS FOR YOUR INPUT
+
+cout << "Enter Number k  ? "; cin >> k;
+
+//  O.K., you entered some other number
+
+// use up-arrow twice and the line will re-appear (do not type too much!!)
+
+===========
+One-liners 
+===========
+
+if (k == 5) {cout << "YES" << endl;} else {cout << "NO" << endl;}
+cout << "Enter Number k  ?  "; cin >> k; if (k == 5) {cout << "YES" << endl;} else {cout << "NO" << endl;}
+
+//    IT  WILL WAIT FOR YOUR INPUT       cin >> NAME
+//  use up-arrow twice and the line will re-appear
+cout << "Enter Number k  ? "; cin >> k;
+
+//  Now you can improve the format of the message
+cout << "Enter Number k  ?  "; cin >> k; if (k == 5) {cout << "++++    YES" << endl;} else {cout << "-----    NO" << endl;}
+
+// ===========
+// One-liners           LOOPS  - repetitions
+// ===========
+
+for(int i=0;i<10;i++) cout << i << "  "  << i*i << endl;
+
+for(int i=0;i<10;i++) { cout << i << "  "  << i*i << endl; }
+
+Can we enter this on several lines, e.g. as we see in some books
+for(int i=0;i<10;i++) 
+     { cout << i << "  "  << i*i << endl; 
+     }
+That did not work; but try this
+for(int i=0;i<10;i++) { 
+      cout << i << "  "  << i*i << endl; 
+}
+
+Yes, this worked. Can you explain why this difference?
+
+//    INFINITE LOOP WITH  BREAK  out
+
+//  infinite loop       If you enter it, use CTRL-C keys to stop, follow by .qqqqq
+
+while(1==1) cout <<"---";
+
+//  infinite loop   with a break      one-liner  
+
+int i0=0;  while(1==1) { i0++; if(i0>100) break; cout <<"---";}
+
+
+//  infinite loop   with a break 
+ int i0=0;  
+ while(1==1) { 
+               i0++; 
+               if(i0>100) break; 
+               cout <<"---";
+             }
+
+</textarea><br><br>
+<!-- ---------------------------    END FILENAME 1  ----------------------------- -->
+
+
+
+
+<a name="LABEL_5_2">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br> <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br><br>
+<hr>
+
+<big><b>4. Data Types; Structures and Strings</b></big>
+<hr>
+ <br>
+ Enter each of these in root - note - without the semicolons! - to see the actions:
+ <br>
+ - root returns immediate answers if statement not ended by semicolon! <br>
+ restart root often here.  You might like to write a little note using gedit &amp; <br>
+<!-- ---------------------------     FILENAME  2    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="145">
+Data Types
+4/2
+5/2
+3/5
+long hax
+hax=0xEFFFFF
+
+sizeof(double)
+sizeof(float)
+sizeof(short)
+sizeof(int)
+sizeof(long)
+sizeof(long double)
+
+long L;
+
+unsigned long U;
+
+U=0xA
+U=0xC
+U=0xF
+U=0xFF
+U=0xFFFF
+
+sizeof(U)
+
+U=0xFFFFFFFFFFFFFFFFFFFFF
+
+TASK:  find here what is the largest unsigned long U
+       i.e. how many F you must enter
+
+long L;               // surprise on next line
+L=0xFFFFFFFFFFFFFFFF
+L=0xF000000000000000
+L=0x8000000000000000
+L=0x7FFFFFFFFFFFFFFF
+
+unsigned short UG
+UG=0x8000
+UG=0xFFFF
+
+short G
+G=0xFFFF
+G=0x7FFF
+G=0x8000
+//                     LONG DOUBLE    
+long double  much;
+much=3.0;
+much=1/much;
+double nuch;
+nuch=3.0;
+nuch=1/nuch;
+cout.precision(24);
+cout << much << endl;
+cout << nuch << endl;
+
+cout << nuch << endl << much<< endl;
+      0.333333333333333314829616
+      0.333333333333333333342368
+
+Data types - structures
+
+//  Unfortunately,  pair is taken
+struct pair {int i;int j;}
+pair Z;
+
+//  Unfortunately must use a word parr
+struct parr {int i;int j;}
+parr Z;
+parr X[10];
+
+sizeof(X)
+sizeof(Z)
+int k;
+sizeof(k)
+sizeof(k);
+cout << "size of parr is "<< sizeof(parr) << endl;
+cout << "size of parr is "<< sizeof(parr) << " bytes "<<endl;
+cout << "size of X is "<< sizeof(X) << " bytes "<<endl;
+X[3].i=7;
+X[3].j=6;
+X[3]
+X[2].i
+
+
+struct triplll {int i;int j;  double g; }
+
+struct triple {
+   int i;
+   int j;
+   double g; }
+
+triple V[16];
+H=new triple[16];
+sizeof(H)
+H[3].g=43.7;
+H[15].g=43.7;
+H[15].g
+sizeof(V)
+
+ triple H16[16];
+ sizeof(H16)
+ 
+ sizeof( triple )
+
+============================================
+Data Types  -  Strings
+
+C-strings - original data type - array of characters
+
+char s[10];
+//   fastest way to fill a C-string; 
+//                printf, fprintf, sprintf  are C-functions
+//                sprintf prints to a string
+sprintf(s,"ggg");
+
+strcmp(s,"ggg")
+s
+strcmp(s,"gggff")
+cin >> s;
+s
+cin >> s;
+s
+Exercise:
+write a little macro or a one-liner
+define two character strings (length 20)   st1, st2
+fill them in a dialog    cin >> st1;   cin >> st2;
+root checks if st1 is the same as st2 using  strcmp 
+and tells : the words were the same / not the same
+
+Hint:   if(strcmp(st1,st2)) cout << "differ\n"; else  cout << "equal\n";
+
+=================
+C++ strings
+=================
+string Q="Hello world";
+cout << Q << endl;
+
+output is
+Hello world
+
+There are many methods for the C++ string objects
+They have also exchange with C-strings
+We shall study this later  in detail
+</textarea><br><br>
+<!-- ---------------------------    END FILENAME 2  ----------------------------- -->
+
+
+
+
+
+
+
+<a name="LABEL_5_3">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>   <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br><br>
+<hr>
+
+ <b><big>5. Graphs - plots of several functions</big></b>
+
+ <hr>
+<br>
+In the last exercise we plotted functions, but a simple Draw() would write over<br>
+the previous plot. To avoid that, a "magical" option helped: Draw("SAME") <br>
+We shall again apply that, but in this part we shall also meet Graph and MultiGraph.<br>
+Reminder: This we did the last time:
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="5">
+ TF1 fcos("fcos","cos(3*x)*exp(-0.3*x)",0,10) 
+ TF1 fsin("fsin","sin(x)*exp(-0.2*x)",0,10)
+ fcos.Draw();      //   
+ fsin.Draw("SAME");
+ </textarea><br><br>
+<br>
+<!-- ---------------------------     FILENAME  3    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="90">
+//    First try line by line - then 
+//    save this block as noname.C
+{
+TCanvas *c5 = new TCanvas("c5","hallo",50,20,700,500);
+double xx1[20],yy1[20],xx2[20],yy2[20];
+  xx1[0]=1.0; yy1[0]=3.0;
+  xx1[1]=4.0; yy1[1]=1.0;
+  xx2[0]=1.0; yy2[0]=1.0;
+  xx2[1]=3.0; yy2[1]=2.0;
+  xx2[2]=5.0; yy2[2]=5.0;
+TGraph * gr1=new TGraph(2,xx1,yy1);
+TGraph * gr2=new TGraph(3,xx2,yy2);
+gr1->Draw("ACP");
+gr2->Draw("same");
+c5->Modified();
+}
+=====================  cut here  ================
+When you inspect the plot, you will find that
+the second (3 points) are not fully contained in the graph
+
+so  after      root noname.C
+you can enter the following
+     gr1->SetMinimum(0);
+     gr1->SetMaximum(5);
+c5->Modified();
+
+You still can improve the range by somewhat complicated
+
+     gr1->GetXaxis()->SetLimits(0,8)
+c5->Modified();
+
+You enter  c5->Modified();  whenever you want to see newest graphics
+
+============================================================
+//    save this block    - it exactly the same as above except the void  
+//    as twolines.C
+//    named macro; the file and the function the same name
+void twolines()  {
+TCanvas *c5 = new TCanvas("c5","hallo",50,20,700,500);
+double xx1[20],yy1[20],xx2[20],yy2[20];
+  xx1[0]=1.0; yy1[0]=3.0;
+  xx1[1]=4.0; yy1[1]=1.0;
+  xx2[0]=1.0; yy2[0]=1.0;
+  xx2[1]=3.0; yy2[1]=2.0;
+  xx2[2]=5.0; yy2[2]=5.0;
+TGraph * gr1=new TGraph(2,xx1,yy1);
+TGraph * gr2=new TGraph(3,xx2,yy2);
+gr1->Draw("ACP");
+gr2->Draw("same");
+c5->Modified();
+}
+=====================  cut here  ================
+
+Try as above to enter
+    root  twolines.C
+      gr1->SetMinimum(0);
+
+WHY IT DOES NOT WORK ??  (private varables, names )
+
+So for our work now the nameless macros are preferable!!
+
+=====================================================   WRITE TO YOUR LOG !!!!!
+
+Finding minimum/maximum of an array (vector)
+
+Try this - it might be very useful!                      WRITE TO YOUR LOG !!!!!
+double yy [10]= { 2.0, 5.0, 0.0, 7.0 , 0.0, 0.0, 0.0, 0.0, 0.3, 6.5};
+
+ENTER THE LINES WITHOUT semicolon
+   TMath::LocMin(10, &yy[0])
+   TMath::LocMax(10, &yy[0])
+   yy[TMath::LocMin(10, &yy[0])]
+   yy[TMath::LocMax(10, &yy[0])]
+=====================================================   WRITE TO YOUR LOG !!!!!
+
+REPLACE the two lines
+   gr1->Draw("ACP");
+   gr2->Draw("same");
+
+BY these 4 lines   ( the graphs were already built, just "Add them" to mult
+
+   TMultiGraph *mult = new TMultiGraph();
+   mult->Add(gr1);
+   mult->Add(gr2);
+   mult->Draw("ACP");
+
+</textarea><br><br>
+
+Save the following block as multigraph.C
+<br><br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="54">
+{  
+   //    Nameless script / macro   multigraph.C 
+   //
+   //    Draw three simple graphs
+   //
+   //    Using   TMultiGraph    
+   //
+   //    Author: L. Kocbach modifying R. Brun
+   
+   TCanvas *c1 = new TCanvas("c1","Three Simple Graphs",200,10,800,600);
+
+   TMultiGraph *ThreeGr = new TMultiGraph();
+ 
+  const Int_t n = 100;
+  
+   Double_t x[n], y[n], y2[n], y3[n];
+ 
+  for (Int_t i=0;i<n;i++) {
+     x[i] = i*0.1;
+     y[i] =  5*sin(x[i]+0.2);
+     y2[i] = 10*sin(1.5*x[i]+0.2)*exp(-0.3*x[i]);
+     y3[i] = 0.5*cos(2.4*x[i]+0.2)*exp(0.3*x[i]);
+     printf(" i %i %f %f \n",i,x[i],y[i]);
+   }
+   TGraph *gr1 = new TGraph(n,x,y);
+   TGraph *gr2 = new TGraph(n,x,y2);
+   TGraph *gr3 = new TGraph(n,x,y3);
+   
+   ThreeGr->Add(gr1);
+   ThreeGr->Add(gr2);
+   ThreeGr->Add(gr3);
+   
+   gr1->SetLineColor(6);
+   gr1->SetLineWidth(1);
+
+   gr2->GetXaxis()->SetTitle("X title");
+   gr2->GetYaxis()->SetTitle("Y title");
+
+   gr2->SetLineColor(49);
+   gr2->SetLineWidth(4);
+
+   gr3->SetLineColor(49);
+   gr3->SetLineWidth(2);
+   
+   ThreeGr->Draw("ACP");
+
+   // TCanvas::Update() draws the frame, after which one can change it
+   c1->Update();
+   c1->SetGridx();
+   c1->GetFrame()->SetBorderSize(12);
+   c1->Modified();
+}
+</textarea><br><br>
+
+&nbsp;&nbsp; Run as    root multigraph.C <br><br>
+
+&nbsp;&nbsp; Then you can explore e.g. effect of <br> 
+&nbsp;&nbsp; &nbsp;&nbsp;    c1->SetGridy();<br>
+&nbsp;&nbsp; &nbsp;&nbsp;    c1->SetGridx(0);<br>
+&nbsp;&nbsp; &nbsp;&nbsp;    c1->SetGridy(0);<br>
+&nbsp;&nbsp; also, you can start typing<br>
+&nbsp;&nbsp; gr3->SetL        and hit TAB-key  That shows all possible features
+<br><hr>
+
+
+<!-- ---------------------------    END FILENAME 3  ----------------------------- -->
+
+
+<b><big>What is plotted: Labels on the axes</big></b><br><br>
+
+To get the usually needed descriptions/labels/dimensions on the axes there is
+a rather<br>
+ complicated 
+procedure in root: (add it to the previous plot; contained in the file <br>labels.txt)<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#D9EFD9"
+ cols="90" rows="5">
+   ThreeGr->GetXaxis()->SetTitle("Dimensionless X");
+   ThreeGr->GetYaxis()->SetTitle("Functions");
+   ThreeGr->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+   ThreeGr->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+</textarea><br><br>
+Naturally, the  <b>ThreeGr</b>  must be changed to the name of the object whose<br>
+axes you need to modify.<br>
+For example, in the file noname.C you can add <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+ gr1->GetYaxis()->SetTitle("Functions");   &nbsp;&nbsp;&nbsp;  etc ... other 3 lines   <br>
+
+<br>
+It might occur to you that we could write our own function/procedure which would <br>
+make this easier. 
+<br>
+You can find the proposal at<br> <a href="#LABEL5_axisLAB"> the end of this file 
+
+- under <b>Extra part on simpler function to enter labels</b></a>
+
+
+<!-- 
+(or hidden here) <br>
+<big>
+<a href="javascript:show_text('AXLABELS');">Show the hidden text</a> </big> <br>
+
+
+Postpone the work with this extra part after completing the points 6, and 7. <br>
+
+
+
+
+
+
+<div id="AXLABELS" style="display:none;  visibility:visible;">
+
+<div style="background-color:#EEEEDD"><b><big>
+<br>
+<big>
+ <a href="javascript:hide_text('AXLABELS');">Hide this part </a>
+</big>
+
+
+
+<br>
+<big>
+Simplified setting of axes labels - our own functions
+</big></b>
+<br><br>
+The examples here are modifying functions used in part 5 <br>
+We want to replace the complicated setting of x and y labels
+<br>
+file labels.txt<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFDDFF"
+ cols="90" rows="5">
+   ThreeGr->GetXaxis()->SetTitle("Dimensionless X");
+   ThreeGr->GetYaxis()->SetTitle("Functions");
+   ThreeGr->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+   ThreeGr->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+</textarea><br><br>
+ by simple two functions  xlabel( MyGraph, "label x"); ylabel( MyGraph, "label y");
+<br>
+<br>
+We do it by defining for general use file axlabel.C<br>
+which can be loaded when needed.<br>
+
+Note shortly how this must be done for graphs and multigraphs separately,<br>
+but as you will see it works well<br>
+(in C++ you can use the same function names if the arguments are of different type)<br>
+file axlabel.C<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="26">
+//
+// usage:  xlabel( MyGraph, "label x");   //------------------------------------
+//         ylabel( MyGraph, "label y");   //------------------------------------
+//
+//         MyGraph can be both simple TGraph  or TMultiGraph object
+//
+void ylabel( TGraph* GRAF, TString  Text ){
+   GRAF->GetYaxis()->SetTitle(Text);
+   GRAF->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+}
+void xlabel( TGraph* GRAF, TString  Text ){
+   GRAF->GetXaxis()->SetTitle(Text);
+   GRAF->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+}
+
+//  TMultiGraph *
+
+void ylabel( TMultiGraph * GRAF, TString  Text ){
+   GRAF->GetYaxis()->SetTitle(Text);
+   GRAF->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+}
+void xlabel( TMultiGraph * GRAF, TString  Text ){
+   GRAF->GetXaxis()->SetTitle(Text);
+   GRAF->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+}
+ </textarea><br><br>
+
+Here is an example when using <br>
+&nbsp; &nbsp; &nbsp; root  <br>
+&nbsp; &nbsp; &nbsp; .L axlabel.C   <br>
+&nbsp; &nbsp; &nbsp; .x lmultigraph.C   <br>
+( below are examples where loading is done by gROOT->ProcessLine(".L axlabel.C")) 
+<br>
+( NOTE: you can use gROOT->ProcessLine(".q") or  gROOT->ProcessLine(".x others.C")
+<br>
+file  lmultigraph.C <br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFDDDD"
+ cols="90" rows="51">
+{
+  cout << "\n\nTo run this without error \n.L axlabel.C\n.x lmultigraph.C\n\n";
+
+   //    Nameless script / macro   lmultigraph.C 
+   //
+   //    Draw three simple graphs  ADDS Axes labels
+   //
+   //    Using   TMultiGraph    
+   //
+   //    Author: L. Kocbach modifying R. Brun
+   
+   TCanvas *cthr = new TCanvas("cthr","ThreeM Simple Graphs",200,10,800,600);
+   TMultiGraph *ThreeMGr = new TMultiGraph();
+ 
+  const Int_t n = 100;
+  
+   Double_t x[n], y[n], y2[n], y3[n];
+ 
+  for (Int_t i=0;i<n;i++) {
+     x[i] = i*0.1;
+     y[i] =  5*sin(x[i]+0.2);
+     y2[i] = 10*sin(1.5*x[i]+0.2)*exp(-0.3*x[i]);
+     y3[i] = 0.5*cos(2.4*x[i]+0.2)*exp(0.3*x[i]);
+     //  printf(" i %i %f %f \n",i,x[i],y[i]);
+   }
+   TGraph *Agr1 = new TGraph(n,x,y);
+   TGraph *Agr2 = new TGraph(n,x,y2);
+   TGraph *Agr3 = new TGraph(n,x,y3);   
+   ThreeMGr->Add(Agr1);
+   ThreeMGr->Add(Agr2);
+   ThreeMGr->Add(Agr3);   
+   Agr1->SetLineColor(6);
+   Agr1->SetLineWidth(1);
+   Agr2->SetLineColor(49);
+   Agr2->SetLineWidth(4);
+   Agr3->SetLineColor(49);
+   Agr3->SetLineWidth(2);
+  
+   ThreeMGr->Draw("ACP");
+
+   xlabel( ThreeMGr, "xxx");  //-------------------------------------------
+   ylabel( ThreeMGr, "yyy");  //-------------------------------------------
+
+   // TCanvas::Update() draws the frame, after which one can change it
+   cthr->Update();
+   cthr->SetGridx();
+   cthr->GetFrame()->SetBorderSize(12);
+   cthr->Modified();
+ cout << "\n\nTo run this without error \n.L axlabel.C\n.x lmultigraph.C\n\n";
+}
+ </textarea><br><br>
+
+<b>Here below the loading is done by gROOT->ProcessLine(".L axlabel.C") </b>
+
+<br>
+file TOTmultigraph.C <br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="51">
+ {
+  gROOT->ProcessLine(".L axlabel.C");
+
+   //    Nameless script / macro   multigraph.C 
+   //
+   //    Draw three simple graphs
+   //
+   //    Using   TMultiGraph    
+   //
+   //    Author: L. Kocbach modifying R. Brun   
+   TCanvas *cthr = new TCanvas("cthr","ThreeM Simple Graphs",200,10,800,600);
+   TMultiGraph *ThreeMGr = new TMultiGraph();
+ 
+  const Int_t n = 100;  
+   Double_t x[n], y[n], y2[n], y3[n];
+ 
+  for (Int_t i=0;i<n;i++) {
+     x[i] = i*0.1;
+     y[i] =  5*sin(x[i]+0.2);
+     y2[i] = 10*sin(1.5*x[i]+0.2)*exp(-0.3*x[i]);
+     y3[i] = 0.5*cos(2.4*x[i]+0.2)*exp(0.3*x[i]);
+     // printf(" i %i %f %f \n",i,x[i],y[i]);
+   }
+   TGraph *Agr1 = new TGraph(n,x,y);
+   TGraph *Agr2 = new TGraph(n,x,y2);
+   TGraph *Agr3 = new TGraph(n,x,y3);
+   
+   ThreeMGr->Add(Agr1);
+   ThreeMGr->Add(Agr2);
+   ThreeMGr->Add(Agr3);
+   
+   Agr1->SetLineColor(6);
+   Agr1->SetLineWidth(1);
+   Agr2->SetLineColor(49);
+   Agr2->SetLineWidth(4);
+   Agr3->SetLineColor(49);
+   Agr3->SetLineWidth(2);
+   
+   ThreeMGr->Draw("ACP");
+
+   xlabel( ThreeMGr, "xxx");  //-------------------------------------------
+   ylabel( ThreeMGr, "yyy");  //-------------------------------------------
+
+   cthr->Update();
+   cthr->SetGridx();
+   cthr->GetFrame()->SetBorderSize(12);
+   cthr->Modified();
+}
+ </textarea><br><br>
+
+<b>Here below the loading is done by gROOT->ProcessLine(".L axlabel.C") </b>
+<br>
+It is used for a TGraph object <br><br>
+file TOTnoname.C<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="22">
+{
+   gROOT->ProcessLine(".L axlabel.C");
+//
+//        script/macro     TOTnoname.C
+//
+TCanvas *Cnon = new TCanvas("Cnon","hallo",50,20,700,500);
+double xx1[20],yy1[20],xx2[20],yy2[20];
+  xx1[0]=1.0; yy1[0]=3.0;
+  xx1[1]=4.0; yy1[1]=1.0;
+  xx2[0]=1.0; yy2[0]=1.0;
+  xx2[1]=3.0; yy2[1]=2.0;
+  xx2[2]=5.0; yy2[2]=5.0;
+TGraph * graf1=new TGraph(2,xx1,yy1);
+TGraph * graf2=new TGraph(3,xx2,yy2);
+graf1->Draw("ACP");
+graf2->Draw("same");
+   xlabel( graf1, "X-label [sec]"); //-------------------------------------------
+   ylabel( graf1, "Y-label [cm]");  //-------------------------------------------
+Cnon->Modified();
+}
+ </textarea><br><br>
+ 
+</div>
+<big>
+ <a href="javascript:hide_text('AXLABELS');">Hide this part </a>
+</big>
+
+
+</div>
+
+
+
+
+-->         
+
+
+<br>
+<a name="LABEL_5_4">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>   <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br><br>
+<hr>
+
+<b><big>6. The task: Graphical solution of membership discount problem</big></b>
+<hr>
+The original version of this problem is about drinking beer in a student club.<br>
+Times have changed, so for us who prefer to live a healthy life the task is<br>
+reformulated here. You can just scroll down for a little bit of the history.</b>
+ <br>
+<!-- ---------------------------     FILENAME  4    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#D9EFD9"
+ cols="90" rows="21">
+
+Problem:
+Solve the following problem by using graphs in root:
+  The entry to the swimming pool is 50 kroner. 
+  One can become a member of the club - membership costs 220 kroner, 
+  but for the members the entry fee is reduced to 20 kroner. 
+  How many times one must go swimming  
+  in order to break even and start having the membersip benefit? 
+
+Solution:
+  This is about going to swim as public or as a member.
+  So you ned to have public_cost[n]  and member_cost[n] 
+  While  public_cost[0] = 0  the members have member_cost[0]=220
+
+  It should be clear how to construct this; max n=15 is a reasonable stop;
+
+Plot both graphs atop of each other. Construct a third graph which is the difference 
+of the two functions. 
+
+</textarea>
+<!-- ---------------------------    END FILENAME 4  ----------------------------- -->
+<br>
+
+The old version ... (also the prices are historical)
+ <br>
+<!-- ---------------------------     FILENAME  4    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#D9EFD9"
+ cols="90" rows="21">
+
+Problem:
+Solve the following problem by using graphs in root:
+  The beer price in a pub is 50 kroner. 
+  On friday nights, there is an entrance fee of 220 kroner, 
+  but the beer price is reduced to 20 kroner. 
+  How many beers does one have to drink on a Friday night 
+  in order to break even? 
+
+Solution:
+  This is about drinking n beers on a weekday and on a friday night
+  So you ned to have week_cost[n]  and friday_cost[n] 
+  While  week_cost[0] = 0   on friday friday_cost[0]=220
+
+  It should be clear how to construct this; max n=15 is a reasonable stop;
+
+Plot both graphs atop of each other. Construct a third graph which is the difference 
+of the two functions. 
+
+</textarea>
+<!-- ---------------------------    END FILENAME 4  ----------------------------- -->
+<br><b>
+
+&nbsp;&nbsp; <b>Hint: </b> use the graph example from the previous task. ( noname.C )<br>
+&nbsp;&nbsp; You can start with the method<br>
+&nbsp;&nbsp; &nbsp;&nbsp; gr1->Draw("ACP");<br>
+&nbsp;&nbsp; &nbsp;&nbsp; gr2->Draw("SAME");<br>
+&nbsp;&nbsp; but you will quickly find that the multigraph method is much more robust (limits)<br>
+
+<br>
+<a name="LABEL_5_5">
+<br><br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+<hr>
+<br>
+<b><big>7. Graphs vs histograms
+</big></b>
+<br><br>
+<!-- ---------------------------     FILENAME  5    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="56">
+In som parts  of science, one nearly never needs a histogram.
+In other areas of science, the histogram is one of the most used
+tools.
+
+What is a histogram?
+
+If we have a set of measurements (or any data) as e.g. ages, lengths, prices ...
+... and for example particle energies for large numbers of measured
+particles.
+
+Look at this small set of "data":
+
+2 5 2 3 6 4 5 1 2 2 5 
+
+1 appears 1 time
+2 appears 4 times 
+3 appears 1 time
+4 appears 1 time
+5 appears 3 times
+6 appears 1 time
+
+the function
+
+1 2 3 4 5 6
+1 4 1 1 3 1
+
+is called a histogram and is usually drawn using 
+box diagrams.
+
+The same set of numbers can be shown in many histograms - depending on how you
+choose the "bins", or the "counting intervals"
+
+Our above example - each number 1,2 .... 6  has its "bin"; 6 bins: 
+We can make the "bins" just 3  (1 and 2) (3 and 4)  (5 and 6)
+
+1 2 3 4 5 6
+1 4 1 1 3 1
+
+(1 2)  (3 4)  (5 6)
+  5      2      4
+
+If we now instead take a set of decimal numbers (results of measurements)
+we can do many different "binnings", i.e. divisions into intervals. 
+
+We know histograms from usual news graphics showing
+distributions, for example age distribution of people 
+registered for speeding.
+Another type often shown might be 
+how many people have iphone, android, win-phone,
+but these are more usually presented as cake-diagrams, and
+the variable is not numerical as the start.
+
+In science, the histograms are very useful to see for example the quality 
+of a measurement, discover hidden dependencies, etc.
+</textarea><br><br>
+
+
+
+
+
+&nbsp; Save the following as   <br>  
+
+&nbsp; &nbsp; &nbsp; &nbsp; graph_vs_histo.C  <br>
+&nbsp; run by                       <br>
+&nbsp; &nbsp; &nbsp; &nbsp; root  graph_vs_histo.C<br>
+<br>
+
+
+
+<!--   ==================================================================== -->
+
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="34">
+{     
+//   Compares histogram of cosine values 
+//   with a normal graph of a function
+//   filename:      graph_vs_histo.C   
+//
+int k,i; double x[80000],y[80000];  // 0 to 5 pi; 80 000 x-values
+for(k=0;k<80000;k++){x[k]=3.14159*k/16000.0; y[k]=cos(x[k]); }
+
+c1=new TCanvas("c1","Graph of cosine function",50,50,700,500);
+//
+//   GRAPH
+//
+gr = new TGraph(80000,x,y);
+  gr->SetTitle("Graph of the cosine function"); 
+  gr->Draw("ACP");
+    //   Note that the title here should be set before gr->Draw()
+//
+//      Histogram  - count how often each value occurs - 50 BINS
+//
+TH1D *thst=new TH1D("thst","Histogram of cosine values",50,-1.0,1.0); 
+   //  Histogram is filled in a LOOP !! 
+  for(k=0;k<80000;k++) thst->Fill(y[k]);
+   //
+c2=new TCanvas("c2","Histogram of cosine values",400,50,700,500);
+//
+    thst->SetMinimum(0);    //   Try without this - it starts with nonzero
+    thst->SetTitle("Histogram of cosine values");
+    thst->Draw();
+c2->Print("histogram.png");
+//  Changing to another canvas - make another canvas active:  canvas->cd()
+c1->cd();      
+c1->Print("graph.png");     
+}
+</textarea><br>
+<!-- ---------------------------    END FILENAME 5  ----------------------------- -->
+
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<table><tr><td>
+<img style="width: 576px;" src="data:image/x-vclgraphic;base64,
+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
+AElFTkSuQmCC
+">
+</td><td>
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--    END OF IMAGE                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+
+<img style="width: 576px;" src="data:image/x-vclgraphic;base64,
+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
+795E5Orq+umnnxLRypUr7e3tOY4zMTHR0NCwtrZmNadNm7Zu3TrFU23evHn69OkBAQFE9PXX
+X0dERFy9evXx48f3799/+vTpkCFDUlJSWrVqpaqevTInJ6fi4uKtW7f+9ddf+vr67dq1I6Kc
+nBxhbkebNm06dOhQVlamWEhEVlZWxcXFLyvkOE5HR0co/PuP1Ua4AAAAqrZ8+fI65y5YWFiw
+P9q1a1ddXV1ZWVmjgrOzc42SrKys8+fPnzhxgm2qqamJxeLg4OD79+/379/f0NBw4sSJ33zz
+TWP3oHFUVlZ6eHisX79+0aJF1dXVM2bMWL16dUxMTNu2bZ8+fSpUKy0ttbOzS0tLq1HYvXv3
+ioqK2oVt27bleV4ikRgbGwuFf7OpuBkBAABNRe2VhEoZGBj83//935P/unnz5ogRI4qLi3fv
+3l1UVPTDDz9cuHDhu+++exOt/ftu3bpVWlo6depUIlJXV586der58+eJyMbG5u7du6xOfn4+
+EXXr1q1Lly5CIRFlZ2f36dOnzkIrKysNDY2cnBxWeOfOnT59+vzNpiJcAAAAVSssLHz0v15W
+U1NTs7y8XC6Xv6zC2LFjY2Ji8vPzeZ6Pjo7u06dPZWXl0qVLt27dqqWlNXr06H79+j1//vzN
+9OPv6tKlS5s2bSIjI2UyWWVlZXR0NJtwMH369IMHDz59+vTZs2fLly8fOnSompqal5dXQUFB
+TEwMz/OHDh26ceOGs7NznYW6urpjxozZunWrXC7PyMjYuXPn8OHD/2ZTcTMCAABUbcGCBQsW
+LFAseVlA4Ojo2L59+06dOr0spAgKCvrjjz+sra3Nzc1lMtnhw4fbt2+/ePFiDw+PnTt3tmvX
+zsDAYPPmzY3fh8bQvn37Q4cOrVmzJjw8vLKy0tTU9Pjx40Tk7+9/6dIla2vrVq1aGRsbs0eB
+6+vrR0VFTZ8+fdGiRc+fP9+7d6+JiQkR1Vn4/fffDx8+3NTUtKioyN/ff/bs2X+zqRzP83+3
+u03G8OHDH2Rpz5pRXzKKVd84qKw9AAAtFsuY1ygr23meLy4u1tfXr6fOo0ePxGJxr169hFmN
+paWlmZmZVlZWRkZGf78Nb9r9+/dfvHhha2urofH/f8ZLJJKioiJbW1vFmhUVFSKRqEePHiyb
+Uz2FRCQSiTp06GBoaFjni77SZ9TcRheKnt/5JSWizl3DB8/b8fUfhIgBAOAfheO4+mMFIrKw
+sBCmSTLt2rVjeQv+EYSlH4qMjIxqxzra2tq1JyLUWUhEdnZ2jdTAZhcu6BrIhrib1Llr5eq+
+RCSXN5/RFAAAANVobuECsjoCAAA0OqyMAAAAACUQLgAAAIASqrgZ8csvv5w8ebJGobGxcXBw
+MBEVFhZGRUVdunTJ1dXV399fmM8ik8nOnj0bExNjbm7u7e2tOInjxo0bBw8eLCgo8PDwmDx5
+sgq6AAAA0JKpIlz4888/v//+e8WS8vLynj17BgcHV1VVDRkypLi4ePDgwSEhITExMefOndPS
+0iKi1atXh4WFjRkz5s8//wwPD09JSWEZxdPT052dnZ2cnDp27Ojr67t+/XqWYBwAAADeEFXc
+jFi4cOEzBVlZWbq6uuwZIVu3bhWLxWlpaVFRUZcvX05PT9++fTsRZWVlbdq0KTIy8vjx4+np
+6Y6Ojh988AER8Ty/YMGCCRMmXLlyJS4uLiwsLDg4+OHDhyroBQAAQIv1FuYuBAYGTp06dcKE
+CUS0f/9+X19fMzMzIurcubObm1tMTAwRHTlyxNDQkD3Hk+M4X1/f1NTUvLy87Ozs1NTUJUuW
+sFP5+fnJ5fLY2FjV9wIAAF5DdXX10aNHz507V6P85MmTp0+ffitNej0VFRX1pKZmKisrxWJx
+7fLHjx9XV1c3ensa94Q1qDpc2LdvX0pKSkhICBHxPJ+dne3m5ibstbW1zczMJCKRSOTq6spx
+nFDO87xIJBKJRBzHDRw4kJXr6+sbGRmxQwAAoOmrqKiYMmXK2LFji4qKhMKMjAwvLy82itz0
+PXr0aNasWaampubm5osWLaqqqnpZzfnz57PfxorOnDljZmaWm5tLRE5OTnr/a+vWra/anj/+
++GPQoEE6Ojq2trYJCQlEtHbt2hqn/Yc9M+LFixeffvrpmjVr2HzG3Nzc8vJyxeSUtra2RUVF
+1dXVIpGob9++iuVEJJFIcnNzdXR0FHNk2traSiQSYfPatWv1vCkPckp5nr9wpb1i4YULFxqj
+cwAA0FDm5ubHjh2bM2cO24yOjraysqrnutukbNy48cWLF3fu3Hn69Om4ceOcnJwCAgJqV4uO
+jj58+HCvXr0UC8ViseLDMvbu3SuVStnfeXl5s2fPHj169Cs1RiqVzpgxY9asWRcvXoyPj58y
+ZcqtW7dmz549ZswYoc7cuXNrRy2vSqWjC99//32rVq0+/PBDtsneI8XvB8dxxsbG6urqUqm0
+RjkRmZmZSaVSmUymeE6O40xNTVXRegAAaCSTJ0+OiooSNqOjo6dMmSJsxsXFOTs7W1hY+Pj4
+CIP5qampnp6epqam7u7ux44dI6J79+6NHDny6NGjDg4OqszRl5iYOHr0aAMDg+7du7u4uKSn
+p9eu8+DBg88//3zlypWKhTzPBwQEsFWBjL29/YABAwYMGNC/f/8dO3Zs3769R48eRPTw4cOJ
+Eyeam5sPHTq09o0bRcnJyQUFBZ9++qmmpubEiRPNzMyOHDlibm4+4L+uXr3apUuXxYsX/81e
+q250oaqqKiws7P333xfGBjp27EhEwgO5iaiwsJANKpiYmNQoJyJ7e3uRSFRWViYWi9mxiocw
+Dg4O9YwWrPv8ulzO45kRAABvl5eX1/bt2yUSiZGR0fXr19n6uB9//JGILl26NGPGjG3bto0Y
+MWLz5s0jR468ceMGx3GLFy/28fHZu3fvxYsXAwMDR40aJZVKL1682Lp16yNHjly4cGHBggVT
+pkyxt7d/042fO3duSEiITCbLz89PSEioPeWiurraz8/vm2++efHihWL5t99+q6urO3PmzHnz
+5tU4hD2R0sfHh4gqKiqGDRs2bty4zZs3X7t2bfLkyUlJSYpXOkUikcjBwUFN7T8//m1tbbOy
+soS9d+7cWb58eZ0BzatS3ejC+fPnc3Nz33//faFEV1fXzs4uIyNDKElKSmL5FZydnTMzM4WB
+hOTkZCsrKz09PRcXFyISDhGLxVlZWXU+VwMAAJosQ0PDoUOHHj16lIiio6MnT56srq7Odm3e
+vHn69OkBAQGWlpZff/11Tk7O1atXZTLZmjVrPv74Y11d3c6dOz9//jw7O5uI5HJ5ZGRkt27d
+AgMD7ezsbt26pYLGOzk5FRcXb926NSIiQl9fv127djUqrF27tlu3borjJUR09erVHTt27Nq1
+q/YJS0tLv/rqK+Ep27GxsWVlZZs3b7axsZk0adKYMWNYIFWnnJwcPT09YdPKyqq0tFTYXL16
+dWBgoJWV1Wt0swbVhQs///xz9+7dO3furFgYGBi4Z8+exMREuVx+4MCBlJSUSZMmEVFAQEBJ
+ScmKFSukUqlIJAoNDfX29iYie3t7FxeX4ODg/Pz8srKyoKCgbt26vSzmAgCAJsvb25vdj4iO
+jmb/wjNZWVmHDx82MTExMTGxsrJSU1MTi8UaGho5OTn9+vUzMTFZunSpUGgRsegAACAASURB
+VFldXd3E5D+PFWzXrl2NX/NvQmVlpYeHx5dffnn79u38/PwBAwbUuAly9erVbdu2+fr6/vbb
+b3fu3CktLf3tt98qKip8fHzmzJkjEomuXLnCquXn57NDvvvuO3t7e0dHR7YpEomKi4stLS3Z
+m/DTTz8VFBTMnTvX43+99957RNS2bdunT58Kr15aWtq9e3f29717944dO7Zo0aJG6bjqbkb8
+/PPPgwYNqlEYFBQkEonc3d01NTW1tLTCw8PZqoeuXbtGR0f7+Phs2bJFJpN5eXmxxRREFBsb
+6+7ubmlpqaamZmFhkZCQoK2trbJeAABAo3jvvfcWLFhw+vTpFy9eDB48OD4+npUbGBhMnjx5
+zZo1bPPBgwcmJiZXr15dtGhRcnLygAEDqqur27Zty+a0CYPwKnPr1q3S0tKpU6cSkbq6+tSp
+U4UJm0xRUVH37t1ZDFFQUJCfn7948eKYmBgDA4O4uLi4uDie54lo7dq1ixcvnjFjBhFt27aN
+5SJiDAwMunTpIoyUFBQUqKmpGRgY1NmeLl267N27V9jMzs5mv7qJaMeOHaNHjxbCqb9JdW/0
+n3/+GRkZWaOQ47iIiIiCgoLk5OTCwsLAwEBhl6enZ3Fx8aVLl54+fXrs2DFhnMrU1PTmzZu3
+b9++cePGvXv32KIJAAD4Z9HT0xs5cmRgYOCUKVMUr/pjx46NiYnJz8/neT46OrpPnz6VlZVZ
+WVnm5uZOTk5EFBkZWVFRwS66qtelS5c2bdpERkbKZLLKysro6GjWKolEsnv37hcvXowYMSLl
+v9asWdOzZ8+UlBQzMzOhMDk5mYiOHTvGYoXbt2/n5uYqrlwYNWpUdnb2zz//TEQ5OTkDBgxI
+TEx8WXu8vLwKCgpiYmJ4nj906NCNGzecnZ3ZrjNnznh5eTVWx5vEI6YMDAycnZ1Z7mdFmpqa
+AwYMUFxpKbC1tRXGWwAA4J/I29s7Ly9v2rRpioVBQUG9evWytra2sbFZsmTJ4cOH27dvP3Hi
+RGNjY2tr6y5dumRkZHh4eCjOhFOl9u3bHzp0KDY21szMzNjY+Pr16ywZ8d27d+fMmVNcXPyq
+Jzx37lzv3r11dXWFku7du+/cudPT07Nr1669evXy9vauMQ1Ckb6+flRU1MyZM83NzT/88MM9
+e/aw4YTHjx/fvHlz8ODBr9XLOnBvK0B7E4YPH87z/MWLF19WASsjAABUg91NeO3FjY8ePRKL
+xb169WrVqpVQmJOTY2xs3K5dO57nnzx58nZX0d+/f//Fixe2traKqYAa0fPnz0UiUadOnYyN
+jZVWrqioEIlEPXr00NTUbPhLvNJnpNI0TQAAAA1hYWFhYWFRo9DGxob90RQy7lhbW7/R87dv
+375///4NrKytrf2mFwk2t3Dh/v37wgSZGlSWwQMAAKCZaRJzFwAAAKApa26jC6rMAwoAANBC
+YHQBAAAAlEC4AAAAAEogXAAAAAAlEC4AAACAEs1tqiMAADR9t2/fPn36dEVFxahRo5ycnOp/
+9MOFCxesrKyEpAvMiRMn2FOLOY6zsbHp1avXK2UoagoqKys1NTXZwy9eSUVFRQMfliSTyaqr
+qxvlyUoYXQAAAJU6ePCgk5NTfHx8Xl5eYGBgp06dcnJyiOj69euzZ8+uXT80NPSXX36pUThj
+xoxVq1Zt3bp106ZNI0eO7NSp06+//qqK1jeGiooKPz8/Y2NjIyOjZcuW1dh748YNvVoePHhA
+RNu3b7e2ttbX1x85cmRBQQEROTk51ai5detW4VQfffTRwoULG6XNGF0AAACVWrp06bfffvvh
+hx8SkVwud3d3X79+/Q8//CCRSNhzlRpo3bp17CHOPM8vX7783XffvXfvnpGR0Ztqd+NZtWpV
+Xl7e/fv3S0tLhwwZYm1tPW/ePGFvly5dFN+HH3/8MS0tzdzcPDU1ddWqVQkJCb169Vq0aNG0
+adMSExP37t0rlUpZzby8vNmzZ48ePZqITp48efLkyb1799YZgb2G5hYuIKsjAEBTJpPJJBKJ
+MDyupqa2efPmhw8fZmVlzZ8/XywWu7q6/vbbb6mpqcHBwY8fPx43blxlZWX95+Q4buXKlWFh
+Ybt27friiy+qqqq+/PLL6OhoLS0tHx+fFStWiMXicePGHTx4kD2b8PTp0zt37oyLi3vjvX2J
+iIiIY8eOscEAX1/fffv2KYYLbdq0GTBgAPv7/v37J06c+PXXXzU0NCIjI6dNm8YyQy9cuLBv
+3765ubn29vasJs/zK1as2L59e48ePYjo4cOH7du3b8RnMeJmBAAAqI6Ghsb06dM//vhjf3//
+PXv23Llzx8HBwdPTkyXZMzQ0PHz4cEVFxejRox0dHQ8fPiyVSut5fLOgbdu2zs7ON2/eJKKl
+S5eeO3du3759UVFRx44dW7NmjYmJiaam5pEjR1jlPXv29OzZ88328+XEYnFJSQl77DUR2dra
+ZmVl1VmT5/mZM2cuXryYPWQyKyvL0dGR7eratSvHcYoHhoeHV1ZW+vj4sM2PP/7422+/dXFx
+aaxmN7fRBWR1BABo4vbu3evr6xsVFbVmzZoHDx64uLhs377dycnJxMREQ0PD2to6ISFBV1d3
+8+bNRLRly5Z///vfDTmto6Pjo0ePpFLpjh07zpw54+bmRkQrVqz47LPPvvzyy5kzZ0ZERHzx
+xRelpaXx8fHp6elvtpMvl5OTw3Gcjo4O27SysiotLa2z5smTJyUSCbtrww7U09Njf7dp06ZD
+hw5lZWVss7S09Kuvvvrpp5/eXLObW7gAAABNGc/zHMd5eHh4eHgQ0dWrVxcvXuzj46P4Q/ns
+2bNDhw5lf2tpaTk7OzfkzA8ePHB2ds7JyamqqvL19WUrDqqrq6urq4lo+vTpQUFB2dnZaWlp
+ffr0YSP2b0Xbtm15npdIJOzJ1KWlpS+7ZfD1118vWrRIeEB227Ztnz59KuwtLS21s7Njf3/3
+3Xf29vbC2MObgJsRAACgOgkJCfr6+lVVVWyzX79+n3/+eU5ODlsVyWhra7O1Eszt27eVnlYi
+kZw9e9bFxcXAwICIzp8//+TJkydPnuTm5l67do2IDAwMxo8fHxMTc/jw4ffff7+Re/UqrKys
+NDQ0hA7euXOnzmdPX7ly5fr168LNBSKysbG5e/cu+zs/P5+IunXrxja3bds2Z86cN9pshAsA
+AKA6zs7OGhoaISEhPM8TUUVFxeHDh/v166ehoaGpqVleXi6Xyz08PNLS0tiUhaNHjz558qTO
+Uz179qygoEAsFiclJQ0ePNjLy2vkyJEmJiaOjo67du2qqKgoKyubN2/e0qVLWf2ZM2f++9//
+TkpKmj59usr6W5uuru6YMWO2bt0ql8szMjJ27tw5fPhwIpJIJLt3737x4gWrdubMmSFDhgh3
+H4ho+vTpBw8efPr06bNnz5YvXz506FCWr+L27du5ubkTJkx4o83GzQgAAFAdAwODmJiYOXPm
+hIWFWVpaFhQUsCmNROTo6Ni+fftOnTo9evTos88+Y9kUOnToMGrUqDpPNWvWLCLiOK53797j
+x49ft24duwGxb9++9957LyYmpry83MnJ6eDBg6z+2LFj586dO3bsWF1dXRX19iW+//774cOH
+m5qaFhUV+fv7s7WOd+/enTNnzpgxY9q0aUNE586de/fddxWP8vf3v3TpkrW1datWrYyNjS9e
+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
+rkJggg==
+">
+<br>
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--    END OF IMAGE                                                -->
+</td>
+</tr></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a name="LABEL5_axisLAB">
+<br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+
+
+<!-- ---------------------------    EXTRA  axisLABELS  ----------------------------- -->
+
+<b><big>
+Extra point: 
+
+Simplified setting of axes labels - our own functions
+</big></b>
+<br><br>
+<small>The examples here are modifying functions used in part 5</small><br>
+We want to replace the complicated setting of x and y labels
+<br>
+file labels.txt<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFDDFF"
+ cols="90" rows="5">
+   ThreeGr->GetXaxis()->SetTitle("Dimensionless X");
+   ThreeGr->GetYaxis()->SetTitle("Functions");
+   ThreeGr->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+   ThreeGr->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+</textarea><br><br>
+ by simple two functions  xlabel( MyGraph, "label x"); ylabel( MyGraph, "label y");
+<br>
+<br>
+We do it by defining for general use file axlabel.C<br>
+which can be loaded when needed.<br>
+
+Note shortly how this must be done for graphs and multigraphs separately,<br>
+but as you will see it works well<br>
+(in C++ you can use the same function names if the arguments are of different type)<br>
+file axlabel.C<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="26">
+//
+// usage:  xlabel( MyGraph, "label x");   //------------------------------------
+//         ylabel( MyGraph, "label y");   //------------------------------------
+//
+//         MyGraph can be both simple TGraph  or TMultiGraph object
+//
+void ylabel( TGraph* GRAF, TString  Text ){
+   GRAF->GetYaxis()->SetTitle(Text);
+   GRAF->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+}
+void xlabel( TGraph* GRAF, TString  Text ){
+   GRAF->GetXaxis()->SetTitle(Text);
+   GRAF->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+}
+
+//  TMultiGraph *
+
+void ylabel( TMultiGraph * GRAF, TString  Text ){
+   GRAF->GetYaxis()->SetTitle(Text);
+   GRAF->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+}
+void xlabel( TMultiGraph * GRAF, TString  Text ){
+   GRAF->GetXaxis()->SetTitle(Text);
+   GRAF->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+}
+ </textarea><br><br>
+
+Here is an example when using <br>
+&nbsp; &nbsp; &nbsp; root  <br>
+&nbsp; &nbsp; &nbsp; .L axlabel.C   <br>
+&nbsp; &nbsp; &nbsp; .x lmultigraph.C   <br>
+( below are examples where loading is done by gROOT->ProcessLine(".L axlabel.C")) 
+<br>
+( NOTE: you can use gROOT->ProcessLine(".q") or  gROOT->ProcessLine(".x others.C")
+<br>
+file  lmultigraph.C <br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFDDDD"
+ cols="90" rows="51">
+{
+  cout << "\n\nTo run this without error \n.L axlabel.C\n.x lmultigraph.C\n\n";
+
+   //    Nameless script / macro   lmultigraph.C 
+   //
+   //    Draw three simple graphs  ADDS Axes labels
+   //
+   //    Using   TMultiGraph    
+   //
+   //    Author: L. Kocbach modifying R. Brun
+   
+   TCanvas *cthr = new TCanvas("cthr","ThreeM Simple Graphs",200,10,800,600);
+   TMultiGraph *ThreeMGr = new TMultiGraph();
+ 
+  const Int_t n = 100;
+  
+   Double_t x[n], y[n], y2[n], y3[n];
+ 
+  for (Int_t i=0;i<n;i++) {
+     x[i] = i*0.1;
+     y[i] =  5*sin(x[i]+0.2);
+     y2[i] = 10*sin(1.5*x[i]+0.2)*exp(-0.3*x[i]);
+     y3[i] = 0.5*cos(2.4*x[i]+0.2)*exp(0.3*x[i]);
+     //  printf(" i %i %f %f \n",i,x[i],y[i]);
+   }
+   TGraph *Agr1 = new TGraph(n,x,y);
+   TGraph *Agr2 = new TGraph(n,x,y2);
+   TGraph *Agr3 = new TGraph(n,x,y3);   
+   ThreeMGr->Add(Agr1);
+   ThreeMGr->Add(Agr2);
+   ThreeMGr->Add(Agr3);   
+   Agr1->SetLineColor(6);
+   Agr1->SetLineWidth(1);
+   Agr2->SetLineColor(49);
+   Agr2->SetLineWidth(4);
+   Agr3->SetLineColor(49);
+   Agr3->SetLineWidth(2);
+  
+   ThreeMGr->Draw("ACP");
+
+   xlabel( ThreeMGr, "xxx");  //-------------------------------------------
+   ylabel( ThreeMGr, "yyy");  //-------------------------------------------
+
+   // TCanvas::Update() draws the frame, after which one can change it
+   cthr->Update();
+   cthr->SetGridx();
+   cthr->GetFrame()->SetBorderSize(12);
+   cthr->Modified();
+ cout << "\n\nTo run this without error \n.L axlabel.C\n.x lmultigraph.C\n\n";
+}
+ </textarea><br><br>
+
+<b>Here below the loading is done by gROOT->ProcessLine(".L axlabel.C") </b>
+
+<br>
+file TOTmultigraph.C <br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="51">
+ {
+  gROOT->ProcessLine(".L axlabel.C");
+
+   //    Nameless script / macro   multigraph.C 
+   //
+   //    Draw three simple graphs
+   //
+   //    Using   TMultiGraph    
+   //
+   //    Author: L. Kocbach modifying R. Brun   
+   TCanvas *cthr = new TCanvas("cthr","ThreeM Simple Graphs",200,10,800,600);
+   TMultiGraph *ThreeMGr = new TMultiGraph();
+ 
+  const Int_t n = 100;  
+   Double_t x[n], y[n], y2[n], y3[n];
+ 
+  for (Int_t i=0;i<n;i++) {
+     x[i] = i*0.1;
+     y[i] =  5*sin(x[i]+0.2);
+     y2[i] = 10*sin(1.5*x[i]+0.2)*exp(-0.3*x[i]);
+     y3[i] = 0.5*cos(2.4*x[i]+0.2)*exp(0.3*x[i]);
+     // printf(" i %i %f %f \n",i,x[i],y[i]);
+   }
+   TGraph *Agr1 = new TGraph(n,x,y);
+   TGraph *Agr2 = new TGraph(n,x,y2);
+   TGraph *Agr3 = new TGraph(n,x,y3);
+   
+   ThreeMGr->Add(Agr1);
+   ThreeMGr->Add(Agr2);
+   ThreeMGr->Add(Agr3);
+   
+   Agr1->SetLineColor(6);
+   Agr1->SetLineWidth(1);
+   Agr2->SetLineColor(49);
+   Agr2->SetLineWidth(4);
+   Agr3->SetLineColor(49);
+   Agr3->SetLineWidth(2);
+   
+   ThreeMGr->Draw("ACP");
+
+   xlabel( ThreeMGr, "xxx");  //-------------------------------------------
+   ylabel( ThreeMGr, "yyy");  //-------------------------------------------
+
+   cthr->Update();
+   cthr->SetGridx();
+   cthr->GetFrame()->SetBorderSize(12);
+   cthr->Modified();
+}
+ </textarea><br><br>
+
+<b>Here below the loading is done by gROOT->ProcessLine(".L axlabel.C") </b>
+<br>
+It is used for a TGraph object <br><br>
+file TOTnoname.C<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFDD"
+ cols="90" rows="22">
+{
+   gROOT->ProcessLine(".L axlabel.C");
+//
+//        script/macro     TOTnoname.C
+//
+TCanvas *Cnon = new TCanvas("Cnon","hallo",50,20,700,500);
+double xx1[20],yy1[20],xx2[20],yy2[20];
+  xx1[0]=1.0; yy1[0]=3.0;
+  xx1[1]=4.0; yy1[1]=1.0;
+  xx2[0]=1.0; yy2[0]=1.0;
+  xx2[1]=3.0; yy2[1]=2.0;
+  xx2[2]=5.0; yy2[2]=5.0;
+TGraph * graf1=new TGraph(2,xx1,yy1);
+TGraph * graf2=new TGraph(3,xx2,yy2);
+graf1->Draw("ACP");
+graf2->Draw("same");
+   xlabel( graf1, "X-label [sec]"); //-------------------------------------------
+   ylabel( graf1, "Y-label [cm]");  //-------------------------------------------
+Cnon->Modified();
+}
+ </textarea><br><br>
+
+
+
+
+<!-- ---------------------------    END axisLABELS  ----------------------------- -->
+
+
+<br>
+<a href="#LABEL_TOP_5">Start of the Exercise</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>
+<br>
+  
+
+<br>
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_m1">
+1. Fitting of Gaussian peaks in histograms using Graphical User Interface</a>
+  <!-- <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+   &nbsp;
+                                          (10 min)
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_0">
+2. Ways of using root: Types of scripts/macros and their formats and uses</a>
+   &nbsp;
+                                             (10 min)
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_1">3. Simple programming constructs</a> 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ( 10 minutes )
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_2">4. Data types, sizeof(), Structures and strings </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                                               ( 15 minutes )
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_3">5. Graphs - plots of several functions</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     ( 10 minutes )
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_4">6. The task: Graphical solution of membership discount problem</a>
+  &nbsp;
+                                                <b>(35 minutes)</b>
+
+
+<br>
+&nbsp;&nbsp;&nbsp;
+<a href="#LABEL_5_5">7. Graphs vs histograms</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           ( 10 minutes )
+
+<br>
+&nbsp;&nbsp;&nbsp;
+ <a href="#LABEL5_axisLAB">Extra part on simpler function to enter labels/units on axes</a>
+
+<br><hr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<a href="#LABEL_TOP_5">Start of the text with 'Prolog'</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>   
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; 
+  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+
+
+<br>
+<br>
+Extra comment (from about 2021) : how to compare strings
+<br>
+<!-- ---------------------------     FILENAME  extra    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#505050; background-color:#EAFFEA"
+ cols="110" rows="14">
+// String comparison solution
+char s1[20],s2[20]; cout << "enter some connected text on each  line\n;
+cin>>s1;cin >> s2; if(strcmp(s1,s2)) cout << "diff\n"; else  cout << "equal\n";
+cin>>s1;cin >> s2; if(strcmp(s1,s2)) cout << "diff\n"; else  cout << "equal\n";
+//  repeat the second line many times ....
+//  We needed the separate definitin on first short line
+//  But with extra braces ( limiting the scope we can just repeat whole lines)
+{char s1[20],s2[20];cin>>s1;cin >> s2; if(strcmp(s1,s2)) cout << "diff\n"; else  cout << "equal\n";}
+{char s1[20],s2[20];cin>>s1;cin >> s2; if(strcmp(s1,s2)) cout << "diff\n"; else  cout << "equal\n";}
+{char s1[20],s2[20];cin>>s1;cin >> s2; if(strcmp(s1,s2)) cout << "diff\n"; else  cout << "equal\n";}
+//  The C-strings s1 and s2 are only local inside the braces {   }, 
+//               i.e. in the line only
+</textarea><br><br>
+<!-- ---------------------------    END FILENAME extra  ----------------------------- -->
+
+
+<br>
+<a href="#LABEL_TOP_5">Start of the text with 'Prolog'</a>  <br>
+<a href="#files_5">Downloading and Description  of the files</a>  <br>
+<a href="#5_Descript">Start of the Exercise Session Description</a>
+ &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  <a href="#LABEL_5_listings">Links to individual topics</a>
+<br>
+<br>
+
+
+
+</body>
+
+
+
+

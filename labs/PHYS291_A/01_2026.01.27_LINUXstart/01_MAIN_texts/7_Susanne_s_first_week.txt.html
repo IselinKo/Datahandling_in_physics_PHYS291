@@ -1,0 +1,145 @@
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+7_Susanne_s_first_week.txt
+</big>
+<br>
+<!-- ------------------   7_Susanne_s_first_week.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="115">
+
+This is a story for your homework.
+Read it and try to do the same things as our virtual Susanne
+
+---------------------------------------
+
+Our friend Susanne wants to do the following things.
+         As an exercise do it for her in your directory.
+
+For windows users only:  Learn to use cmd.exe (the command)
+Mac and Linux users have their terminals already present.
+
+------------------------------------------------------------------------------
+Inside cmd.exe or Terminal.app    running   ssh userId@ourUnix.uib.no
+------------------------------------------------------------------------------
+
+Susanne wants to place a directory (folder, in Norwegian Mappe )
+into the folder Documents
+
+First she checks where her terminal is looking to by pwd
+(forgotten what pwd does?  type "man pwd" )
+
+Then she changes the working directory directory  by "cd ~/Documents"
+She probably did not type all this:
+      Typing just     cd ~/Doc    and hitting  TAB did the job
+
+      Was it necessary to make  "cd ~/Documents"  or would "cd Documents"  do
+      the job?
+
+Then she wanted to make a new directory where to put this week's work
+      This she wanted to have in folder PHYS291 and inside of this
+      to have one more called week_Feb_1
+
+      Can you do the same?
+
+next time she made  
+   cd
+   cd Documents/PHYS291/week_Feb_1/
+
+and it worked
+   (actually she typed
+       cd Doc [TAB] PHYS29 [TAB] we [TAB]       why enough? TRY IT )
+
+pwd        (where is she - yes there she wants to be )
+
+then she wants to copy the .bash_history   - or ~/.bash_history
+
+     to a file called hist_Feb_1.txt   (in the workplace she made)
+----------------------------------------
+     now she wants to edit it, keep just some memorable parts
+     first she make a copy to keep a back-up
+        
+     she copies    hist_Feb_1.txt   hist_Feb_1_saved.txt
+
+     and then she does
+
+     nano  hist_Feb_1.txt
+
+In this part of her work she just uses lots of CTRL-K   or ^K as nano says
+to remove unwanted doublets and she remembers the misprints etc
+
+Then she says    ls -lrt     to see the results
+
+----------------------------------------
+
+Susanne did all her work on the login.uib.no   machine from home
+using her newly fetched PuTTY
+
+where she entered her UiB ID  sus004 as username - ( no sus004@student.uib.no )
+
+
+======================================
+Next day she came to another Linux machine, where she checked all this
+by entering to her friend's terminal
+
+       ssh sus004@login.uib.no
+
+In her Downloads she has the file 
+                 History_for_students.txt
+
+She copied it to her directory for the week PHYS291/week_Feb_1/
+
+======================================
+
+She learned how to copy - paste quickly. Try that too
+
+On Linux terminal - select a piece of text  by dragging the pressed-button-mouse
+       over the text   (that is already "copy" )
+
+        place the mouse (un-pressed) there the paste should go
+        press the middle button - i.e. press the wheel  that is paste
+
+In PuTTY  on windows:   select the text
+                        place the mouse
+                        press SHFT INSERT   (left shift - keypad INS ) is the PASTE
+
+
+======================================
+
+Susanne also bravely tried vi   ( also called vim on Ubuntu, both names mean the same )
+
+To get out of it she wrote
+:q
+
+But before that, she by chance ended in input mode.
+To get back to normal mode, just hit the [ ESC ] key
+
+and then
+:q
+to leave.
+
+Both Susanne and you can download the file
+
+</textarea><br>
+<!-- ---------------------   7_Susanne_s_first_week.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

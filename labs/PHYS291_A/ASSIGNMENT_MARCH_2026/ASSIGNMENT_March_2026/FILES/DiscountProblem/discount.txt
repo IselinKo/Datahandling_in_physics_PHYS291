@@ -1,0 +1,5 @@
+2026-03-19T15:18:24 CET
+
+If we assume you cannot buy a fragment of a beer:
+
+We can read from the plot displayed in "discount.png", produced by "discount.C" that if you buy 8 beers or more, you will break even going to the bar on a friday compared to a weekday. 

@@ -1,0 +1,187 @@
+///////////////////////////////////////
+test4.C
+///////////////////////////////////////
+
+//  No student work; provided ready made
+
+WRITE TO FILE   ofstream, open  <<  use
+
+ofstream m_out;
+m_out.open("test4.txt");
+m_out << k <<" " << k << " " << k << " " << k  << endl;
+cout << k <<" " << k << " " << k << " " << k  << endl;
+
+///////////////////////////////////////
+read4.C
+///////////////////////////////////////
+
+//  No student work; provided ready made
+
+READ FILE, demonstrates that NEW LINES  do not
+influence reading.
+
+Numbers are read after each other INDEPENDENT of LINES
+      m_in >> x >> y;
+      if (! m_in.good()) break; 
+as in part 1
+
+///////////////////////////////////////
+graphsdata.C
+///////////////////////////////////////
+
+//  No student work; provided ready made
+
+3 nice curves to use for plotting in multigraph
+       x=m*0.06;
+       y=sin(2*x)*exp(-0.3*x);
+       z=cos(2.5*x)*exp(-0.4*x);
+       w=0.7*sin(1.5*x)*exp(0.1*x);
+   m_out.open("graphsdata.txt");
+   m_out <<x<<" "<<y<<" "<<z<<" "<<w<<endl;
+The curves are stored as a text file
+no graphics
+///////////////////////////////////////
+readgraphs.C
+///////////////////////////////////////
+
+//  should be student work; based on read4.C
+    with added elements from earlier multigragh
+    
+Reads the graph data from a text file
+Making many graphs
+   double X[1000], Y[1000], Z[1000], W[1000]; 
+   TGraph * gr1 = new TGraph( nlines, X, Y);
+   TGraph * gr2 = new TGraph( nlines, X, Z);
+
+A multigraph definition
+   TMultiGraph *ThreeGr = new TMultiGraph();
+
+Setting graphs into the multigraph
+   ThreeGr->Add( gr1 );
+   ThreeGr->Add( gr2 );
+
+Draw the multigraph
+   ThreeGr->Draw("ACP");
+
+///////////////////////////////////////
+graphs_to_root.C
+///////////////////////////////////////
+
+//   cp    readgraphs.C   graphs_to_root.C 
+//   STUDENT WORK
+//
+     added:   construct ntuple 
+              ntuple  ->  ROOT FILE  graphsdata.root
+
+WHAT TO REMEMBER:
+
+root file
+    TFile *fdat = new TFile("graphsdata.root","RECREATE");
+TNtuple
+    TNtuple *ntuple1 = new TNtuple("ntuple1","data for plotting","x:y:z:w");
+in the loop:        
+    ntuple1->Fill(x,y,z,w);
+
+at  the end  write ntuple
+      ntuple1->Write();
+
+ADDED COMMENT
+or the earlier recommended:    ( THIS IS NOT IN THIS FILE )
+      fdat->WriteTObject( ntuple1, "ntuple1" );    // here you can change name
+e.g.
+      fdat->WriteTObject( ntuple1, "ntuple1" );
+
+///////////////////////////////////////
+testplot1.C  testplot2.C  testplot3.C
+///////////////////////////////////////
+
+Cloning and plotting tested - all used in the following 
+
+Make graph from ntuple data
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+  ntp->Draw("x:y","","l");  
+
+"x:y"   WRONG
+"y:x"  "z:x"  MUST BE USED
+  
+Fetching the graph from a TNtuple Draw
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+  ntp->Draw("y:x","","l");
+    
+  TGraph *tempgraph;
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+  //  clone the graph
+  TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+
+  mygraph->Draw("ALC");
+
+MOST IMPORTANT
+         tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+         TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+  ( the position of the object names - when cloning )
+
+///////////////////////////////////////
+graph_cloner.C
+///////////////////////////////////////
+
+//  No student work; provided ready made
+
+All three functions in three windows
+    TCanvas *c1= new TCanvas("c1","Canv 1",30,30,600,400);
+    ntup->Draw("y:x","","l");
+    TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+    ntup->Draw("z:x","","l");
+    TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+    ntup->Draw("w:x","","l");
+
+AS ABOVE IN  testplot3.C    clone 3 times
+TGraph *tempgraph;
+tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+
+PLOT the three CLONED GRAPHS  to a 4th Canvas
+        mygraph, yourgraph and hergraph
+
+mygraph->Draw("ACL");
+yourgraph->Draw("same");
+hergraph->Draw("same");
+
+THIS demonstrated how you can clone various graphs
+
+///////////////////////////////////////
+ntuple_graphs.C
+///////////////////////////////////////
+
+//  student work; modifying  graph_cloner.C
+All cloning etc done as in the above;
+except it all happens in one canvas only
+
+    when the graphs are cloned, 
+    mygraph, yourgraph and hergraph
+    are added to a multigraph
+
+
+   TGraph *tempgraph;
+    
+   ntup->Draw("y:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+   ntup->Draw("z:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *yourgraph = (TGraph*)tempgraph->Clone("yourgraph");
+   ntup->Draw("w:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *hergraph = (TGraph*)tempgraph->Clone("hergraph");
+
+   TMultiGraph *ThreeGr = new TMultiGraph();
+
+         ThreeGr->Add( mygraph ); 
+         ThreeGr->Add( yourgraph ); 
+         ThreeGr->Add( hergraph ); 
+
+Note the order of the  operations
+
+
+
+
+

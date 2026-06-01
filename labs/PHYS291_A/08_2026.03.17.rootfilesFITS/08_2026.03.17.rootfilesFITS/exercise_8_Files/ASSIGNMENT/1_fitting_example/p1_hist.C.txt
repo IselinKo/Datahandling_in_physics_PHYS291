@@ -1,0 +1,43 @@
+{
+//
+//     p1_hist.C   makes a root file   fitting1.root for tests 
+//
+//     TF1 Function   ->  histogram
+//     Save the histogram -> fitting1.root
+//
+TCanvas *cfun = new TCanvas("cfun","Function",30,30,700,500);
+
+//  This  Linear background and Gauss Peak function
+TF1 *plotfun=new TF1("plotfun","[0]-x*[1]+[2]*exp(-(x-[4])*(x-[4])*[3])",2,8);
+plotfun->SetParameter(0,4.0);      // Background linear const
+plotfun->SetParameter(1,0.4);      // Background steep
+plotfun->SetParameter(2,5.0);      // Peak size
+plotfun->SetParameter(3,2.0);      // reverse peak width
+plotfun->SetParameter(4,5.0);      // Peak position
+
+plotfun->Draw();
+plotfun->SetMinimum(0);            // plotted from 0 level
+cfun->Modified();
+
+TH1F *h1 = new TH1F("h1","Generated from plotfun",50,2,8);
+h1->FillRandom("plotfun",40000);  // values distributed with probability P(x)=plotfun(x)
+
+TCanvas *chist = new TCanvas("chist","Histogram",600,100,700,500);
+h1->Draw();
+
+int k;      // The following shows how to get values of histogram
+
+k=0;	   cout << k << "  " << h1->GetBinContent(k)<< endl;
+k=10;      cout << k << "  " << h1->GetBinContent(k)<< endl;
+k=25;      cout << k << "  " << h1->GetBinContent(k)<< endl;
+k=40;      cout << k << "  " << h1->GetBinContent(k)<< endl;
+
+TFile * fff= new TFile("fitting1.root","RECREATE");
+fff->WriteTObject(h1);
+fff->Close();
+}
+//  see also
+//  https://root.cern.ch/doc/master/classTF1.html
+//  https://root.cern.ch/root/html534/guides/users-guide/FittingHistograms.html
+
+

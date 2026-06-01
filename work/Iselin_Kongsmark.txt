@@ -1,0 +1,7 @@
+I mitt prosjekt i PHYS291, planlegger jeg å analysere og visualisere fMRI data av hjernen. 
+For å kunne bruke denne type data med ROOT, konverterer jeg rådataen fra .nii filer ved hjelp av Python pakkene NiBabel og Nilearn. Videre databehandling planlegger jeg å gjøre med C++ (for eksempel signalbehandling som båndpassfilter). 
+
+Planen er å produsere et 3D plot av hjernen over tid, hvor nivået av hjerneaktivitet er angitt av fargen til regionen. Videre velger jeg ut to dominerende hjerneregion, for å produsere et linjeplot som sammenligner aktiviteten over tid.
+
+
+Håper dette høres ok ut!

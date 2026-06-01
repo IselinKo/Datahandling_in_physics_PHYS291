@@ -1,0 +1,31 @@
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+
+gRandom->SetSeed();
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+
+gRandom->SetSeed();
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+cout << gRandom->Integer(10) << " "<<gRandom->Integer(10)<<" "<< gRandom->Integer(10)<<endl;
+
+///////////////
+
+cout << 1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+cout << 1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+
+cout << 1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+cout << 1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+
+gRandom->SetSeed();
+cout <<1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+cout <<1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+
+gRandom->SetSeed();
+cout <<1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+cout <<1+gRandom->Integer(6) << " "<<1+gRandom->Integer(6)<<" "<< 1+gRandom->Integer(6)<<endl;
+
+

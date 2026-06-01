@@ -1,0 +1,8 @@
+
+
+
+   ThreeGr->GetXaxis()->SetTitle("Dimensionless X");
+   ThreeGr->GetYaxis()->SetTitle("Functions");
+   ThreeGr->GetXaxis()->CenterTitle(true);          //  Axis label in the center
+   ThreeGr->GetYaxis()->CenterTitle(true);          //  Axis label in the center
+

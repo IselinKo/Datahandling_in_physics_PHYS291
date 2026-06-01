@@ -1,0 +1,2625 @@
+<html>
+<title>Exercise 8  Week  17.03.2026</title>
+<head>
+
+
+</head>
+
+
+<body style="font-family:monospace; font-size: 14pt; color:#202020">
+
+<a name="TOP_8_TOP">     
+<big><b>PHYS291 - Exercise 8 - Week with  17.03.2026</b>
+<hr>
+<b>Fitting of histograms and also graphs; From files; With two peaks;<br>
+Script-based work on multiple files and objects. Assignment hints.</b></big>
+<hr><br>
+<br>
+This week we explore automatic processing of several histogram in one file, selection of histograms<br>
+from a collection of other objects in the root files - and designing the root macro/script to  keep <br>access  to all the functions, fit parameters etc. <br><br>
+This year's version follows last year, but with an extended functionality.<br>
+It is a demanding project, you might need more help than usual, however in some way it gives a taste <br>
+of a "real work" with modification of existing codes/scripts. <br>
+<b> Please do ask questions! </b><br><br>
+
+The task last weak was to work with fitting of histograms stored in several root files. The idea <br>
+was to make a simple collection of scripts each working on one root file and then combining them <br>
+into one code. This time there are many histograms in one file and the stress is on putting this <br>
+all in one file. In the files provided with the Assignment this is shown in several versions.<br>
+Therefore we add the <b>Assignment</b>/Histogram Part files to the files of this exercise.<br>
+<br>
+The histograms we work mainly with this week have two peaks so that the fitting functions are<br> somewhat more complex. <br>
+<br>
+The fitting of histograms is most usual fitting type in our root  examples. However, to fit data <br>
+which are presented as functional dependence, i.e. graphs, can be also done. We have <br>
+a demonstration of this, since that can be very useful for some of your projects.<br>
+<br>
+In the previous  exercise the fitting of many histograms involved manual listing of the stored objects. 
+<br>Root provides lots of mechanisms to do this automatically, where a functions "looking in the files" <br>for you can provide the names types and of the objects.<br>
+This can have many variations - thus there are many possible examples and some of them are <br>
+included here, mainly as demonstrations which you should explore.<br>
+In the examples from the <b>Assignment</b> this is also shown - and the scripts work nicely
+<a name="E8_topics">
+<br>
+<br>
+
+<b>The description of topics and their links :</b> <br><br>
+&nbsp;&nbsp;
+<a href="#LAB_8_TREE">A Description and tree of provided files and directories</a><br>
+<a href="#fitting_graph">1. Fitting of points in a graph</a> (about 15 minutes) <br>
+<a href="#LOOP_to_FIT">2. Directory  2_LOOP_to_FIT - Main task today (about 30 minutes) </a><br>
+
+<a href="#FIND_OBJECTS">3. Directory 3_FIND_OBJECTS - simplified finding histograms 
+     (about 15 minutes) </a><br>
+
+<a href="#LOOP_WORKS">4. Directory 4_LOOP_WORKS: hints for Task of Ex 8. and 7. (find_histograms.C) </a>
+<br>
+<a href="#OBJECTS_in_files">5. Directory  5_OBJECTS_in_files - understanding 4_LOOP_WORKS</a><br>
+__________________________________________________________________________<br>
+
+The following material is supplementary. <br>
+It is recommended for better understanding 
+of the above 5 main parts. <br>
+<a href="#Task_7">6. Directory 6_TASK7 - Finding histogram names in Exercise 7 task</a><br>
+
+<br>
+<a href="#LABEL8_2">7. Extra material on ntuples, automatic processing  </a>
+<br>
+<a href="#LABEL8_3">8. Extra material on root files, object processing</a>
+<br>
+
+<br><br>
+
+The topics are fitting histograms with two peaks and working with <br>
+batch processing - or script-based (automatic processing) of many histograms. <br>
+These can be in many files, perhaps one per each file, or many histograms in <br>
+a single file. Or - what if the files contain also other objects? <br>
+<br>
+We start (see links above) by showing that also points in a graph (not only <br>
+in histograms) can be fitted in a very similar way as in histograms. <br>
+Here you should try to aply the same treatment to a different mathematical 
+function<br> 
+by simply modifying the provided script/macro. Note that here you will meet also <br>
+the random number production.
+<br><br>
+In the following  part there is the main task - process many <b>2-peak histograms </b>
+<br>
+stored in a root file.
+
+<br>
+This exercise is sort of continuation of Exercise 7. In a way it repeats <br>
+all the steps there, but now we work with <b>2 peaks histograms.</b><br>
+Further, the root-file methods (member functions of TFile) to list and<br>
+process objects stored in files are explored.<br><br>
+This text contains also additional material, including much of the 2018 version, <br>
+with added extra parts collected in the indicated directories. <br>
+<br>
+<a name="LAB_8_TREE">
+<b>The main task is in the directory 2_LOOP_to_FIT</b><br>
+<br>
+
+<b>The files including this one are in the provided ZIP File</b> <br>
+ 
+<br><br>
+
+
+
+<!-- -------------------------   files_ex_8.txt    TEXT    BEGIN    -------------------------- -->
+&nbsp; &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 13pt; color:#000000; background-color:#FFFFFF"
+cols="90" rows="86">
+exercise_8_files       (rearranged to follow the text)
+|-- 1_FITTING_GRAPH                  Fitting graphs, not only histograms
+|   |-- fitting_graph.C          example with a picture abd with a listing
+|   `-- fitting_graphALT.C       modified example, run this one
+|-- 2_LOOP_to_FIT      ==============   This is the main part of today's work
+|   |-- Task_loop_fit.txt
+|   |-- fit_twopeak.C       Demonstration of the 2-peak parameters choice (8 numbers)
+|   |-- fit.C               fit_twopeak.C fails fit, user asked to  .x fit.C
+|   |-- Do_Comments.txt            
+|   |-- Fragments_loop_fit.C.txt    
+|   |-- clean               ./clean   removes png files
+|   |-- fit_diff.C.txt      results of diff
+|   |-- makerootfuncs.C
+|   |-- one_fit.C           run this file; starting point
+|   |-- loop_fit.C          by now a copy of one_fit.C
+|   |-- simplefit.C         copied from HELP_FILES
+|   |-- six_hist.root       the data, 6 histograms         
+|   `-- HELP_FILES
+|       |-- clean              ./clean   removes png files
+|       |-- loop_fit_2022.C    run this: simpler analog of the final resut
+|       |-- one_fit_2022.C     run this: simpler analog of start
+|       |-- simplefit.C
+|       `-- six_hist.root
+|-- 3_FIND_OBJECTS                    simple examples how to handle objects
+|   |-- all_objects_find.C            find objects in any file
+|   |-- find_objects_hsimple.C        find objects in hsimple.root (from tutorials)  
+|   |-- find_objects_six_h.C          find objects in six_hist.root 
+|   |-- hsimple.root
+|   |-- opening.C                     opening a file: useful few lines
+|   `-- six_hist.root
+|-- 4_LOOP_WORKS                    Hints / Solutions for 2_LOOP_to_FIT                   
+|   |-- MixedRoot.root
+|   |-- auto_files_task7.C          identical to 6_TASK7/Process_All_Histo_Files.C
+|   |-- find_histograms.C           Try this one!!
+|   |-- our_LS.C
+|   |-- six_hist.root               the root file to work with 
+|   |-- tryfit_2019.C               Solution ?
+|   `-- tryfit_2022.C               Solution with better visualization               
+|-- 5_OBJECTS_in_files                        
+|   |-- MixedRoot.root
+|   |-- Object_TObject.txt
+|   |-- objects.C
+|   `-- our_LS.C
+|-- 6_TASK7                         Task exercise 7 with automatic identification
+|   |-- AllRoot_Form.C             to run by  "root *.root AllRoot_Form. "
+|   |-- Process_All_Histo_Files.C  Finds all files, all names, does all fits
+|   |-- automatic_get_histo.C      Given the file names, finds histograms
+|   |-- bergen.root
+|   |-- cambridge.root
+|   |-- oslo.root                  
+|   `-- fitting1.root
+`-- ASSIGNMENT/               ALL REST FROM HERE   Files from the assignment !
+    ├── 1_fitting_example/
+    │   ├── fitting1.root
+    │   ├── Roma.root
+    │   ├── Bergen.root
+    │   ├── AllRoot_Form.C          imported from   6_TASK7   for this
+    │   ├── p1_hist.C.txt           made fiting1.root 
+    │   ├── extragr_p2.C
+    │   ├── diff_p2_p2b_hist.txt
+    │   ├── p2_hist_fit.C
+    │   ├── p2R_hist_fit.C
+    │   ├── p2b_hist_fit.C
+    │   ├── should_be_report.txt
+    │   ├── readme.txt
+    │   └── report.txt
+    └── 2_Many_Root_Files/
+        ├── d_2018.root            6 times    2-peak  histo
+        ├── graphpict.root         only graphics
+        ├── canv2.root             only graphics
+        ├── Bergen.root
+        ├── OSLO.root
+        ├── cambridge.root
+        ├── fitting1.root
+        ├── berlin.root
+        ├── Roma.root
+        ├── Paris.root
+        ├── p2_hist_fit.C
+        ├── p2b_hist_fit.C
+        ├── p2R_hist_fit.C
+        ├── extragr_p2.C
+        ├── find_histograms.C         this is interesting showing one pict, waiting etc
+        ├── find_histogramsSLOW.C     waiting long
+        ├── find_histogramsHITkey.C   waits for ENTER  (the tree programs are identical)
+        └── root_files.txt            capture of the output from find_histograms
+
+</textarea><br>
+<!-- ---------------------------   files_ex_8.txt    END  TEXT ------------------------- -->
+
+<br>
+
+
+<a name="fitting_graph">
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<br>
+<!--     fitting_graph.C  START    -->
+<hr>
+<big><b>1. Fitting points in a graph, not only histogram</b></big>
+<hr>
+
+Try the provided file in root. Then inspect it, make a copy and try to <br>
+modify the copied script. This year there is also added a "more exciting <br>
+<b>fitting_graphALT.C</b> which has more complex behavior<br><br>
+First find where and how the random displacements are done. Try to make <br>
+them larger - and see how the fitting works. Especially the new file might<br>
+lead to some surprises.
+<br>
+Use about 15 minutes for this task
+
+<br>
+
+<table width="1200"><tr><td>
+
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+
+<img src="data:image/x-vclgraphic;base64,
+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
+">
+<br>
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--    END OF IMAGE                                                -->
+
+</td><td>
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+
+<img src="data:image/x-vclgraphic;base64,
+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
+gg==
+">
+<br>
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--                                                                -->
+<!--    END OF IMAGE                                                --> 
+
+
+</td></tr></table>
+<br> 
+ &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#A0FFFF"
+cols="90" rows="19">  
+Results and suggestions  for fitting_graph.C below
+----------------------------------------
+Fitting a randomly displaced  cos(0.1*x)
+----------------------------------------
+Starting values for p0 and p1 are: 
+p0=0.001      p1=0                   (note the comment in the program, try p0=0.0)
+----------------------------------------
+Final  values for p0 and p1 are: 
+p0=1.04884  p1=0.104638 
+========================================
+try  n=25; and modify below 
+          (0.5 +gRandom ...   to 2*(0.5+gRandom ... 
+          and further cos(0.1*i)  to  cos(0.2*i) 
+i.e. getting half of the points on the same interval
+EXPLORE OTHER SMALL MODIFICATIONS  ( n=12 points on the same range?)
+     other types of small displacements  ? 
+</textarea><br>
+<br><a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+<big>
+<p style="font-family:monospace;  color:#000000">
+fitting_graph.C (the file is provided)
+</big>
+<br>
+<!-- -------------------------   fitting_graph.C    TEXT    BEGIN    -------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E8E8FF"
+cols="90" rows="47">
+{
+//   fitting_graph.C  save as fitting_graph.C run as : root fitting_graph.C 
+//   example of fitting a graph
+//
+float xx[50], yy[50];
+int n=50; int i;  
+//    try  n=25; and modify below 2*(0.5+gRand ... and cos(0.2*i) 
+//    Could add   gRandom->SetSeed();  // now allways the same sequence
+cout << "\n\nFitting a randomly displaced  cos(0.1*x)\n";
+//
+   xx[0]=0.0; yy[0]=1.0;
+   for(i=1;i<n;i++){
+     xx[i]=xx[i-1]+(0.5+gRandom->Rndm());
+     yy[i]=(1.0+0.1*gRandom->Rndm())*cos(0.1*i);
+   }
+TGraph * grcos = new TGraph(n,xx,yy);
+grcos->SetTitle("Randomly displaced points of cos(0.1*x)");
+grcos->SetMarkerStyle(5);
+grcos->SetMarkerSize(1);
+TCanvas *cfit = new TCanvas("cfit","Fit Graph",700,150,600,400);
+TCanvas *Cpoint = new TCanvas("Cpoint","Data Graph",50,150,600,400);
+Cpoint->cd();
+grcos->Draw("AP");
+
+TF1 *ffunc = new TF1("ffunc","[0]*cos([1]*x)",0,50.0);
+//
+ffunc->SetParameter(0,0.001);   // Fit needs any NONZERO value !! TRY (0,0.0)
+//
+cout << "\n----------------------------------------\n";
+cout << "\nStarting values for p0 and p1 are: \n";
+cout<<"p0="<<ffunc->GetParameter(0)<<"  p1="<<ffunc->GetParameter(1)<<endl;
+
+TGraph * grcosf = new TGraph(n,xx,yy);
+grcosf->SetTitle("The points fitted by p0 * cos(p1*x)");
+grcosf->SetMarkerStyle(4);
+grcosf->SetMarkerSize(1);
+
+cfit->cd();
+grcosf->Draw("AP");
+grcosf->Fit("ffunc");
+cout << "\n----------------------------------------\n";
+cout << "\nFinal  values for p0 and p1 are: \n";
+cout<<"p0="<<ffunc->GetParameter(0)<<"  p1="<<ffunc->GetParameter(1)<<endl;
+// Cpoint->cd();  Cpoint->Print("Cpoint.png"); 
+//  cfit->cd();    cfit->Print("fit.png"); // for pictures
+}
+</textarea><br>
+<!-- ---------------------------   fitting_graph.C    END  TEXT ------------------------- -->
+   
+<!--     fitting_graph.C  END   -->   
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a name="LOOP_to_FIT">
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP --><br>
+<br>
+
+<!--   JUMP       2_LOOP_to_FIT          -->
+<br><hr>
+<BIG><B>  2. Six histograms in one file   2_LOOP_to_FIT        </b></BIG> 
+<br><hr><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+directory  2_LOOP_to_FIT  with files <br>
+
+&nbsp; &nbsp; Task_loop_fit.txt &nbsp; Do_Comments.txt &nbsp; one_fit.C &nbsp; Fragments_loop_fit.C.txt  <br>
+&nbsp; &nbsp; six_hist.root &nbsp; makerootfuncs.C and more as well as directory HELP_FILES/
+<br>
+<br>
+There are 6 histograms (with 2 peaks) in the root <b>file six_hist.root </b><br>
+They should all be made fits to and displayed and the idea is that this should be<br>
+a part of a (fictious) system allowing a further systematic comparison.<br>
+That is why all the functions, canvases, parameters of the functions should<br>
+be kept after the fits are made.<br>
+<br>
+Provided one_fit.C  only takes the first histogram, but is "prepared" to take them all ....  <br>
+Your task is to produce a NEW file  loop_fit.C based on  one_fit.C <br>
+The "new file" is already provided, but now it is simply a copy of one_fit.C <br>
+The hints are contained in  Fragments_loop_fit.C.txt (some parts of the wanted loop_fit_all.C )
+<br>
+<hr>
+The detailed description is in Task_loop_fit.txt  and there are further suggestions in <br>
+the file Do_Comments.txt  (these two files are reproduced here, <br>
+but you should work in the provided directory 2_LOOP_to_FIT/ ) <br>
+    <br>
+ Also the file makerootfuncs.C  is reproduced here  below.  <br><br>
+   
+Before producing  many new  2-peak fits we should look first at the actual method to handle<br>
+the parameter choice for good fit start, as we did for the single peaks.<br>
+The files fit_twopeak.C  and its real 2-peak-fit part fit.C are listed next, the actual task <br>
+description continues below the two scripts, under the light blue text of fit.C .<br>
+<br>
+   
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+fit_twopeak.C
+</b></span><br>
+<!-- ------------------   fit_twopeak.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="45">
+{
+//   fit_twopeak.C
+//   
+//   TF1 *twogaus=new TF1("twogaus",fun4,-4.0,4.0);
+//
+//   cout <<  twogaus->GetRandom() << "  \n";
+//
+TCanvas *cfunO = new TCanvas("cfunO","Function",350,50,600,400);
+TCanvas *chistO = new TCanvas("chistO","Histogram",300,350,600,400);
+
+//
+//   ADD long functions into strings
+//  
+    TString fun1 = "[0]-[1]*x";
+    TString fun2 = "+[2] * exp(- (x-[4])*(x-[4]) * [3] )";
+    TString fun3 = "+[5] * exp(- (x-[7])*(x-[7]) * [6] )";
+    TString fun4 = fun1  + fun2 + fun3;
+
+    TF1 *twopeak=new TF1("twopeak",fun4,-4.0,4.0);
+    TF1 *twogaus=new TF1("twogaus",fun4,-4.0,4.0); // clone in easy way
+
+double params[8]={4.0, 0.35, 3.0, 5.0,   -2.0, 5.0, 4.0,  1.5};
+//                a    b     c  inv_width pos  c  inv.w. pos
+//
+    twopeak->SetParameters(params);
+    twogaus->SetParameters(params);    // clone in easy way
+cfunO->cd();
+    twopeak->Draw();
+    twopeak->SetMinimum(0);   // to start plot from y=0
+cfunO->Modified();
+
+chistO->cd();    
+    TH1F *htwo = new TH1F("htwo","x distribution",100,-4,4);
+htwo->FillRandom("twogaus",10000);
+htwo->Draw();
+htwo->SetMinimum(0);   // to start plot from y=0
+chistO->Modified();
+twogaus->SetLineColor(kOrange);
+htwo->Fit("twogaus");
+       //  Preserve the fit by fetching and cloning
+       TF1 *fitfun=(TF1*)htwo->GetFunction("twogaus");
+       TF1 *savefun=(TF1*)fitfun->Clone("savefun");
+cout << "\n\n   bad start parameters for fiting  \n";
+cout <<     "   type   .x fit.C   \n\n";
+}</textarea><br>
+<!-- ---------------------   fit_twopeak.C    END  TEXT ----------------- -->
+   
+   
+   
+    
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+fit.C
+</b></span><br>
+<!-- ------------------   fit.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E8E8FF"
+cols="100" rows="50">
+{
+//    script   auto_param.C
+//
+//     Automatic assignment of parameters
+//     for general two Gaus peaks with linear background 
+//        "[0]-[1]*x";
+//        "+[2] * exp(- (x-[4])*(x-[4]) * [3] )";
+//        "+[5] * exp(- (x-[7])*(x-[7]) * [6] )";
+//         TString fun4 = fun1  + fun2 + fun3;
+//
+//     Parameters  0   to  7
+//
+//     test with       fit_twopeak.C
+//                        p0   p1    p2   p3     p4   p5    p6    p7
+//     double params[8]={4.0, 0.35, 3.0, 5.0,   -2.0, 5.0, 4.0,  1.5};
+//                        a    b     c  inv_width pos  c  inv.w. pos 
+//
+
+TF1 *twogausfit=new TF1("twogausfit",fun4,-4.0,4.0);
+double nparams[8];
+int NBINS=htwo->GetNbinsX();
+double lefty = htwo->GetBinContent(1);
+double righty = htwo->GetBinContent(NBINS-1); 
+double leftx = htwo->GetBinCenter(1);
+double rightx = htwo->GetBinCenter(NBINS-1);
+
+nparams[0]= lefty;    //  Left  end value
+nparams[1]=-( righty - lefty ) / ( rightx - leftx );
+
+nparams[2]=htwo->GetMaximum() - (lefty + righty )/2.0;
+nparams[5]= nparams[2];
+
+nparams[4]= rightx - (rightx-leftx)/3.0;
+nparams[7]= leftx + (rightx-leftx)/3.0;
+
+nparams[3]= 10.0/(rightx-leftx);
+nparams[6] = nparams[3];
+
+twogaus->SetParameters(nparams);
+htwo->Fit("twogausfit");
+
+double fitparams[8];
+twogausfit->GetParameters(fitparams);
+                     
+for (int i=0;i<8;i++) printf("        p%d  ", i);         printf("\n");
+for (int i=0;i<8;i++) printf("%11.2lf ", fitparams[i]);    printf("\n");
+savefun->Draw("SAME");
+
+}
+</textarea><br>
+<!-- ---------------------   fit.C    END  TEXT ----------------- -->
+   
+   
+     
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+Task_loop_fit.txt
+</b></span><br>
+<!-- ------------------   Task_loop_fit.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="85">
+content of the directory 2_LOOP_to_FIT/
+
+makerootfuncs.C           generating six_hist.root   // not used unless ...
+six_hist.root             root file with 6 histogtams
+simplefit.C               simplified  version of one_fit.C 
+one_fit.C                 *** starting point here - can not be edited
+loop_fit.C                now identical to one_fit.C your task is to edit it
+Fragments_loop_fit.C.txt  shows parts of the file loop_fit.C
+fit_diff.C.txt            as above, but showing differnces
+Task_loop_fit.txt         your task, this file
+
+The file one_fit.C  does the job of reading and fitting one of the histograms
+in the root file six_hist.root 
+Inspect the one_fit.C and check that a histogram is picked by its name
+not by its "position" in the list
+( for getting the histogram, its name ( Names[k] ) rather than its position (k)
+  is used; Note that Names[k] is used to construct   HistName="LL_"+Names[k] 
+  a feature added just to add a bit of complexity to the task) 
+
+The program loop over all the Names[ ] and thus all the histograms is  present
+in one_fit.C, but is commented out, and only one k is processed
+
+There is  one_fit.C as your starting point (write-protected) - but there is also
+          loop_fit.C - on start a copy of one_fit.C - WORK ON THIS FILE
+          simplefit.C     which is about half of the size
+          simplefit.C has about 20% less lines, and much shorter NAMES
+          also some features are missing 
+          simplefit.C is easier to analyze - you should consult it too
+                  for getting a simpler view of the codes
+
+The task is to make a program loop_fit.C by modifying
+the program one_fit.C to take all the six histograms, make all the windows
+and all the fits, in principle simply by replacing the relevant variables
+(or objects, or pointers) by ARRAYS of the same type.
+         Actually, simplefit.C is obtained from  4_LOOP_WORKS/tryfit_2022.C
+         ( that is also here in the )
+         which is a simpler version of the file you should make
+         from 2022 - with a somewhat different aims
+
+
+In your task - producing loop_fit.C from one_fit.C
+Some of the object pointers in one_fit.C are already made to be arrays, 
+some names refer to just one pointer - and those changes are your task.
+(example: there is   
+                TF1 * plotfun[6];  done - but also  
+                TF1 * tryfun;      your task to change)
+
+A special feature are the parameters, the array of parameter values.
+Each of the function objects carries "their own" parameters inside itself,
+but the array   nparams[ ] is used to enter them, as in  twogaus->SetParameters(nparams);
+
+We recommend in here that since there will be twogaus[k]  we also use
+   double array nparams[k][ ]      leading to  twogaus[k]->SetParameters(nparams[k])
+For setting the parameters (before fit) a single array could be used (objects keep them)
+but it will be useful for a feature that you should include:
+   after the fit, the resulting parameters should be placed back to replace the 
+   starting values    
+
+This is rather complex work, so we have done it for you; 
+       this double array nparams[ ][ ]
+       is already present in this 2025 version of one_fit.C
+
+The file Fragments_loop_fit.C.txt is taken from our solution of your task (our loop_fit.C) :
+it gives hints on how to modify  one_fit.C to become loop_fit.C
+( how prepared: we made our version of loop_fit.C  and extracted some fragments
+  There is also a file fit_diff.C.txt  obtained  by   using the utility diff (list differences)
+              diff loop_fit.C  one_fit.C > fit_diff.C.txt
+     (in fact, one can simply take one_fit.C and manually edit it (by removing and adding)
+         the differing lines; BUT DO NOT DO THAT - lots of work and you learn nothing
+         rather follow the Fragments_loop_fit.C.txt  and reconsider all of the changes )
+  
+Also included is makerootfuncs.C which made the file   six_hist.root
+This present version puts the histograms into a new  N_six_hist.root to  avoid a mess
+It might also be helpful since it reports the  used 6 sets of parameters
+in fact in the same format as the proposed last few lines of loop_fit.C 
+
+It will be very interesting to compare the data used to make the histograms
+with the data found from the fits.
+They can not be all of them the same, since they contain different totals.
+But what about the peak positions etc 
+See also in Do_Comments.txt
+
+
+
+</textarea><br>
+<!-- ---------------------   Task_loop_fit.txt    END  TEXT ----------------- -->
+   
+   
+   
+
+
+
+
+
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+  
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+Do_Comments.txt
+</b></span><br>
+<!-- ------------------   Do_Comments.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="39">
+When you get too many PNG-files,  simply  run  ./clean clean removes all PNG
+
+Make comments during your work related to the following
+
+what is the role of twogaus[6]   plotfun[6]    tryfun[6]   what are they?
+
+why is there tryfun[6]   when we  use  twogaus[6]  for fitting
+(hint - see the plot of function(s)  in canvfunc canvas )
+
+Why do we want to keep all the twogaus, plotfun, tryfun as arrays?
+Why not just one of each of these functions, and re-use them 
+for all histograms ?       Hint:  do we want to keep their plots?
+
+
+how are the nparams constructed - and what (why, how) they 
+            finally contain the results of fitting
+comment in the code WHERE the results of fitting 
+
+comment - what are the parameters stored in plotfun[k] and tryfun[k]
+
+In the HELP_FILES  there is a much simpler version of the main task -> loop_fit.C
+   one_fit_2022.C    and  loop_fit_2022.C
+   simplefit.C  is a stripped versiob of one_fit_2022.C with shorter names etc
+   simplefit.C  is also copied to this directory
+
+   these files should help you to understand more about the methods
+   
+--------------------------------
+At the end of the Fragments_loop_fit.C.txt  there is the part about
+      The following  four lines are added to do  the the reporting  
+      of all the  resulting fitted parameters 
+      containing also
+      ....    for(int I=0;I<8;I++) printf(" %7.2f ",nparams[row][I]);
+
+if you run also makerootfuncs.C it will create the same format of a list
+Explain what is the same and what different in those two lists
+Add as comments if suitable
+
+</textarea><br>
+<!-- ---------------------   Do_Comments.txt    END  TEXT ----------------- -->
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+<br>  <b> makerootfuncs.C </b>   (included for completeness; produced the file 
+<b> six_hist.root </b><br>
+<!-- --------------    makerootfuncs.C   TEXT    BEGIN    -------------------------- -->
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows="71">
+{
+//    write_twopeak.C   changed to 
+//    makerootfuncs.C
+//   
+//   TF1 *twogaus=new TF1("twogaus",fun4,0,8);
+//
+//   cout <<  twogaus->GetRandom() << "  \n";
+//
+
+  TFile * fff= new TFile("N_six_hist.root","RECREATE");
+// TFile * fff= new TFile("exerc_8_2019.root","UPDATE");
+
+int nhi=6;
+
+TCanvas * Ncanv[100]; 
+TH1F * Nhist[100];
+TString hnames[]={"both", "asym", "single", "close", "far", "flat"};
+
+
+int Npoints[] = {50000,20000,200000,80000,50000,50000};
+int Nbins[]={150, 100, 125, 150, 100, 50};
+double Amin=  0.0;
+double Amax=  8.0;
+
+TString OBJNAME;
+//
+//   ADD long functions into strings
+//  
+    TString fun1 = "[0]-[1]*x";
+    TString fun2 = "+[2] * exp(- (x-[4])*(x-[4]) * [3] )";
+    TString fun3 = "+[5] * exp(- (x-[7])*(x-[7]) * [6] )";
+    TString fun4 = fun1  + fun2 + fun3;
+
+    TF1 *twogaus=new TF1("twogaus",fun4,Amin,Amax);
+
+
+double *params[100];
+double vec0[]={2.0, -0.095,   4.0, 1.0,   2.0,    3.0, 1.0,  5.5};
+double vec1[]={3.0, 0.095,   2.0, 3.0,   3.0,    4.0, 3.0,  4.5};
+double vec2[]={2.0, -0.055,   3.0, 2.0,   4.0,    0.0, 0.0,  0.0};
+double vec3[]={4.0, 0.015,   3.0, 1.6,   2.0,    4.0, 1.0,  4.5};
+double vec4[]={4.0, -0.012,   4.0, 4.0,   2.0,    6.0, 4.0,  3.5};
+double vec5[]={4.0, 0.005,   6.0, 0.7,   3.0,    4.0, 0.5,  6.5};
+params[0]=vec0; params[1]=vec1; params[2]=vec2; params[3]=vec3;
+params[4]=vec4; params[5]=vec5;
+
+
+//                a    b       inv_width pos  c  inv.w. pos
+//
+int i;
+for (i=0;i<nhi;i++)   {
+
+    Ncanv[i] = new TCanvas("Can"+hnames[i],hnames[i],30+i*100,30+i*50,600,400);
+
+    Ncanv[i]->cd();    
+    Nhist[i] = new TH1F(hnames[i],hnames[i]+" distribution",Nbins[i],Amin,Amax);
+    twogaus->SetParameters(params[i]);
+    Nhist[i]->FillRandom("twogaus",Npoints[i]);
+    Nhist[i]->SetMinimum(0); 
+    Nhist[i]->Draw();
+    OBJNAME="LL_"+hnames[i];
+
+    fff->WriteTObject(Nhist[i],OBJNAME);
+    fff->ls();
+   }
+    for(int row=0;row<6;row++){
+       for(int I=0;I<8;I++) printf(" %7.3f ",params[row][I]); 
+       cout << "    LL_"<<hnames[row] << endl;
+    }
+}
+</textarea><br>
+
+
+<!-- --------------    makerootfuncs.C   TEXT    END      -------------------------- -->
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+<a name="FIND_OBJECTS">
+<br>
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<hr>
+<big><b>3. Finding objects in a root file</b></big>
+<hr>
+Explore files in directory 3_FIND_OBJECTS. Presented is a method which you can use<br>
+for automatic processing of e.g. histograms or ntuples stored in one or many <br>
+root files. This is also shown in more detail in other directories below.<br>
+
+
+&nbsp; &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 13pt; color:#000000; background-color:#FFFFFF"
+cols="90" rows="10">
+exercise_8_files                   ( cut from the main tree )
+|   
+|-- 3_FIND_OBJECTS                   simple examples how to handle objects
+|   |-- all_objects_find.C            find objects in any file
+|   |-- find_objects_hsimple.C        find objects in hsimple.root (from tutorials)  
+|   |-- find_objects_six_h.C          find objects in six_hist.root 
+|   |-- hsimple.root
+|   |-- opening.C                     opening a file: useful few lines
+|   `-- six_hist.root
+</textarea>
+<br>
+
+<big>
+<p style="font-family:monospace;  color:#000000">
+all_objects_find.C
+</big>
+<br>
+ Note: the first part about choosing the file is the content of the openning.C
+<br>
+<!-- ---------------------------   all_objects_find.C    TEXT    BEGIN    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="36">
+{
+
+  TString Filename;
+  cout << "enter the name of the root file\n";
+  cin >> 	Filename;
+  TFile *fff = new TFile(Filename);
+
+TString ObjName;         TString A_ObjNames[100];
+TString ObjTitle;        TString A_ObjTitles[100];
+TString ObjClass;        TString A_ObjClasses[100];
+  
+TList *LKEYS=fff->GetListOfKeys();   // TList - list of objects - from a directory
+int N_of_keys= LKEYS->GetEntries();  // we have full control over the amount
+                                     // can repeat any number times, up or down..
+ObjTitle = LKEYS->At(0)->GetTitle();
+ObjName  = LKEYS->At(0)->GetName();
+//  But we need TKey to use GetClassName()  
+
+TKey * mykey;
+
+for (int k=0; k < N_of_keys; k++ ) {
+   mykey = (TKey*) LKEYS->At(k) ;
+   ObjClass=mykey->GetClassName();   A_ObjClasses[k]= ObjClass;
+   ObjName=mykey->GetName();         A_ObjNames[k]  = ObjName;
+   ObjTitle=mykey->GetTitle();       A_ObjTitles[k] = ObjTitle;
+   cout << "Class string  " << ObjClass << endl;
+   cout << "Object Name   " << ObjName << endl;
+   cout << "Title         " << ObjTitle << endl;
+      if (   ObjClass=="TH1F"  ) cout << "\t\t ******* TH1F - is a histograms \n";
+   cout << "----------------------------------------\n";
+   }
+cout << "-----------\nProcessing all content\n-----------\n";
+for (int k=0; k < N_of_keys; k++ ) {
+   cout << k+1<<".   "  << A_ObjClasses[k] << "\t  " << A_ObjNames[k]  <<  endl;
+   }
+}</textarea><br>
+<!-- -----------------------------   all_objects_find.C    END  TEXT ---------------------------- -->
+   
+   
+   <a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+   
+   
+   
+
+<hr>
+<br>
+<hr>
+
+
+<a name="LOOP_WORKS">
+<br><br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP --><br>
+<br>
+<!--    JUMP     4_LOOP_WORKS      -->
+
+<br><hr>
+<BIG><B>   4. Directory  4_LOOP_WORKS  - towards solutions of the main task today   </b></BIG>
+<hr><br>
+Here are collected various solutions of the present and previous task.<br>
+They are not documented, some are actually made by students.<br>
+If you can not find the solution, it might be useful to run and browse these files<br>
+to get some hints<br><br>
+
+There are these files present:
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFFB"
+cols="99" rows="20">
+
+4_LOOP_WORKS                               
+        4_LOOP_WORKS/MixedRoot.root       ROOTfile  (copied from 5_OBJECTS_in_files)
+        4_LOOP_WORKS/exerc_8_2018.root    ROOTfile        2018 task
+        4_LOOP_WORKS/six_hist.root        ROOTfile         2019+2020 task 
+        4_LOOP_WORKS/tryfit_2019.C        handles all in six_hist.root
+        4_LOOP_WORKS/tryfit_2022.C        as 2019, but compares initial and fitted
+        4_LOOP_WORKS/auto_files_task7.C   from 6_TASK7 - run it there, study here
+        4_LOOP_WORKS/our_LS.C             gives output similar to TFilePointer->ls() 
+        4_LOOP_WORKS/find_histograms.C    THE MOST IMPORTANT FILE HERE - documented
+
+tryfit_2019.C   and  tryfit_2022.C   are two  solutions to the task in the previous     
+2_LOOP_to_FIT      
+        2_LOOP_to_FIT/loop_fit_task.txt          description
+        2_LOOP_to_FIT/fitFragment.C.txt          parts of code
+        2_LOOP_to_FIT/loop_fit.C                 (runs but no loop yet)
+        2_LOOP_to_FIT/makerootfuncs.C            this made six_hist.root
+        2_LOOP_to_FIT/six_hist.root
+</textarea><br>
+
+
+<br>As an example, the following file finds all the histograms in all<br>
+of the root files in the directory and plots them (no fit though).<br>
+It also shows a very interesting trick, the command <b> system("ls -l") </b>
+<br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+find_histograms.C
+</big>
+<br>
+<!-- -------------------------   find_histograms.C    TEXT    BEGIN    -------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFC0C0"
+cols="99" rows="61">
+
+{  
+   TString filname[100];        //  Many files
+   TFile   *rfile[100];
+   TString canvname[1000];      //  Many more TCanvases
+   TCanvas * Ncanv[1000];  
+   TString Histname[1000];      //  and same number Histograms
+   TH1F * Nhist[1000];          //  (pointers to them)
+
+   TString ObjName;     // only one 
+   TString ObjTitle;    //         OBJect treated
+   TString ObjClass;    // only one  ObjName, ObjTitle, ObjClass
+   TList *LKEYS;        // list of KEYs in a file - only one list is needed    
+   TKey * mykey;        // LKEYS  and mykey are there to handle KEY in the list  
+   ifstream instr;      // only one input list is needed  
+   int N_of_keys;       // The number of entries in the given file
+   
+   system("ls *.root > rootfileslist.txt");   // make the list of root files
+   instr.open("rootfileslist.txt");           // open for reading
+   int nfiles = 0;  int i=0; int kk=0;        // kk - histograms
+
+   while (1){                   // root files obtained from rootfileslist.txt
+      instr >> filname[i]; if (!instr.good()) break;nfiles++; i++;}
+
+   for (i=0;i<nfiles;i++) {    //  i=0;
+      cout <<  filname[i] << endl;    
+      rfile [i] = new TFile (filname[i]);    //  rfile[i]->ls();  not needed
+      LKEYS = (TList*) rfile[i]->GetListOfKeys();
+      N_of_keys =  LKEYS->GetEntries();
+      for (int k=0; k < N_of_keys; k++ ) {
+           mykey = (TKey*) LKEYS->At(k) ;
+           ObjClass=mykey->GetClassName();
+           ObjName=mykey->GetName();
+           ObjTitle=mykey->GetTitle();
+           cout << "    Class string: " << ObjClass;
+           cout << "    Object Name: " << ObjName;
+           cout << "    Title: " << ObjTitle << endl;
+         if (   ObjClass=="TH1F"  ) {
+             canvname[kk] = filname[i]+"____"+ObjName;
+             Histname[kk]=ObjName;
+             Nhist[kk] = (TH1F*) rfile[i]->Get(Histname[kk]);
+             Nhist[kk]->SetTitle(canvname[kk]);
+             Ncanv[kk] = new TCanvas(canvname[kk],canvname[kk],30+kk*80,30+kk*30,600,400);       
+             Nhist[kk] ->Draw();
+             kk++;
+           }     //  if the class  is a histogram TH1F
+      }    // ends loop over  the KEYs in the file
+    }   // ends loop over files   for(i=0;i<nfiles;i++) 
+
+   /*
+   canvname[1]                     THIS USED FOR TESTING; useful for other tasks
+   Ncanv[1]->cd()
+   TLine *L = new TLine(0,0,8,1000)
+   L->Draw()
+   L->SetLineWidth(8)
+   L->SetLineColor(kBlue)
+   */
+}
+</textarea><br>
+<!-- ---------------------------   find_histograms.C    END  TEXT ------------------------- -->
+   
+   
+  
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+<a name="OBJECTS_in_files">
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<br>
+<br>
+<!--    JUMP     5_OBJECTS_in_files      -->
+
+<br><hr>
+<BIG><B> 5. Various ROOT Objects in ROOT Files - directory  5_OBJECTS_in_files      </b></BIG>
+<br><hr><br>
+
+
+
+
+
+
+
+
+
+
+<br>   objects.C  <br>
+<!-- --------------    objects.C   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 33">
+{
+/////////////////////////////////////////////////////////
+//TFile *fff = new TFile("hsimple.root");
+TFile *fff = new TFile("MixedRoot.root");
+
+TString ObjName;
+TString ObjTitle;
+TString ObjClass;
+  
+TList *LKEYS=fff->GetListOfKeys();   // TList - list of objects - from a directory
+int N_of_keys= LKEYS->GetEntries();  // we have full control over the amount
+                                     // can repeat any number times, up or down..
+ObjTitle = LKEYS->At(0)->GetTitle();
+ObjName  = LKEYS->At(0)->GetName();
+//  But we need TKey to use GetClassName()  
+
+TKey * mykey;
+
+for (int k=0; k < N_of_keys; k++ ) {
+   mykey = (TKey*) LKEYS->At(k) ;
+   ObjClass=mykey->GetClassName();
+   ObjName=mykey->GetName();
+   ObjTitle=mykey->GetTitle();
+   cout << "Class string  " << ObjClass << endl;
+   cout << "Object Name   " << ObjName << endl;
+   cout << "Title         " << ObjTitle << endl;
+   if (   ObjClass=="TNtuple"  ) cout << "\n\t\t\t\thurra! - more histograms!!! \n\n";
+   cout << "----------------------------------------\n";
+   }
+}
+
+
+</textarea><br>
+
+
+<!-- --------------    objects.C   TEXT    END      -------------------------- -->
+
+
+
+
+
+
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+<br>   our_LS.C  <br>
+<!-- --------------    our_LS.C   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 34">
+{
+TFile *fff;
+TString ObjName;
+TString ObjTitle;
+TString ObjClass;
+TString   FileName;
+TList *LKEYS;       // TList - list of objects - from a directory
+int N_of_keys;      // The number of entries in the colloection
+            
+TKey * mykey;        //  LKEYS  and mykey are there to handle key in the list
+
+cout << "Enter the name of  the root file:  > ";
+cin >>  FileName;
+
+fff       =  new TFile(FileName);
+LKEYS     =  fff->GetListOfKeys();
+N_of_keys =  LKEYS->GetEntries();
+
+for (int k=0; k < N_of_keys; k++ ) {
+   mykey = (TKey*) LKEYS->At(k) ;
+   ObjClass=mykey->GetClassName();
+   ObjName=mykey->GetName();
+   ObjTitle=mykey->GetTitle();
+   cout << "    Class string: " << ObjClass;
+   cout << "    Object Name: " << ObjName;
+   cout << "    Title: " << ObjTitle << endl;
+   if (   ObjClass=="TH1F"  ) cout << "\n\n\t\t\t\thurra!  - more histograms \n\n";
+   cout << "----------------------------------------\n";
+   }
+}
+
+
+
+</textarea><br>
+
+
+<!-- --------------    our_LS.C   TEXT    END      -------------------------- -->
+
+
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+
+
+
+<br>   Object_TObject.txt  <br>
+<!-- --------------    Object_TObject.txt   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 32">
+
+//  Write Object  and  Write TObject
+//
+TFile *fff = new TFile("MixedRoot.root","RECREATE");
+TH1F *hB = new TH1F("hB","Background",100,0,8);
+hB->FillRandom("gaus",30000);
+     fff->WriteTObject(hB);
+//   fff->WriteObject(hB);  is wrong, 2 param - needs Obj and a new name
+     fff->WriteObject(hB,"was_called_hB");
+fff->ls();
+//
+  TCanvas *cgr = new TCanvas("cgr","Graph");
+  TCanvas *dgr = new TCanvas("dgr","Graph_2");
+hB->Draw();
+fff->WriteTObject(cgr);   //   TCanvas
+//
+TString AName="Histograms are cool";
+// fff->WriteTObject(&AName);   //   TString Write expcts pointer
+   fff->WriteObject(&AName,"Are_Cool");   //   TString needs WriteObject
+// fff->WriteObject( AName,"Are_Cool");   //  would crash, needs pointer
+
+.q
+TFile *fff = new TFile("MixedRoot.root");
+fff->ls();
+TH1F *hShort = (TH1F*) fff->Get("hB");
+fff->ls();
+hShort->Draw();
+TH1F *hLong = (TH1F*) fff->Get("was_called_hB");
+hLong->Draw();
+.q
+
+</textarea><br>
+
+
+<!-- --------------    Object_TObject.txt   TEXT    END      -------------------------- -->
+
+
+
+
+<br>
+<a href="#TOP_8_TOP">Top of the text</a>
+<br>
+<br>
+<b>The description of topics and their links :</b> <br><br>
+&nbsp;&nbsp;
+<a href="#LAB_8_TREE">A Description and tree of provided files and directories</a><br>
+<a href="#fitting_graph">1. Fitting of points in a graph</a> (about 15 minutes) <br>
+<a href="#LOOP_to_FIT">2. Directory  2_LOOP_to_FIT - Main task today (up to 45 minutes) </a><br>
+
+<a href="#FIND_OBJECTS">3. Directory 3_FIND_OBJECTS - simplified finding histograms 
+     (about 15 minutes) </a><br>
+
+<a href="#LOOP_WORKS">4. Directory 4_LOOP_WORKS: hints for Task of Ex 8. and 7. (find_histograms.C) </a>
+<br>
+<a href="#OBJECTS_in_files">5. Directory  5_OBJECTS_in_files - understanding 4_LOOP_WORKS</a><br>
+__________________________________________________________________________<br>
+
+The following material is supplementary. <br>
+It is recommended for better understanding 
+of the above 5 main parts. <br>
+<a href="#Task_7">6. Directory 6_TASK7 - Finding histogram names in Exercise 7 task</a><br>
+
+
+<br>
+<a href="#LABEL8_1">8. Collected listing of 2018 files for this exercise </a>
+<br>
+<a href="#LABEL8_2">7. Extra material on ntuples, automatic processing  </a>
+<br>
+<a href="#LABEL8_3">8. Extra material on root files, object processing</a>
+<br>
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+<a name="Task_7">
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<br>
+<br>
+<!--   JUMP       Task_7      -->
+
+
+<br><hr>
+<BIG><B>      6_TASK7       </b></BIG>
+<br><hr><br>
+
+
+
+
+<br>   automatic_get_histo.C  <br>
+<!-- --------------    automatic_get_histo.C   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 58">
+{
+
+
+
+
+TFile * fberg= new TFile("bergen.root");
+// fberg->ls();     // only interactive remove later
+
+// fberg->GetListOfKeys()->ls()
+// TList *LKEYSb = fberg->GetListOfKeys()
+// LKEYSb->At(0)->GetName()   // This works
+
+//  fberg->ls();     // remove later
+//  TH1F *hberg = (TH1F*) fberg->Get("BergenHist");
+
+TList *LKEYSb = (TList*) fberg->GetListOfKeys();
+char bname[100];
+strcpy(bname,LKEYSb->At(0)->GetName());
+
+TH1F * hberg=( TH1F*) fberg->Get(bname);
+TCanvas * CanB = new TCanvas("CanB","bergen",10,10,600,400);
+hberg->Draw();
+
+
+
+TFile * foslo= new TFile("oslo.root");
+TList *LKEYSo = (TList*) foslo->GetListOfKeys();
+char oname[100];
+strcpy(oname,LKEYSo->At(0)->GetName());
+TH1F * hoslo=( TH1F*) foslo->Get(oname);
+TCanvas * CanO = new TCanvas("CanO","oslo",300,10,600,400);
+hoslo->Draw();
+
+
+
+TFile * fcambr= new TFile("cambridge.root");
+TList *LKEYSc = (TList*) fcambr->GetListOfKeys();
+char cname[100];
+strcpy(cname,LKEYSc->At(0)->GetName());
+TH1F * hcambr=( TH1F*) fcambr->Get(cname);
+TCanvas * CanC = new TCanvas("Can","cambridge",600,10,600,400);
+
+hcambr->Draw();
+
+
+TFile * ffit= new TFile("fitting1.root");
+TList *LKEYSf = (TList*) ffit->GetListOfKeys();
+char fname[100];
+strcpy(fname,LKEYSf->At(0)->GetName());
+TH1F * hfit=( TH1F*) ffit->Get(fname);
+TCanvas * FFIT = new TCanvas("FFIT",fname,300,300,600,400);
+
+hfit->Draw();
+
+
+
+}
+</textarea><br>
+
+
+<!-- --------------    automatic_get_histo.C   TEXT    END      -------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   Process_All_Histo_Files.C  <br>
+<!-- --------------    Process_All_Histo_Files.C   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 47">
+
+{  
+   TString filname[1000];
+   TString canvname[1000];
+   TString Histname[1000];
+   TFile *rfile[1000];
+   TCanvas * Ncanv[1000];  
+   TH1F * Nhist[1000];
+   TList *LKEYS;        // only one list is needed      
+   ifstream instr;      // only one input list is needed  
+   
+   system("ls *.root > rootfileslist.txt");
+   instr.open("rootfileslist.txt");
+   int nfiles = 0;  int i=0;
+/*   while (1) {
+      instr >> filname[i]; 
+      if (!instr.good()) break;  
+      nfiles++; i++;
+    } */
+while (1){ instr >> filname[i]; if (!instr.good()) break;nfiles++; i++;}
+
+   for (i=0;i<nfiles;i++) {    //  i=0;
+   cout <<  filname[i] << endl;  
+   canvname[i] = "C_" +filname[i];
+   
+   
+   rfile [i] = new TFile (filname[i]);    rfile[i]->ls();  
+
+
+   LKEYS = (TList*) rfile[i]->GetListOfKeys();
+   Histname[i]=LKEYS->At(0)->GetName();
+
+   Nhist[i] = (TH1F*) rfile[i]->Get(Histname[i]); 
+   Ncanv[i] = new TCanvas(canvname[i],filname[i],30+i*50,30+i*50,700,500);
+
+   Nhist[i] ->Draw();
+
+   }
+}
+
+
+
+   
+
+
+
+</textarea><br>
+
+
+<!-- --------------    Process_All_Histo_Files.C   TEXT    END      -------------------------- -->
+
+
+
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+
+
+
+
+
+
+<br>   AllRoot_Form.C  <br>
+<!-- --------------    AllRoot_Form.C   TEXT    BEGIN    -------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 61">
+{
+//   
+//       root      *.root     AllRoot_Form.c
+//
+TList *LKEYS; TKey *mykey;
+
+TString Fname[1000];
+TString hnames[1000];
+
+TString canv[1000];
+
+TCanvas * Ncanv[1000];     
+TH1F * Nhist[1000];
+   TF1 *funcs[1000];
+   TF1 *Clonfuncs[1000];
+   
+TFile *FFF[1000];
+
+TString Formula="[0]-x*[1]+[2]*exp(-(x-[4])*(x-[4])*[3])";
+
+int i=2;
+int Nrf=gROOT->GetListOfFiles()->GetEntries();
+for(i=0;i<Nrf;i++){  FFF[i]=(TFile*)gROOT->GetListOfFiles()->At(i);}
+
+
+for(i=0;i<Nrf;i++)Fname[i] = FFF[i]->GetName(); // Tested
+
+
+for( i=0; i<Nrf; i++){
+  LKEYS=FFF[i]->GetListOfKeys() ;
+  mykey = (TKey*) LKEYS->At(0) ;  // Assuming only one histogram
+
+  hnames[i]=mykey->GetName() ;      }
+
+
+
+for( i=0; i<Nrf; i++){
+//  Ncanv[i] = new TCanvas(canv[i],hnames[i],30+i*200,30+i*100,700,500);
+    Ncanv[i] = new TCanvas("Can"+hnames[i],hnames[i],30+i*100,30+i*100,600,400);
+    Nhist[i] =  (TH1F*) FFF[i]->Get(hnames[i]); 
+    Nhist[i] ->Draw();
+   
+   funcs[i]=new TF1( hnames[i]+"FF", Formula, -100.0, 100.0); 
+   funcs[i]->SetParameters(0,0,0,0,0);
+   funcs[i]->SetParameter(2,(Nhist[i] ->GetMaximum())/2.5);
+  
+   Nhist[i] ->Fit(funcs[i]);
+   
+   Clonfuncs[i]=(TF1*) funcs[i]->Clone("Clonfuncs[i]");
+   Clonfuncs[i]->SetParameter(0,0);
+   Clonfuncs[i]->SetParameter(1,0);
+   Clonfuncs[i]->Draw("SAME");
+
+   
+    // FFF[i]->Close();  // THIS WAS THE BAD THING   DO NOT CLOSE
+   }
+}
+
+
+   
+   </textarea><br>
+
+
+<!-- --------------    AllRoot_Form.C   TEXT    END      -------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PARTS 2018 PARTS2018     -------------------------- -->
+
+
+
+<a name="LABEL8_2">
+<br>
+<a href="#TOP_8_TOP">Top of the text</a>
+<br>
+<br>
+<br>
+<hr>
+<big><b>7. Work with pointers, functions and ntuples </b></big>
+<hr>
+<br> Additional material for coming exercises
+
+<br><br>
+ <br>
+<!-- -------------------------     FILENAME  2    -------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="146">
+
+///////////////////////////////////////////////////////////////
+//
+//        WHY   obj.member    or Pobj->member
+//
+///////////////////////////////////////////////////////////////
+
+struct twoint {int a; int b;}
+twoint * Y;
+twoint X;
+Y=&X;
+(*Y).a=6;
+X.a
+Y->a
+
+///////////////////////////////////////////////////////////////
+//        How to modify  the TF1 functions   ( Set Range etc )
+///////////////////////////////////////////////////////////////
+
+TF1 *plotter=new TF1("plotter","[0]-x*[1]+[2]*exp(-(x-[4])*(x-[4])*[3])",2,8);
+TF1 *fitfun = (TF1*) plotter->Clone("fitfun");
+fitfun->SetParameter(2,2550);
+(*fitfun).SetParameter(2,2550);
+
+
+plotter->SetRange(0,6)
+plotter->GetFormula()
+plotter->GetFormula()->Print()
+plotter->Print()
+
+//   open fit/qa2.C
+
+plotter->Eval(4)
+plotter->Eval(400)
+plotter->Eval(2)
+plotter->Eval(1.95)
+plotter->Eval(1)
+plotter->Eval(0)
+plotter->Eval(-2)
+plotter->SetRange(0,18)
+plotter->Draw()
+
+///////////////////////////////////////////////////////////////
+//        How to use TFormula  in TF1 functions
+///////////////////////////////////////////////////////////////
+
+TFormula *form1 = new TFormula("form1","abs(sin(x)/x)");
+TF1*ffun=new TF1("ffun","form1",1,5)
+ffun->Draw()
+gfun=new TF1("gfun","form1*form1+form1",1,5)
+gfun->Draw()
+gfun->SetRange(0,20)
+gfun->Draw()
+TFormula *form2 = new TFormula("form2","abs([0]*sin(x)/x)");
+form2->SetParameter(0,7.0)
+
+///////////////////////////////////////////////////////////////
+{
+//        ntuple_to_arrays.C
+//
+///////////    Programming  TNtuple -> Arrays  ////////////////
+cout << "\n\n\n    NTUPLE  -> Arrays    \n\n"; 
+
+float *NX; float *NY;
+float nx, ny;
+NX=&nx; NY=&ny;
+
+TFile *fff = new TFile("hsimple.root");
+TNtuple *MyTuple=(TNtuple*)fff->Get("ntuple");
+MyTuple->SetBranchAddress("px",NX)
+MyTuple->SetBranchAddress("py",NY)
+MyTuple->GetEntry(0)
+nx
+ny
+MyTuple->GetEntry(1)
+nx
+ny
+int MyTupLength;
+
+MyTupLength = MyTuple->GetEntries();
+
+//    THE TNtuple to Array transformation
+
+float aPX[30000], aPY[30000];
+int m;
+for(m=0; m <MyTupLength; m++) {
+   MyTuple->GetEntry(m);
+   aPX[m]=nx;
+   aPY[m]=ny;          
+}
+cout << " aPX[24999]  :  " << aPX[24999] << endl;
+cout << " aPY[24999]  :  " << aPY[24999] << endl;
+
+}
+///////////     END OF TNtuple -> Arrays  ////////////////
+
+/////////////////////////////////////////////////////////////////
+//
+//   TNtuple with unknown number of variables / Branches / Columns
+//
+/////////////////////////////////////////////////////////////////
+
+//   Enter this to root   
+//   For work with automatic processing of TNtuples
+
+TFile *fff = new TFile("hsimple.root");
+TNtuple *MyTuple=(TNtuple*)fff->Get("ntuple");
+MyTuple->ls()
+MyTuple->GetListOfBranches()
+MyTuple->GetListOfBranches()->ls()
+MyTuple->GetListOfBranches()
+
+TObjArray * Columns;                   //  to get the names for use in program
+
+Columns= MyTuple->GetListOfBranches(); 
+int NColumns = Columns->GetEntries()
+TString firstName = Columns->At(0)->GetName()
+cout << firstName <<  endl;
+
+
+//////////////////////// slightly modified //////////////////////////
+//
+//   TNtuple with unknown number of variables / Branches / Columns
+//
+/////////////////////////////////////////////////////////////////////
+//
+//   Enter this to root   (slightly modified )
+//   For work with automatic processing of TNtuples
+
+TFile *fff = new TFile("hsimple.root");
+TNtuple *MyTuple=(TNtuple*)fff->Get("ntuple");
+MyTuple->GetListOfBranches()
+MyTuple->GetListOfBranches()->ls()
+TObjArray * BranchList;
+BranchList= MyTuple->GetListOfBranches();
+int NBranches=BranchList->GetEntries()
+TString firstName;
+
+firstName = BranchList->At(0)->GetName()
+MyTuple->Draw(firstName);
+
+firstName = BranchList->At(2)->GetName()
+MyTuple->Draw(firstName);
+
+</textarea><br><br>
+<!-- -------------------------    END FILENAME 2  -------------------------- -->
+
+<br><br>
+
+<a href="#E8_topics">To list of topics in ex. 8</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#LAB_8_TREE">Description and tree of provided files</a><br>
+
+
+<br>
+<br>
+
+
+<br>
+<hr>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+
+
+<br>
+<a name="LABEL8_3">
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<br>
+<br>
+ <br>
+<hr>
+ <b><big>8. How to work automatically with root files </big></b>
+<hr>
+<br>
+<br>
+<!-- -------------------------     FILENAME  3    -------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="172">
+
+///////////////////////////////////////////////////////////////
+//   Designing an automatic processing procedure
+//   for a file with unknown entries
+//   TESTED ON hsimple.root
+//
+///////////////////////////////////////////////////////////////
+
+From the root specification
+
+TFile *fff = new TFile("hsimple.root");
+   TIter nexter(fff->GetListOfKeys());
+   TKey *key;
+   while ((key=(TKey*)nexter())) {
+      printf("key: %s points to an object of class: %s at %d\n",
+      key->GetName(),
+      key->GetClassName(),key->GetSeekKey());
+   }
+///////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////
+//
+//   Our file for using TIter iterator
+//
+///////////////////////////////////////////////////////////////
+Designing an automatic processing procedure
+for a file with unknown entries
+TESTED ON hsimple.root
+
+TFile *fff = new TFile("hsimple.root");
+
+fff->GetName()
+
+
+TList *LKEYS=fff->GetListOfKeys()
+//    LKEYS->GetEntries()    Gets the NUMBER of Entries !!!
+for (int k=0;k<LKEYS->GetEntries();k++){
+    cout << LKEYS->At(k)->GetName() <<endl;}
+TString HistName;
+HistName=LKEYS->At(1)->GetName();    //  NOT GENERAL !!!! 
+
+TH2F * testH= (TH2F*) fff->Get(HistName) //  NOT GENERAL !!!!
+testH->Draw()
+
+LKEYS->At(1)->GetTitle()
+
+
+//   Using iterator 
+
+
+   TIter nexter(fff->GetListOfKeys());    
+   TKey *key;
+
+key=(TKey*)nexter();    //  This is a step
+key->GetName()
+key->GetClassName()
+key->GetTitle()
+//                    Every call of iterator advances to next
+key=(TKey*)nexter()
+key->GetTitle()
+key=(TKey*)nexter()
+key->GetTitle()
+key=(TKey*)nexter()
+key->GetTitle()
+key->GetClassName()
+//
+//             No way to reset it
+//             If we need next loop, define new iterator   nexter1()
+//
+TIter nexter1(fff->GetListOfKeys());
+key=(TKey*)nexter1()
+key->GetTitle()
+
+// Usual iteration loop:
+
+{
+//  save as check_hsimple_objects.C
+//
+//     Unlike ls()  this gives objects and clases
+//                  As strings which can be used
+//                  For automatic execution
+//
+TFile *fff = new TFile("hsimple.root");
+TString myClass; 
+TString myName;
+TString myTitle;
+   TIter nexter(fff->GetListOfKeys());
+   TKey *key;
+   while ((key=(TKey*)nexter())) {
+   myClass=key->GetClassName();
+   myName=key->GetName();
+   myTitle=key->GetTitle();
+   cout << "Class string  " << key->GetClassName() << endl;
+   cout << "Object Name   " << key->GetName() << endl;
+   cout << "Title         " << key->GetTitle() << endl;
+   if (   myClass=="TNtuple"  ) cout << "\n\n\t\t\t\thurra! NTUPLE - more histograms \n\n";
+   cout << "----------------------------------------\n";
+   }
+}    //    end of type-check
+
+
+/////////////////////////     ANOTHER MORE FLEXIBLE METHOD   ////////////////////////////
+//
+//  Working with automatic reading of root files
+//
+/////////////////////////     ANOTHER MORE FLEXIBLE METHOD   ////////////////////////////
+
+//  Try this in the root command
+TFile *fff = new TFile("hsimple.root");
+TString ObjName;
+TString ObjTitle;
+TString ObjClass;
+  
+TList *LKEYS=fff->GetListOfKeys()
+
+N_of_keys= LKEYS->GetEntries();
+
+ObjTitle = LKEYS->At(2)->GetTitle()
+ObjName  = LKEYS->At(2)->GetName()
+//     BUT not THE CLASS NAME
+//     This crashes:  
+//     ObjClass  =  LKEYS->At(2)->GetClassName()
+//     cast to (TKey*) not enough   ( with the last ->  only )
+//  still crashes because of exec order (TKey*) LKEYS->At(2)->GetClassName()
+//     Must be cast like this
+
+       ObjClass  = ((TKey*) LKEYS->At(2))->GetClassName();
+
+//  Instead 
+TKey * mykey;
+mykey = (TKey*) LKEYS->At(2) ;
+ObjClass = mykey->GetClassName();   // without crash
+
+
+
+Thus the iteration with full user control goes like this
+Without the iterator class TIter
+
+{
+/////////////////////////////////////////////////////////
+TFile *fff = new TFile("hsimple.root");
+
+TString ObjName;
+TString ObjTitle;
+TString ObjClass;
+  
+TList *LKEYS=fff->GetListOfKeys();   // TList - list of objects - from a directory
+int N_of_keys= LKEYS->GetEntries();  // we have full control over the amount
+                                     // can repeat any number times, up or down..
+ObjTitle = LKEYS->At(0)->GetTitle();
+ObjName  = LKEYS->At(0)->GetName();
+//  But we need TKey to use GetClassName()  
+
+TKey * mykey;
+
+for (int k=0; k < N_of_keys; k++ ) {
+   mykey = (TKey*) LKEYS->At(k) ;
+   ObjClass=mykey->GetClassName();
+   ObjName=mykey->GetName();
+   ObjTitle=mykey->GetTitle();
+   cout << "Class string  " << ObjClass << endl;
+   cout << "Object Name   " << ObjName << endl;
+   cout << "Title         " << ObjTitle << endl;
+   if (   ObjClass=="TNtuple"  ) cout << "\n\n\t\t\t\thurra! NTUPLE - more histograms \n\n";
+   cout << "----------------------------------------\n";
+   }
+}
+</textarea><br>
+
+<!-- -------------------------    END FILENAME 3  -------------------------- -->
+
+
+<br>
+<a href="#TOP_8_TOP">Start of Ex. 8 text</a><br><!-- STARTJUMP -->
+<br>
+<b>The description of topics and their links :</b> <br><br>
+&nbsp;&nbsp;
+<a href="#LAB_8_TREE">A Description and tree of provided files and directories</a><br>
+<a href="#fitting_graph">1. Fitting of points in a graph</a> (about 15 minutes) <br>
+<a href="#LOOP_to_FIT">2. Directory  2_LOOP_to_FIT - Main task today (up to 45 minutes) </a><br>
+
+<a href="#FIND_OBJECTS">3. Directory 3_FIND_OBJECTS - simplified finding histograms 
+     (about 15 minutes) </a><br>
+
+<a href="#LOOP_WORKS">4. Directory 4_LOOP_WORKS: hints for Task of Ex 8. and 7. (find_histograms.C) </a>
+<br>
+<a href="#OBJECTS_in_files">5. Directory  5_OBJECTS_in_files - understanding 4_LOOP_WORKS</a><br>
+__________________________________________________________________________<br>
+The following material is supplementary. <br>
+It is recommended for better understanding 
+of the above 5 main parts. <br>
+<a href="#Task_7">6. Directory 6_TASK7 - Finding histogram names in Exercise 7 task</a><br>
+
+
+<br>
+<a href="#LABEL8_2">7. Extra material on ntuples, automatic processing  </a>
+<br>
+<a href="#LABEL8_3">8. Extra material on root files, object processing</a>
+<br>
+
+<br><br>
+<br>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+

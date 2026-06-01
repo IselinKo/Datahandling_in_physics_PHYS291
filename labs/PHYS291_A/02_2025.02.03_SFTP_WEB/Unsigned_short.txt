@@ -1,0 +1,26 @@
+
+short unsigned K;
+unsigned char * pK;
+pK=(unsigned char*)&K
+K=255;
+(int) *pK
+(int) *(pK+1)
+K=256
+(int) *pK
+(int) *(pK+1)
+256*256
+K=256*256-1
+(int) *pK
+(int) *(pK+1)
+
+short L;
+unsigned char * pL;
+pL=(unsigned char*)&L
+L=-1;
+(int) *pL
+(int) *(pL+1)
+(unsigned short) L
+L=0b0111111111111111
+L=0b1000000000000000
+
+*pL='A'

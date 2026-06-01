@@ -1,0 +1,81 @@
+// you can test this quickly by
+
+root classtime2.C
+root bool_time.C
+
+// IT SHOULD NOT COMPLAIN OR CRASH
+
+// the file bool_time.C   implements also the  == Boolean operator
+// see below how to use it
+
+===================    FURTHER ============== 
+root
+.L classtime2.C
+
+// and now you can explore the class;
+
+// First:    classtime2();
+
+// Then take parts of the examples and run in root
+
+
+// e.g.
+    A.Reset();
+    B.Set(5, 40);
+    C.Set(2, 55);
+A=B+C;
+cout << "sum of intervals A = B + C: " << A << endl;
+
+or
+
+cout << A << endl;
+
+=====================================================
+
+Study the file!
+
+You will find these strange notations
+
+q+=1         means     q=q+1
+
+q=43
+q%=8        //   means q=q%8;     returns 3
+so  
+    hours=Tot_minutes/60;      // integers only
+    minutes = Tot_minutes%60;  // The remainder
+
+in the source you find
+     minutes %= 60;
+
+Try in root
+minutes=83
+minutes %= 60;           // returns 23; reminder
+minutes = minutes % 60;  // is the same
+
+According to this authors opinion, this variant of syntax
+is just a little bit crazy. It saves typing of one name
+and confuses nearly everybody in the begining.
+
+You are not obliged to use this notation!!!!  
+
+//======================================================
+.x bool_time.C
+Time D(3, 55);
+Time n=C+Time(1,0);
+cout << C << endl;
+Time n=C+Time(1,0);
+cout << ( D==n ) << endl;    // prints 1 for true
+cout << ( D==C ) << endl;    // prints 0 for false
+
+//  Note that there is no cout << (bool) giving true/false, only 1/0
+//  Note also that  cout <<  D==C  << endl;  CRASHES, parantheses necessary
+
+                cout <<   A == B  << endl;  crashes in root code
+                you  must use  cout <<  (A == B)  << endl;
+
+
+
+
+
+
+

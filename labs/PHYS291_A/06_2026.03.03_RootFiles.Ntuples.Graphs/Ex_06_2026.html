@@ -1,0 +1,1874 @@
+<html>
+<title>PHYS291 - Exercise 6 - Week 03.03.2026</title>
+<head>
+
+</head>
+
+
+<body style="font-family:monospace; font-size: 14pt; color:#000000;">
+
+<a name="START_E_6">
+<big><b>PHYS291 - Exercise 6 - Week 03.03.2026</b></big>
+
+<br><br>
+<hr>
+<b><big>Root files.  Ntuples - arrays of data. Graphics  from ntuples.
+</big></b><hr><br>
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6 - the actual work instructions</a> <br>
+<a href="#LABEL_6_links">LINKS to individual topics in PART I and PART II</a>
+<br>
+<br>
+This week's main topics are in two groups: first, writing and reading  data to and from from 
+files and storage, <br>using both  text files and specialized root files. <br>
+This includes also organization of data, this  time in so called <b>tuples</b> or <b>ntuples</b>
+and root's implementation <br> 
+of these simplest data structures.
+In the second group of topics we explore in more detail the
+(tuples) <br>especially the built in analysis tools - here exploring the  histograms and graphs.<br><br>
+
+In addition to the main part(s) there are several additions accumulated during years.<br>
+Some of them as reactions to things discovered later in the previous year's course.<br>
+Thus they are kept here since they represent valuable knowledge - but not all is absolutely <br>
+necessary;  some recommendations start just below:<br>
+<br>
+Before the main work description <a href="#LABEL6_Intro_data">
+here is a short introduction</a>
+ suggested to visit before  the start. <br>
+ (<b>use about 5 minutes to read that</b>)<br>
+Here is also a copy of the <a href="#L6_PROLOG_5">
+"Prolog" from exercise 5 (repeat last week) addressing the variable types</a><br>
+and in particular the pointers (yellow textframe, <b>use about 5 to 10 minutes to visit that</b>)
+<br>
+<br>
+There is also presented a variation on 
+<b>intro_histo.C </b> of <b>exercise 4 </b>(a very short histogram example)<br> 
+in an extra text <b> About_root_files.html</b> discussing  files in the attached directory 
+<b>About_root_files_C/</b>. <br> 
+This discussion perhaps belongs
+logically to the topics in "Extra part" <b><a href="#LABEL_6_EXTRA">Additional material <br>on objects in root files </a></b>, <br> 
+but it existed for some time as an independent unit - also as a repetition. So you should visit it
+shortly 
+<br> either in the begining or used as an introduction to the "objects in root files" part.
+
+
+ <br> 
+  <br> 
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6 - the actual work instructions</a> <br>
+<a href="#LABEL_6_links">LINKS to individual topics in PART I and PART II</a>
+<br>
+<a name="LABEL6_Intro_data"><br>
+<a href="#LABEL6_FILES">Tree of the files provided  in the zip-file 6.zip</a>
+<br>
+<br>
+
+
+
+
+<br>
+<b>Data in files</b>
+<br>
+Storing data is quite a science. There are numerical data, history records, video records, 
+<br>simply lots of different data to store for future use.<br>
+For example at MIT 
+<a href="https://libraries.mit.edu/data-management/store/formats/">
+https://libraries.mit.edu/data-management/store/formats/</a> <br>
+where we can read:<br>
+&nbsp; &nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000080; background-color:#F0F0F0"
+ cols="50"         rows="7"     >
+Examples of preferred file format choices include:
+        ODF or LaTeX or TXT, not Word
+        ASCII, not Excel
+        MPEG-4, not Quicktime
+        TIFF or JPEG2000, not GIF or JPG
+        XML or RDF, not RDBMS
+</textarea>
+<br>
+as an example of considerations. For physical sciences the situation is even more<br>
+complicated. The numerical data really allow to establish easily ad hoc rules <br>
+which easily can later be misinterpreted. That calls for standards, which in turn <br>
+might lead to conversion problems and so on. We can not study all this in detail<br>
+in this course.<br><br>
+In high energy physics lots of data are stored in root files. These are very well <br>
+documented and can store "nearly anything", as we have seen using the "TBrowser".<br>
+For those who are not going to work in CERN or particle physics it can still be <br>
+useful to learn this as an example, or perhaps even carry this with you to other<br>
+fields of science.<br>
+<br>
+There are other similar standards like HDF (Hierarchical Data Format, also HDF4 <br>
+and HDF5), netCDF (Network Common Data Format),  data stored in databases, XML etc.<br>
+If you will work e.g. in climate science or some geographical science,  you will be<br>
+ able to find tools for that - and the work here will help you to understand 
+<br> such tools. As below, just the awarness of these matters will help you in future.
+<br><br>
+We shall learn to work with data in plain text format (txt which is ASCII) and also <br>
+with the (binary) root files (perhaps also XML, CSV, GPSX etc)<br><br>
+
+We have already started to work with another CERN invention, the HTML format, which <br>
+you are in contact many times every day (hidden behind). <br>
+The HyperText Markup Language (HTML) is more relevant for presentation than storing <br>
+of data, but general experience with this is very useful. HTML is closely related to<br>
+the XML (eXtensible Markup Language) which is so to say everywhere (GPSX, configuration <br> files of many devices, Office documents, etc).
+<br><br>
+
+As another example (related!) we shall shortly look into another type of binary <br>
+files, which we know as DOCX, PPTX - or in the above recommended open replacement <br>
+- ODF, Open Document Format - files ODT and ODP.<br>
+<small>( Some ten-fifteen  years ago the former were in a type of turbulence about openness 
+<br> but since then Microsoft has won again without solving the problems). One could spend  <br> weeks to read about all of this; instead we can remark that there were and there <br>
+still are problems - 
+ simply awarness of these problems can already be an advantage.<br>
+Many people, even scientists, are happily ignorant about all that. <br>
+(We could also see that Apple can be discussed too, yes open standards ....)<br>
+<br>
+
+Remember from the top: the ODF (ODF) is to be preferred (open standard, specified, public),
+<br>
+the Microsoft formats (OOXML) should be avoided (proprietary, the standard is often broken, 
+<br>
+unreliable over time) - and often too complex with sort of ad hoc extensions.
+</small>
+<br>
+
+<a name="L6_PROLOG_5">
+<br>
+<br>
+<hr>
+<b>PROLOG FROM EXERCISE 5: DATATYPES, POINTERS</b>
+<hr>
+<br>
+<!-- ------------------   part0.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="80">
+//  In the lecture we met pointers - and other places we met bool - logical
+//  Before the usual work, a short "show" with you as the performer
+//  enter each of the lines in the root - and try to guess the answers
+//  before hitting ENTER  (the statements are mostly without ';' - to type values)
+
+// YOU CAN ENTER THE WHOLE LINE, including comments (then think and then ENTER)
+// copy - paste this whole session with outputs, put a <pre> at the beginning
+// and place it on your web - add some comments perhaps too
+// to amuse and enlighten us others !!
+
+//=======================================================================
+
+//  boolean -logical - type bool      ==  means is equal   !=   is unequal
+//  bool variables assigned logical values   // we meet them all the time
+bool L=( 3 == 7 )      //  L must be false but  (3 != 7) is true 
+int k=4                //  now, k=4
+L=( k==4 )             // now L is true - check  
+k=12;
+L=( k==4 )       //  YOU MUST REPEAT IT, it is assignment what is L now - true?
+//
+// WARNING: 
+// root might get very helpful, it thinks perhaps you misspelled? suggesting some == = changes
+// Thus root might suggest something like    
+//    ROOT_prompt_31:1:6: 
+//    note: use '=' to turn this equality comparison into an assignment
+// ignore that, or rather wonder a bit why ???
+
+//=======================================================================
+
+//     POINTERS   -  very few comp languages have pointers
+//                   none other of the populars
+//                   important, useful, dangerous
+//
+//                   one should know pointers before causing disasters
+//
+int A=5        // varible named A 
+A=6            // well, it is variable, let it vary
+int B=17       // another named variable
+int *poA       // POINTER (to a location, to a variable; no value now)
+poA = &A       // the value of the pointer is the address (pointer) to A
+*poA           // poA points to a location which contains (yes, A, it was 6)
+poA = &B       // Now the poA points to position of B
+*poA           // and in that "memory cell" is what?  
+*poA == A
+*poA == A      // does poA point to A ?
+*poA == B      // does poA point to B ? (yes, true)
+
+int Arr[]={0,1,2,3,4,5,6,7,8,9}   // we make an array 
+Arr[5]
+poA=Arr   // what is that - yes array names are also pointers and vice versa
+poA[8]
+Arr[8]=(-8); poA[8]    // so what is poA[8]  now ? it was 8 last time
+int *poB; poB = poA+6  // another pointer; shifted from poA by 6
+poB[2]          //  so what is the second element from start shifted by 6
+poB[2] == poA[8]      // I hope you guessed it; poB[2] == poA[8]
+poA[8] = poA[8]+8; poB[2]    //  and what is poB[2]  now ( was -8 last time)
+Arr[8]   //  What about the original array ?
+* (Arr + 7 )   // This must be wrong! Or ?
+* (poA+7)
+* (poA+7) = 42;  //  what does the array say?
+Arr[7]
+
+// now some sizeof()
+
+int num;  sizeof(num)
+int nums[5];  sizeof(nums)
+sizeof(int)                  //  what ? int is not a variable!?
+sizeof(nums[2])
+double pos; sizeof(pos)
+int  *ptr;  sizeof(ptr)
+ptr= & num; sizeof(*ptr)      //  Note the necessary space in & num;  or &num ; c.f. Exc 5
+short s; sizeof(s)            // how many bytes can be "short" ?
+char c='c'; sizeof(c)         // how many bytes can be a sign, char ?
+sizeof(char)
+
+// How to use sizeof
+int assig[]={ 3, 5, 7, 11, 2,3,5,6,7,8,1,4,5,6};
+int length_of_assig =  ( sizeof(assig) / (float) sizeof(int) )
+// why using "cast" float ? being too careful - remember  6/4 == 1   )
+</textarea>
+<!-- ---------------------   part0.txt    END  TEXT ----------------- -->
+   
+ <a name="LABEL_6_MAIN">  
+<br>
+<br>
+
+<hr>
+<big><b>Main part of exercise 6 </b></big>
+<hr>
+<br>
+The package of data for this week builds on the materials from many previous years.<br>
+There are some data files, as e.g.  data in text form <b>basic.dat.txt</b> and some 
+<br>
+summary and comments files, as described in the text below.
+<br><br>
+<hr>
+In Part I of this exercise, the following concepts will be explored: 
+<hr>
+1. Reading and writing of arrays of data from and to text files. Text files<br>
+are human-readable, but inefficient for machine - digits must be converted <br>
+and each number might have different number of digits. <br>
+<small>Files from root (*.root) or for example matlab files (*.mat) are storing numbers<br> 
+in binary format, not as digits. We will not attempt to go into details of this now.</small><br>
+
+<br><br>
+2. Reading and writing of arrays using ntuples (class TNtuple) into<br>
+the special root files. Not human readable, but efficient storage and<br>
+access by root commands/scripts.<br>
+<small>What is ntuple, n-tuple, tuple - read 
+<a href="https://en.wikipedia.org/wiki/Tuple">https://en.wikipedia.org/wiki/Tuple</a> 
+</small>
+<br>
+<br>
+3. Several aspects  of how to treat data arranged in ntuple-objects<br> - contained in the special  root files -  filename.root 
+<br>
+
+<br>
+<br><hr>
+In PART II  we shall explore how to connect ntuples and graphs. <hr>
+
+Suppose we have an ntuple with "columns" x,y,z,w, such that these columns<br>
+represent data for three functions: y(x), z(x), w(x). <br>
+First we shall make this ntuple as in part I. <br>
+Then we learn the implemented functionality to plot these functions one by one.<br>
+<br>
+This is implemented by a construction ( provided   TNtuple* ntup )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntup->Draw("y:x","","l");<br>
+unlike the histogram-drawing of one of the "columns" or  "branches"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntup->Draw("y"); <br>
+in Part I.<br><br>
+
+We can plot such single graphs by such a single function, <br>
+but combining several plots into one graph and enhancements are difficult.<br>
+Therefore we learn to work with "Getting Primitive Graph" - as is indicated.
+<br>
+<br>
+A special topic is "cloning" of objects, in our case whole graphs. <br>
+This is to prevent - for example - that changes made after  <br>
+a graph window would modify the objects displayed in that window. <br>
+<br><hr>
+General:<hr>
+In this exercise there are detailed instructions on how to perform the<br>
+various tasks (the commands are given in the text), but mostly you yourself
+<br>
+must put the files together.<br>
+However, this might get mixed up for anybody. <b>Therefore there is a file system
+included <br>
+called "Solutions_ex_6" where all the files are worked out. </b>
+<br>
+
+Especially the solutions for part II might be too time consuming. Therefore the <br>
+Solutions_ex_6 directory in the  zipfile is probably really necessary. 
+<br>
+But please, try to build all the programs yourself following the suggestions.<br>
+The complete solutions in the zipfile are provided
+<br>
+only for the case that you will use too much time. In that case, do the <br>
+solutions line by line in interactive root session - and try understand all steps.
+<br> 
+
+
+<br>
+<a name="LABEL_6_links">
+<br><br>
+
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+
+<br><a href="#START_E_6">Top of this page - Exercise 6</a>
+<br>
+<a href="#LABEL6_Intro_data">Introduction - about data and files</a> (use about 5 minutes toread)
+<br>
+Copy of the <a href="#L6_PROLOG_5">
+"Prolog" from exercise 5 (last week) addressing the variable types</a> (about 5-10 minutes toread)
+<br>
+<br><br>
+
+
+
+<BIG> <BIG>PART I.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_1">1. Data from a text file to an ntuple to a root file </a>
+
+                                         &nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_2">2. Histograms from ntuple in a root file   </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( use about 20 minutes )
+<br>
+<BIG> <BIG>PART II.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_3">3. Graphs - from ntuple in a root file  </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_4">4. Graphs from ntuple - multigraphs </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;( use about 25 minutes )
+<br>
+&nbsp;&nbsp;
+<a href="#LABEL_6_EXTRA">Additional material on objects in root files </a>
+<br>
+
+<a name="LABEL6_FILES">
+<br>
+<br>
+<hr>
+Tree of the files provided  in the zip-file  6.zip
+<hr>
+
+
+
+<b>Files overview:</b><br>
+
+<br>
+<!-- ------------------   thefiles.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="10">
+Ex_06_2023.html
+Exercise_06_files/
+|-- About_root_files.html
+|-- About_root_files_C/
+|-- P-1-what_learned_in_6.txt
+|-- P-2-what_learned_in_6.txt
+|-- Part_I/
+|-- Part_II/
+`-- Solutions_ex_6/
+</textarea><br>
+<!-- ---------------------   thefiles.txt    END  TEXT ----------------- -->
+   
+<br> 
+
+<b>Detailed tree of the zipped files </b><br>
+
+<br>  
+
+<br>
+<!-- ------------------   fulltree.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="68">
+Ex_06_2023.html                     This text file             
+Exercise_06_files/
+|-- About_root_files.html           Background examples
+|-- About_root_files_C                     
+|   |-- intro_histo.C               from exercise 4
+|   |-- Save_histo.C                put it to root files, two ways
+|   |-- read_histo.C  
+|   |-- Nread_histo.C
+|   `-- make_oslo.C                 a "big" histogram using random generator
+|-- P-1-what_learned_in_6.txt
+|-- P-2-what_learned_in_6.txt
+|-- Part_I                            Material for part I
+|   |-- 1_about_file_and_TFile.txt
+|   |-- 2_ofstream_ifstream_Cpp.txt
+|   |-- 3_read_write_file_C.txt
+|   `-- basic.dat.txt
+|-- Part_II                            Material for part II
+|   |-- break_picture_no_clone.txt
+|   |-- graph_cloner.C
+|   |-- graphs_to_root.C
+|   |-- graphsdata.C
+|   |-- graphsdata.root
+|   |-- graphsdata.txt
+|   |-- ntuple_graphs.C
+|   |-- read4.C
+|   |-- readgraphs.C
+|   |-- test4.txt
+|   |-- testplot1.C
+|   |-- testplot2.C
+|   |-- testplot3.C
+|   |-- testplot4.C
+|   `-- write4.C
+`-- Solutions_ex_6
+    |-- part1
+    |   |-- UPDATE.C.txt          //  This file shows UPDATE rootfile - deleting an object
+    |   |-- basic.dat.txt
+    |   |-- basic.root
+    |   |-- basicN.root
+    |   |-- basicX.root
+    |   |-- basicY.root
+    |   |-- basicZ.root
+    |   |-- check_canvas.C
+    |   |-- mbasic.C
+    |   |-- p-1-what_learned_in_6.txt
+    |   |-- readBasics.C
+    |   |-- small.C
+    |   |-- small.dat.txt
+    |   |-- testBasics.C
+    |   |-- test_more_Basics.C    //   See also  UPDATE.C.txt
+    |   `-- writeBasics.C
+    `-- part2
+        |-- graph_cloner.C
+        |-- graphs_to_root.C
+        |-- graphsdata.C
+        |-- graphsdata.root
+        |-- graphsdata.txt
+        |-- ntuple_graphs.C
+        |-- p-2-what_learned_in_6.txt
+        |-- read4.C
+        |-- readgraphs.C
+        |-- test4.txt
+        |-- testplot1.C
+        |-- testplot2.C
+        |-- testplot3.C
+        `-- write4.C
+</textarea><br>
+<!-- ---------------------   fulltree.txt    END  TEXT ----------------- -->
+<a href="#LABEL_6_links">LINKS to individual topics in PART I and PART II</a>
+<br>   
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a name="LABEL_6_1"><br>
+<br><a href="#START_E_6">Top of this page - general description</a>
+<br>
+<a href="#LABEL_6_links">LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file </a>
+<br>6.zip
+<hr>
+
+<BIG> <BIG><BIG>PART I.  </BIG></BIG></BIG>
+<hr>
+<big><b>1. Data from a text file to an ntuple to a root file</big></b>
+<br><br>
+
+First how to work with data in text files - write and read
+
+<br><br>
+<!-- --------------------     FILENAME  1    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90"         rows="4"     >
+Save the following 3-columns as a file 
+small.dat.txt                  - use  gedit small.dat.txt &
+                                 or   nano   small.dat.txt    (no & here! why?)
+</textarea>
+<!-- --------------------   TEXT       END  ---------------------- -->
+<br>
+<!-- --------------------     FILENAME  1    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFE0"
+ cols="90" rows="10">
+   1.34  2.15   3.14159
+   6.0   11.7       50.6
+   4.5   3.2     1.4
+   6.5   4.3     123.9
+   1.34  2.15   3.14159
+   6.0   11.7       50.6
+   4.5   3.2     1.4
+   6.5   4.3     123.9
+   6.5   4.3     123.9
+</textarea>
+<!-- --------------------   TEXT       END  ---------------------- -->
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 
+<small><a href="#LABEL_6_MAIN">Main Text of Exercise 6 </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br><a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br>
+</small>
+<br>
+
+<!-- --------------------     FILENAME  1    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="4">
+After the file exist in your work directory, save the following
+script into       small.C                  - use  gedit small.C   &
+                                 or   nano   small.C    (no & here! why?)
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------     FILENAME  1    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFE0"
+ cols="90" rows="18">
+//================    small.C      small data file test 
+{  
+   ifstream m_in;
+   m_in.open("small.dat.txt");
+   double x,y,z;
+   int nlines = 0;
+   int counter=0;
+   while (1) {
+      m_in >> x >> y >> z;
+      if (!m_in.good()) break;      
+      if (counter==2) printf("%dth line: x=%8f, y=%8f, z=%8f\n",nlines,x,y,z);
+      nlines++; counter++;
+      if (counter==3) counter=0; // prints every 3. line
+   }
+   printf("==========\nThe file has %d lines\n", nlines);
+}
+//===================   end of small.C
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------     FILENAME  1    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="8">
+Run     root  small.C
+or 
+     root
+     .x small.C
+Study the output and notice what is happening
+You can also run it by copying parts into the root command
+
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 
+<small><a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a><br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+</small><br>
+Here we have learned how to read data from file, now we can red a lot of data,<br>
+hundreds and hundreds of lines - from the file basic.dat.txt (check by wc basic.dat.txt)
+<br>
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#F0F0FF"
+ cols="90" rows="12">
+
+you can now say
+
+      cp small.C  basic1.C
+      gedit basic1.C &
+
+check that you have downloaded the  basic.dat.txt (file of several hundred lines)
+( can you quickly check how many lines? how many "words" ??)
+
+You might first try the some of the first lines in root line by line
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFE0"
+ cols="90" rows="31">
+{
+//     This will be basic1.C
+//
+//           Modifying   small.C    to work with  basic.dat.txt
+//           The file  basic.dat.txt   must be downloaded
+//
+//================   basic1.C           reading basic.dat.txt 
+//
+//  1. trivial modifications - change name and which lines printed
+//  change the name of the in-file
+   ifstream m_in;
+   m_in.open("basic.dat.txt");
+
+   double x,y,z;
+   int nlines = 0;
+   int counter=0;
+
+//  the loop must be modified later to include TNtuple and histogram
+   while (1) {
+      m_in >> x >> y >> z;
+      if (! m_in.good()) break;      
+      if (counter==9) printf("%dth line: x=%8f, y=%8f, z=%8f\n",nlines,x,y,z);
+      //   filling h1 will come here 
+      //   filling the ntuple will come here                        
+      nlines++; counter++;
+      if (counter==10) counter=0; // prints every 10th line
+   }
+   printf("==========\nThe file has %d lines\n", nlines);
+}
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="7">
+
+With these changes, you should be able to run 
+           root basic1.C
+and it should print lots of lines similar to the small.C
+
+WHY IS IT NOT PRINTING ALL THE LINES   ???
+</textarea>
+<!-- --------------------   TEXT       END  ---------------------- -->
+<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; 
+<small><a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a><br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+
+</small><br>
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="29">
+//  2. more complex modifications - constructing ntuple and a histogram
+
+   cp basic1.C basic2.C
+
+    Major modifications of basic1.C    come    now
+    first, place the definitions of the ntuple and the histogram
+    BEFORE THE while LOOP
+
+// This must be added 
+//                     The limits -4,4 are just a hint; they work well
+
+   TH1F *h1 = new TH1F("h1","x distribution",100,-4,4);   // histogram
+   TNtuple *ntuple = new TNtuple("ntuple","data from ascii file","x:y:z");
+// 
+//   the object  ntuple will have three columns, called  x, y, and z
+
+//   these 2 lines must be inserted into the loop (as indicated in basic1.C)
+ 
+   h1->Fill(x);             // fill one x into the histogram 
+   ntuple->Fill(x,y,z);     // add a line into the ntuple
+
+// after the loop is finished, draw the histogram
+
+   h1->Draw();
+
+//   Saved  as basic2.C
+     run
+        root  basic2.C
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="25">        
+
+//  3. Last change  IMPORTANT - save the ntuple and histogram into a root file 
+       basic.root
+cp  basic2.C basicF.C
+gedit basicF.C
+
+Anywhere in the basicF.C add this line (but before the following two new lines)
+
+TFile *ffbas = new TFile("basic.root","RECREATE");
+
+Then, after the   h1->Draw(); add these two lines                 
+
+      ntuple->Write();            //  ntuple will be written into the open TFile
+      h1->Write();                //  h1 will be written into the open TFile
+
+
+run  
+     root basicF.C
+if it worked, no errors   
+exit root
+=====================================================
+ls -lrt      should show as last file   basic.root
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="20">
+check the file:  run root and enter the follwing:
+root
+   TFile *ff = new TFile("basic.root");   // Note: NO RECREATE, default is READ
+   ff->ls();
+You should see at the end
+       KEY: TH1F h1;1  x distribution
+       KEY: TNtuple  ntuple;1  data from file
+If this is the case, you finished this part.
+For some people 
+           ffbas->ls();
+showed just an empty file.
+
+since the TFile basic.root is opened as ff, abd ff->ls() showed h1 and ntuple
+these four histograms can be made
+      h1->Draw();
+      ntuple->Draw("x");  
+      ntuple->Draw("y");
+      ntuple->Draw("z");
+</textarea><br>
+<!-- --------------------   TEXT       END  ---------------------- -->
+
+<!-- --------------------   TEXT    BEGIN    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+ cols="90" rows="31">
+
+By now, if all worked, you have the following files   (do  ls -lrt   )
+
+-rw-r--r--     1 iam007  staff       210 Feb 24 10:02 small.dat.txt
+-rw-r--r--     1 iam007  staff     28014 Feb 24 12:11 basic.dat.txt
+-rw-r--r--     1 iam007  staff       404 Feb 24 14:00 small.C
+-rw-r--r--     1 iam007  staff       913 Feb 24 14:10 basic1.C
+-rw-r--r--     1 iam007  staff      1109 Feb 24 14:15 basic2.C
+-rw-r--r--     1 iam007  staff      1350 Feb 24 14:18 basicF.C
+-rw-r--r--     1 iam007  staff     18942 Feb 24 14:19 basic.root
+
+Note that basic.root contains the same data as basic.dat.txt plus the histogram
+Still, basic.root is less than 2/3 of basic.dat.txt
+
+basic.root  is used in the following
+
+quick check of basic.root
+root basic.root
+   root [0] 
+   Attaching file basic.root as _file0...
+
+so that you can continue, copy the name root told you:
+   _file0->ls();
+    h1->Draw();
+now you can say
+    _file0->Close();     // close the file which root opened
+
+WHAT HAPPENS TO THE HISTOGRAM ???
+
+</textarea><br>
+<!-- --------------------    END FILENAME 1  ---------------------- -->
+<br>
+<a name="LABEL_6_2">
+<br>
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br><a href="#START_E_6">Top of this page - general description</a><br><a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br>
+<br>
+
+
+
+
+<br><br>
+<big><b>2. Histograms from ntuple in a root file - drawing branches of ntuples</b></big>
+<br>
+Here we shall experiment with writing and reading objects to and from root files.<br>
+<br>
+We use the file <b>basic.root</b> produced in the previous part.
+<br><br>
+
+<!-- --------------------     FILENAME  2    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="116">
+Here you shall develop a file    readBasics.C         using basic.root 
+and below you modify it to       writeBasics.C 
+
+//================  read, plot and make  basic.root basicX.root basicY.root basicZ.root
+//   This should  be entered  - when you have written it  - into  
+//                               readBasics.C
+//
+//                     work with this in   gedit  readBasics.C
+//
+   First try these lines in  a root session to check how it works
+
+   TFile *fold = new TFile("basic.root");   // Note: NO RECREATE, default is READ
+   fold->ls();
+
+//  THIS IS MOST IMPORTANT
+//         Get the objects from the file ( refer by their name )
+//  get the ntuple   and try  simple histograms
+
+   TNtuple *ntp  = (TNtuple*) fold->Get("ntuple"); 
+
+//  each of these lines show a single histogram
+
+      ntp->Draw("x");
+      ntp->Draw("y");
+      ntp->Draw("z");
+
+//  But each  overwrites the previous
+
+We can have three windows  and change focus to them by c1->cd()  etc
+
+TCanvas *c1= new TCanvas("c1","Canv 1",30,30,600,400);
+TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+
+c1->cd();   ntp->Draw("x");
+c3->cd();   ntp->Draw("z");    //     etc
+
+Collect all this into a new file   readBasics.C
+
+save it and run
+root readBasics.C
+
+that should show the 3 windows
+
+FURTHER MODIFICATIONS
+   
+But we shall try the following instead 
+
+   TH1F *hx = new TH1F("hx","x distribution",100,-4,4);
+   TH1F *hy = new TH1F("hy","y distribution",100,-4,4);
+   TH1F *hz = new TH1F("hz","z distribution",100,-4,4);
+
+//  Note the special notation   
+//  add the two remaining  with   "y>>hy"  and  "z>>hz"
+
+    ntp->Draw("x>>hx","","HIST");  
+
+Finish the work with readBasics.C
+by replacing the simple and not so flexible
+    ntp->Draw("y");
+ // by
+    ntp->Draw("y>>hy","","HIST");   
+    for all the 3 windows         ( x, y and z )
+
+save and test and add comments to  readBasics.C
+( explaining for later work what is done  )
+
+
+//////////////////////////////////////////////////////
+
+copy the 
+         cp readBasics.C writeBasics.C
+
+         gedit   writeBasics.C
+
+//////////////////////////////////////////////////////
+
+//  Work with  writeBasics.C
+
+Test adding this into  writeBasics.C (at the end )
+
+   TFile *ff;
+   ff= new TFile("basicX.root","RECREATE");
+   hx->Write();
+   ff->Close();
+
+save and run   root writeBasics.C
+exit root   and ls -lrt
+should show
+             basicX.root     as the newest file
+
+check this by these four lines in a new root
+root
+   ff = new TFile("basicX.root");
+   ff->ls();      // Get the histogram object
+   TH1F * H1 = (TH1F*) ff->Get("hx");
+   H1->Draw();
+
+Now you finish the work 
+
+   ff = new TFile("basicY.root","RECREATE");
+   hy->Write();
+   ff->Close();
+   ff = new TFile("basicZ.root","RECREATE");
+   hz->Write();
+   ff->Close();
+   ff = new TFile("basicN.root","RECREATE");
+   ntp->Write();
+   ff->Close();
+
+//  The  file  writeBasics.C  thus produces
+    basicN.root  basicX.root basicY.root basicZ.root
+
+//    Here ended the work with       writeBasics.C     
+//
+</textarea>     <br><br>
+<!-- --------------------    END FILENAME 2  ---------------------- -->
+
+
+ &nbsp;  <a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+ <br>&nbsp;  <a href="#START_E_6">Top of this page - general description</a>
+ <br><br>
+
+
+The two files in the following text field are made to run, i.e. they are finished,<br>
+need no further developement.<br>
+You should try some parts interactively, to see how the root files are modified<br>
+(the file basicX.root)<br>
+You  should save these two scripts in the indicated names, i.e.<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; testBasics.txt<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; test_more_Basics.C<br>
+<br><br>
+The features you should study are <br>
+&nbsp; &nbsp; &nbsp; 1. the cloning - cloned objects can be modified <br>
+&nbsp; &nbsp; &nbsp; 2. the option "UPDATE"  for the root file attaching <br>
+
+<br><br>
+<!-- --------------------     FILENAME  2b   ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFFFF8"
+ cols="90" rows="134">
+//================
+//      file             testBasics.C   (this file runs - study it)
+//
+//    Testing basicN.root  basicX.root basicY.root basicZ.root
+//================ 
+//The following is a sequence testing the new root files
+//  save it as  testBasics.C
+// study it, it also contains " cloning" of a plot
+// that will be used later today
+//  you will see that 
+{
+   TFile *ff;
+   ff = new TFile("basicN.root");
+   ff->ls();
+   ff->Close();
+   ff = new TFile("basicX.root");
+   ff->ls();
+   ff->Close();
+   ff = new TFile("basicY.root");
+   ff->ls();
+   ff->Close();
+   ff = new TFile("basicZ.root");
+   ff->ls();
+//  Get the histogram from file  
+   TH1F * H1 = (TH1F*) ff->Get("hz");
+   H1->Draw();
+
+   TCanvas * cplot = new TCanvas("cplot","cplot",400,50,600,400);
+   cplot->cd();
+   //   clone H1 to H2
+   TH1F * H2 = (TH1F*) H1->Clone("H2");   // cloning 2 versions
+
+   H2->Fill(3,150);   //   modify i one point
+   H2->Draw("hist");
+
+  TCanvas *c4=new TCanvas("c4","Canv 4",300,300,600,400);
+   
+   TH1F * H3 = (TH1F*) H2->Clone("H3"); 
+
+   H3->Fill(1,100); 
+   H3->Fill(0.0,100); 
+   H3->Draw("hist");
+
+//   ff->Close();  kills both H1, H2 plots
+}
+///////////////////////////////  end of test_basic.C  work  //////////
+///////////////////////////////                             //////////
+///////////////////////////////    //////////  //////////   //////////
+{
+//another  test             start   of   test_more_Basics.C
+//
+//      file      test_more_Basics.C   (this file runs - study it)
+//
+// =========================  New file, new test - many file-pointers
+//
+// Better approach   have lots of file pointers;
+// Keep file opened
+//                basicX.root will be modified - use "UPDATE"
+
+   TFile *fil1 = new TFile("basicN.root");  // fil1  ntuple
+   fil1->ls();
+   fil2 = new TFile("basicX.root","UPDATE");  // fil2 hist hx
+   fil2->ls();
+   TCanvas * aplot = new TCanvas("aplot","aplot");
+
+   TFile *fil3 = new TFile("basicY.root");
+   fil3->ls();
+   TFile *fil4 = new TFile("basicZ.root");
+   fil4->ls();
+
+   fil1->ls();
+
+   TH1F * H1 = (TH1F*) fil3->Get("hy");
+   H1->Draw();
+
+   TCanvas * cplot = new TCanvas("cplot","cplot");
+   cplot->cd();
+   TH1F * H2 = (TH1F*) H1->Clone("H2");
+//
+//  fil2  is opened with "UPDATE"  - can be modified
+// 
+   fil2->cd();
+   H2->Write();
+//
+//  write to fil2  using   fil2->WriteTObject()  
+//  can change name of the object
+// 
+   TNtuple *ntp  = (TNtuple*) fil1->Get("ntuple");
+   fil2->WriteTObject(ntp,"mytuple");
+
+   fil2 = new TFile("basicX.root");  // open again for check
+   fil2->ls();
+   fil2->Close();
+
+   fil4->cd();
+   cplot->cd();    // plot into canvas aplot
+   H2->Draw();
+   H2->Fill(-0.3,165);
+   H2->Fill(3.5,265);
+   H2->Fill(-3,165); 
+   H2->Draw("hist");
+   fil2 = new TFile("basicX.root","UPDATE"); // open again to modify
+   fil2->WriteTObject(cplot,"A_canvas");
+   fil2->ls();
+//   only do this when finished with all file objects
+//   fil1->Close();   fil2->Close();   fil3->Close();   fil4->Close();
+}
+//================  end of  test_more_Basics.C
+    
+//   extra lines for checking stored canvas
+
+   fil2 = new TFile("basicX.root","UPDATE"); // open - to read or modify
+   TCanvas * QQQ = (TCanvas *) fil2->Get("A_canvas");
+   QQQ->Draw();
+//================   
+
+From the first part you should have these files:
+-rw-r--r--     1 iam007  staff       210 Feb 22 20:02 small.dat.txt
+-rw-r--r--     1 iam007  staff     28014 Feb 22 20:11 basic.dat.txt
+-rw-r--r--     1 iam007  staff       404 Feb 23 10:00 small.C
+-rw-r--r--     1 iam007  staff       741 Feb 23 10:10 basic1.C
+-rw-r--r--     1 iam007  staff       741 Feb 23 10:10 basic2.C
+-rw-r--r--     1 iam007  staff       741 Feb 23 10:10 basicF.C
+-rw-r--r--     1 iam007  staff     18942 Feb 23 10:06 basic.root
+
+From this part you should have
+-rw-r--r--  1 iam007  staff   468 Feb 23 15:27 readBasics.C
+-rw-r--r--  1 iam007  staff   778 Feb 23 15:45 writeBasics.C
+-rw-r--r--  1 iam007  staff  1057 Feb 23 17:27 testBasics.C
+-rw-r--r--  1 iam007  staff  1245 Feb 23 18:05 test_more_Basics.C
+
+In addition there are the root files 
+        basicX.root    basicY.root     basicZ.root         basicN.root
+</textarea><br><br>
+<!-- --------------------    END FILENAME 2  ---------------------- -->
+
+
+<a name="LABEL_6_3">
+<br>
+<br>
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br><a href="#START_E_6">Top of this page - general description</a> 
+<br>
+<hr>
+
+<br>
+
+<!--
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+PART 2       
+
+-->
+ <br>
+<br><br>
+<BIG> <BIG><BIG>PART II.  </BIG></BIG></BIG>
+<br><br>
+ <b><big>3. Graphs - from ntuple in a root file</big></b>
+
+<br>
+<br>
+First a little more about writing and reading files <br>
+(C++ style, using "streams" cout)
+<br><br>
+What about the "lines" in the files ?
+<br>
+If you have little time left, scroll a little bit down to ntuples and graphs.
+<br>
+<!-- --------------------     FILENAME  3    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="7">
+Save the two scripts below as write4.C and read4.C  below to indicated names
+and run   
+root write4.C        7 lines written to screen and to file
+.q
+root read4.C         and you get 14 lines, not 7 -  WHY??
+</textarea><br><br>
+
+<!-- --------------------     FILENAME  3    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="58">
+Save the two scripts write4.C and read4.C  below to indicated names
+and run   
+root write4.C        7 lines written to screen and to file
+.q
+root read4.C         and you get 14 lines, not 7 -  WHY??
+
+
+//=======================  file  write4.C ================
+{
+////////////////////////////////////////
+//
+//  write4.C
+//
+////////////////////////////////////////
+
+ofstream m_out;
+m_out.open("test4.txt");
+int nlines=7;
+int k;
+for (k=1; k< nlines+1; k++) {
+   m_out << k <<" " << k << " "<< k << " " << k << endl;
+   cout  << k <<" " << k << " "<< k << " " << k << endl;
+}
+m_out.close();
+}
+//======================= END file  write4.C ==============
+
+//=======================  file  read4.C ==================
+{
+////////////////////////////////////////
+//
+//  read4.C
+//
+////////////////////////////////////////
+   ifstream m_in;
+   m_in.open("test4.txt");
+
+   int nlines=0;
+   double x,y;
+   while (1) {
+      m_in >> x >> y;
+      if (! m_in.good()) break; 
+      cout << x << " " << y << endl;    
+      nlines++;
+   }
+   printf("==========\nThe file has %d lines\n", nlines);
+   m_in.close();
+}
+
+//===================================================================================
+//    The  writing and reading of files
+//    will be needed for the following work with data for plots
+//
+//    The above shows that new line is just another "white space"
+//    So be always careful with this - new line is just another "white space"
+
+</textarea><br><br>
+<!-- --------------------    END FILENAME 2  ---------------------- -->
+
+<hr>
+ <b><big> Ntuple with 4 branches - and the graphs from it - in a root file</big></b>
+<br>
+<hr>
+<br>
+
+
+<!-- --------------------     WORK WITH GRAPHS    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FAFAFF"
+ cols="90" rows="116">
+//   Here starts the work with the 3 graphs
+
+
+{
+//  this should be graphsdata.C      use  gedit  graphsdata.C
+//
+//  This program runs, needs no modifications
+//
+//  Here we define our 3 nice curves which we shall
+//  work with in different ways
+
+//  Basic multigraph we did before - ( Exercise 4 )
+
+   int nlines = 0;
+   ofstream m_out;
+   m_out.open("graphsdata.txt");
+
+   double x,y,z,w;
+   for(int m=0; m<100; m++){ 
+       x=m*0.06;
+       y=sin(2*x)*exp(-0.3*x);
+       z=cos(2.5*x)*exp(-0.4*x);
+       w=0.7*sin(1.5*x)*exp(0.1*x);
+       m_out <<x<<" "<<y<<" "<<z<<" "<<w<<endl;   // write to file
+       cout <<x<<" "<<y<<" "<<z<<" "<<w<<endl;    // same to screen
+     }
+   m_out.close();
+}
+
+//===========================================================
+//
+//    Now check the plots;       gedit   readgraphs.C
+
+HERE YOU WILL DEVELOP A PROGRAM     readgraphs.C
+1.  basically modify the read4.C 
+You need  
+
+   ifstream m_in;
+   m_in.open("graphsdata.txt");
+
+   double x,y,z,w;
+   double X[1000], Y[1000], Z[1000], W[1000]; 
+
+in the loop, after 
+        m_in >> x >> y >> z >> w;
+you need to store
+        X[nlines]=x;  Y[nlines]=y;  etc .....
+
+Then you need three graphs
+and a multigraph
+
+   TGraph * gr1 = new TGraph( nlines, X, Y);
+   TGraph * gr2 = 
+   TGraph * gr3 = new TGraph( nlines, X, W);
+
+   TMultiGraph *ThreeGr = new TMultiGraph();
+
+and add the three graphs
+
+using    ThreeGr->Add( grname );  
+         where grname is each of the names
+
+The three graphs will be shown by
+   ThreeGr->Draw("ACP");
+
+// =========================================================
+
+
+///////////////////////////////////////////////////////////////
+
+//   cp    readgraphs.C   graphs_to_root.C 
+//
+//            gedit   graphs_to_root.C  
+
+//   From graphsdata.txt  to  graphsdata.root
+
+//  Add   the things listed below to the copied file
+    saved  as   graphs_to_root.C    
+
+    TFile *fdat = new TFile("graphsdata.root","RECREATE");
+    TNtuple *ntuple1 = new TNtuple("ntuple1","data for plotting","x:y:z:w");
+
+    in the loop  
+    after the line
+     m_in >> x >> y >> z >> w;
+     you must add a line to fill the ntuple
+        ntuple1->Fill(x,y,z,w);
+
+      and at  the end
+      ntuple1->Write();
+
+  or simply write all objects to the file fdat 
+
+  fdat->Write();
+
+//////////////////////////////////////////////////////////
+//  
+//////////////////////////////////////////////////////////
+//
+when tested and finished    
+run
+root graphs_to_root.C
+and the file           graphsdata.root     is created
+and  contains    the  ntuple  with  x y z w
+
+when finished you have these files
+-rw-r--r--  1 iam007  staff   304 Mar  4 11:15 read4.C
+-rw-r--r--  1 iam007  staff   246 Mar  4 11:16 test4.C
+-rw-r--r--  1 iam007  staff   485 Mar  4 11:57 graphsdata.C
+-rw-r--r--  1 iam007  staff   876 Mar  4 11:58 readgraphs.C
+-rw-r--r--  1 iam007  staff    56 Mar  4 13:41 test4.txt
+-rw-r--r--  1 iam007  staff  3294 Mar  4 33:42 graphsdata.txt
+-rw-r--r--@ 1 iam007  staff  1068 Mar  4 33:45 graphs_to_root.C
+-rw-r--r--  1 iam007  staff  7256 Mar  4 03:46 graphsdata.root
+
+</textarea><br><br>
+
+<!-- --------------------    END FILENAME 3  ---------------------- -->
+
+<br>
+<br><a name="LABEL_6_4">
+<br>
+
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br><a href="#START_E_6">Top of this page - general description</a>
+<br>
+
+<hr>
+
+
+<br>
+<b><big>4. Graphs from ntuple - multigraphs</big></b>
+<br><br>
+Here continue in the same directory, where you have the file <b>graphsdata.root</b>
+<br><br>
+In this part - in the field below the blue - we shall work more with cloning of <br>
+the objects.<br>
+Here is a new (2021) demonstration why do we need this "cloning".<br>
+Do it in the root session by pasting multiple/single lines.
+
+
+<br>
+<!-----------------------------   break_picture_no_clone.txt    TEXT    BEGIN    ------------------------------->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="29">
+//  About cloning 
+  TCanvas *c1= new TCanvas("c1","NTUPLE PLOT",50,50,600,400);
+  TFile *ff = new TFile("graphsdata.root");
+  ff->ls();
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+  ntp->Draw("y:x","","l");  
+
+  TCanvas *c3= new TCanvas("c3","CLONING",500,50,600,400);
+  c1->cd();
+ 
+  TGraph *tempgraph;
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+  c3->cd(); tempgraph->Draw();
+
+// enter all the lines above down to here in one copy-paste
+
+  c1->cd(); ntp->Draw("w:x","","l"); //  Breaks the drawing
+
+//  Solution   - get again the Primitive Graph, and clone it!
+
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");  // Get it again
+  TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+  c3->cd(); mygraph->Draw("ACL");
+
+//   Now the c1 changes, c3 not destroyed
+ 
+  c1->cd(); ntp->Draw("y:x","","l"); //  Now the drawing OK
+
+</textarea><br>
+<!-------------------------------   break_picture_no_clone.txt    END  TEXT ------------------------------>
+
+
+<br>
+The behaviour shown above is mentioned in the task below, where we continue with multigraph.
+ <br>
+<!-- --------------------     FILENAME  4    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#D9EFD9"
+ cols="90" rows="200">
+ //     save as testplot1.C
+ {
+  TFile *ff = new TFile("graphsdata.root");
+  ff->ls();
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+
+  ntp->Draw("x:y","","l");  // not too good   
+}
+
+//////////////////////////////////////////////////////////////////
+
+//     save as testplot2.C
+{
+  TFile *ff = new TFile("graphsdata.root");
+  ff->ls();
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+
+  ntp->Draw("y:x","","l");    // do the same for plotting the second and third curv
+
+}
+
+//////////////////////////////////////////////////////////////////
+ 
+      cp  testplot2.C ntuple_graphs.C
+
+      gedit ntuple_graphs.C
+
+//////////////////////////////////////////////////////////////////
+
+Good,  we can thus make easily  
+             Draw("y:x","","l")  
+             Draw("z:x","","l")  
+             Draw("w:x","","l")
+
+This we have done in part 1
+TCanvas *c1= new TCanvas("c1","Canv 1",30,30,600,400);
+TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+
+c1->cd()     etc
+
+add all this and view the 3 graphs in 3 windows
+
+//     To combine the three graphs
+//     we try cloning
+
+//     FINISHED   ntuple_graphs.C
+
+//////////////////////////////////////////////////////////////////
+Using the gpad and cloning
+
+1. run 
+root  testplot2.C
+in the same root session  enter
+TGraph *tempgraph;
+tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+
+TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+tempgraph->Draw();
+
+But the following line
+
+c1->cd(); ntp->Draw("w:x","","l");
+
+breaks the picture; thus cloning helps here
+
+add all this to testplot3.C
+
+{  //  This is testplot3.C from  testplot2.C
+  TFile *ff = new TFile("graphsdata.root");
+  ff->ls();
+  TNtuple *ntp  = (TNtuple*) ff->Get("ntuple1"); 
+
+  ntp->Draw("y:x","","l");    // do the same for plotting the second and third curv
+
+  TGraph *tempgraph;
+  tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+  //  clone the graph
+  TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+  TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+  mygraph->Draw("ALC");
+}
+/////////////////////   end  testplot3.C
+
+run 
+root testplot3.C
+c1->cd(); ntp->Draw("w:x","","l");
+in the same root session
+add the line which washed the picture:
+
+c1->cd(); ntp->Draw("w:x","","l");
+
+/////////////////////////////////////////////////////////////////
+Here comes a full solution 
+using 3 clones from 3 windows c1, c2, c3  
+and plot them to c4 ( combined)
+
+But this is a too complicated solution;
+Study it and then go to the next task
+below - simplify this
+
+///////////////////////////////////////////////////////
+//    
+//    graph_cloner.C     clones pictures
+//
+{ 
+     //  This is a complete script; runs 
+ 
+   TFile *fff = new TFile("graphsdata.root");
+   TNtuple *ntup  = (TNtuple*) fff->Get("ntuple1"); 
+
+
+    TCanvas *c1= new TCanvas("c1","Canv 1",30,30,600,400);
+    ntup->Draw("y:x","","l");
+    TCanvas *c2= new TCanvas("c2","Canv 2",500,30,600,400);
+    ntup->Draw("z:x","","l");
+    TCanvas *c3= new TCanvas("c3","Canv 3",50,200,600,400);
+    ntup->Draw("w:x","","l");
+
+TGraph *tempgraph;
+tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+
+TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+
+TCanvas *c4=new TCanvas("c4","Combine",500,200,600,400);
+mygraph->Draw("ACL");
+
+c2->cd();
+tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+TGraph *yourgraph = (TGraph*)tempgraph->Clone("yourgraph");
+c4->cd();
+yourgraph->Draw("same");
+c1->cd();
+tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+TGraph *hergraph = (TGraph*)tempgraph->Clone("hergraph");
+c4->cd();
+hergraph->Draw("same");
+
+}  
+//   end  of   graph_cloner.C    
+//////////////////////////////////////////////////////////
+
+Use a copy of the above graph_cloner.C
+
+          cp  graph_cloner.C  ntuple_graphs.C
+
+Keep all  the main parts, except of the TCanvas 
+All plots are made to the default
+Each of the  "y:x", z:x, w:x is cloned and 
+then replaced by next picture
+
+The graphs are added to a multigraph
+
+  TMultiGraph *ThreeGr = new TMultiGraph();
+
+and add the three graphs
+
+using
+         ThreeGr->Add( mygraph ); 
+         ThreeGr->Add( yourgraph ); 
+         ThreeGr->Add( hergraph ); 
+ 
+         ThreeGr->Draw("ACP");
+//
+//
+The main part of the simplified code looks roughly like this
+
+    
+   ntup->Draw("y:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *mygraph = (TGraph*)tempgraph->Clone("mygraph");
+   ntup->Draw("z:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *yourgraph = (TGraph*)tempgraph->Clone("yourgraph");
+   ntup->Draw("w:x","","l");
+    tempgraph=(TGraph*)gPad->GetPrimitive("Graph");
+    TGraph *hergraph = (TGraph*)tempgraph->Clone("hergraph");
+
+////////////////////////////////////////////////////////
+//
+//   end of work with    ntuple_graphs.C
+//
+////////////////////////////////////////////////////////
+
+
+You should now have theses files from this second part
+
+-rw-r--r--  1 iam007  staff   304 Mar  9 11:15 read4.C
+-rw-r--r--  1 iam007  staff   246 Mar  9 11:16 test4.C
+-rw-r--r--  1 iam007  staff   485 Mar  9 11:57 graphsdata.C
+-rw-r--r--  1 iam007  staff   876 Mar  9 11:58 readgraphs.C
+-rw-r--r--  1 iam007  staff  3294 Mar  9 13:42 graphsdata.txt
+-rw-r--r--  1 iam007  staff  1068 Mar  9 13:45 graphs_to_root.C
+-rw-r--r--  1 iam007  staff  7256 Mar  9 13:46 graphsdata.root
+-rw-r--r--  1 iam007  staff   224 Mar  9 14:11 testplot1.C
+-rw-r--r--  1 iam007  staff   224 Mar  9 14:12 testplot2.C
+-rw-r--r--  1 iam007  staff   514 Mar  9 14:23 testplot3.C
+-rw-r--r--  1 iam007  staff  1019 Mar  9 14:40 graph_cloner.C
+-rw-r--r--  1 iam007  staff   884 Mar  9 15:01 ntuple_graphs.C
+</textarea>
+<!-- --------------------    END FILENAME 4  ---------------------- -->
+<br>
+<br><br>
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br><a href="#START_E_6">Top of this page - general description</a>
+
+
+<br><br>
+<BIG> <BIG>PART I.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_1">1. Data from a text file to an ntuple to a root file </a>
+
+                                         &nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_2">2. Histograms from ntuple in a root file   </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( use about 20 minutes )
+<br>
+
+<BIG> <BIG>PART II.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_3">3. Graphs - from ntuple in a root file  </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_4">4. Graphs from ntuple - multigraphs </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;( use about 25 minutes )
+<br>
+
+<a name="LABEL_6_EXTRA">
+<br><br>
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">To LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br><a href="#START_E_6">Top of this page - general description</a>
+
+
+<br><br>
+
+
+
+
+
+<big><b>
+Extra material: Other examples of root files - storing various elements </b></big>
+<br>
+<br>
+
+As mentioned at the beginning, there is added a variation on 
+<b>intro_histo.C </b> of exercise 4 <br>
+(a very short histogram example)<br> 
+in an extra text <b> About_root_files.html</b> discussing  files in the attached directory 
+<b>About_root_files_C/</b> <br> 
+illustrating the method  <br> 
+TFile::WriteObject( Object,"objectName") used below. <br> 
+This exists from earlier years as a somewhat independent unit.<br>
+See them at the beginning of
+<a href="#LABEL6_FILES">Description of files provided  in the zip-file</a>
+<br>
+<br>
+
+
+
+
+<!-- --------------------     FILENAME  extra    ---------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#505050; background-color:#EAFFEA"
+ cols="100" rows="76">
+
+//   WRITING   TString  and  TArray into a ROOT file
+
+//WRITING a string TString into a root file
+
+TFile *fff = new TFile("MixedRoot.root","RECREATE");
+TString * LABEL = new TString ("Label to make remember\nSeveral lines\nThat is\n3\n4\n5\n\n");
+cout << *LABEL << endl;
+fff->WriteObject(LABEL,"label");
+.q
+
+//READING a TString from a root file
+TFile *fff = new TFile("MixedRoot.root");
+fff->ls();
+
+TString * nLABEL;
+nLABEL=(TString*) fff->Get("label");
+cout << *nLABEL << endl;
+.q
+
+// TArray Testing and writing
+
+TArray *Narray= new TArrayI(20);
+
+//   Narray->SetAt(  VALUE,  POSITION)
+for(int i=20;i>0;i--) Narray->SetAt(22-i,i-1);
+
+//   Narray->GetAt(  POSITION)
+for(int k=0;k<20;k++) cout << Narray->GetAt(k)<<endl;
+
+TFile *fff = new TFile("MixedRoot.root","RECREATE");
+fff->WriteObject(Narray,"n_array");
+
+         //  Narray->AddAt(122,10);  not working
+.q
+//  Reading TArray
+TFile *fff = new TFile("MixedRoot.root");
+fff->ls();
+
+TArray *Myarray;
+Myarray=(TArray*) fff->Get("n_array");
+for(int k=0;k<20;k++) cout << Myarray->GetAt(k)<<endl;
+
+
+//  GRAPH    saving and reading
+
+TFile *fff = new TFile("graphsave.root","RECREATE");
+int k; double x[20];double y[20];
+for(k=0;k<20;k++) { x[k]=0.4*k; y[k]=sin(x[k]);}
+TCanvas *BBB = new TCanvas("BBB", "Graph Created");
+TGraph * gra1=new TGraph(20,x,y);
+gra1->SetLineWidth(4);
+gra1->Draw("AC");
+
+fff->Write();
+fff->ls();
+
+fff->WriteObject(BBB,"canvas");
+gra1->SetLineWidth(1);
+fff->WriteObject(gra1,"graph_1");
+.q
+
+//   Reading TGraph and TCanvas
+
+TFile *fff = new TFile("graphsave.root");
+TGraph * Ngra;
+fff->ls();
+
+Ngra=(TGraph*) fff->Get("graph_1");
+Ngra->Draw("AC");
+TCanvas * C2;
+C2=(TCanvas*) fff->Get("canvas");
+C2->Draw();
+
+</textarea><br><br>
+<!-- --------------------    END FILENAME extra  ---------------------- -->
+
+
+<a href="#LABEL_6_MAIN">Main Text of Exercise 6  </a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+<a href="#LABEL_6_links">LINKS to individual topics in PART I and PART II</a>
+<br>
+<a href="#LABEL6_FILES">Provided files in the zip-file</a>
+<br>
+<a href="#START_E_6">Top of this page - Exercise 6</a>
+<br>
+<a href="#LABEL6_Intro_data">Introduction - about data and files</a> (about 5 minutes to read)
+<br>
+<br>
+Copy of the <a href="#L6_PROLOG_5">
+"Prolog" from exercise 5 (last week) addressing the variable types</a> (about 5-10 min to read)
+<br><br>
+
+
+<BIG> <BIG>PART I.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_1">1. Data from a text file to an ntuple to a root file </a>
+
+                                         &nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_2">2. Histograms from ntuple in a root file   </a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( use about 20 minutes )
+<br>
+<BIG> <BIG>PART II.  </BIG></BIG>
+<br>
+<a href="#LABEL_6_3">3. Graphs - from ntuple in a root file  </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( use about 25 minutes )
+<br>
+<a href="#LABEL_6_4">4. Graphs from ntuple - multigraphs </a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;( use about 25 minutes )
+<br>
+<br>
+<hr>
+<br>
+<hr>
+
+
+</body>
+
+
+

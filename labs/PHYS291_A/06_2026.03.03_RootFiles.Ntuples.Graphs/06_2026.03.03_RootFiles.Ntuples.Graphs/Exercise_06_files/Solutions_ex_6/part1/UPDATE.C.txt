@@ -1,0 +1,26 @@
+
+//  Run in the root cammand - paste in several lines (up to Draw
+//  This only works if e.g. test_more_Basics.C  saved the Canvas
+
+fil2 = new TFile("basicX.root","UPDATE"); 
+fil2->ls();
+TCanvas * QQQ = (TCanvas *) fil2->Get("A_canvas");
+QQQ->Draw();
+
+//  Now remove the Canvas   - used "UPDATE"  to update the basicX.root
+
+fil2->ls();
+fil2->Delete("A_canvas;1");
+fil2->ls();
+fil2->Close();             // here file, i.e. basicX.root  will be updated
+                           // the A_canvas is gone
+
+#  New root session - or also continue
+
+#  next test_more_Basics.C  will restore - i.e. save again the  A_canvas   deleted above
+ 
+root test_more_Basics.C
+
+# After this    TCanvas * QQQ = (TCanvas *) fil2->Get("A_canvas");   can be repeated
+
+

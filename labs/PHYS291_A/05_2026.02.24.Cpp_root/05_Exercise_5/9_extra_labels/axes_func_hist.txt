@@ -1,0 +1,11 @@
+TCanvas * c1=new TCanvas("c1");
+
+TF1 fcos("fcos","cos(3*x)*exp(-0.3*x)",0,10)
+fcos.Draw();
+fcos.GetXaxis()->SetTitle("values")
+
+TCanvas * c2=new TCanvas("c2");
+TH1D * AAA = new TH1D()
+AAA->Draw()
+AAA->GetXaxis()->SetTitle("values")
+

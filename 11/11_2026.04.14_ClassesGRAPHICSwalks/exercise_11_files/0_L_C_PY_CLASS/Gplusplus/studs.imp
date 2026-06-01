@@ -1,0 +1,14 @@
+
+void student::show(){  
+  cout << Name << " " << Course << " " << Points << endl;
+}
+void student::defs( string nam, string cour, int p ){   
+    Name=nam; Course=cour; Points=p;
+}
+student::student( ){   
+    Name="nobody"; Course="none"; Points=-100;
+}
+student::student( string nam, string cour, int p ){   
+    Name=nam; Course=cour; Points=p;
+}
+

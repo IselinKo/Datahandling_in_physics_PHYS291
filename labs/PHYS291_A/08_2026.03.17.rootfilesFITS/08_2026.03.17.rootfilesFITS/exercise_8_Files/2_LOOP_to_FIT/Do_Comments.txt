@@ -1,0 +1,38 @@
+When you get too many PNG-files,  simply  run  ./clean clean removes all PNG
+
+Make comments during your work related to the following
+
+what is the role of twogaus[6]   plotfun[6]    tryfun[6]   what are they?
+
+why is there tryfun[6]   when we  use  twogaus[6]  for fitting
+(hint - see the plot of function(s)  in canvfunc canvas )
+
+Why do we want to keep all the twogaus, plotfun, tryfun as arrays?
+Why not just one of each of these functions, and re-use them 
+for all histograms ?       Hint:  do we want to keep their plots?
+
+
+how are the nparams constructed - and what (why, how) they 
+            finally contain the results of fitting
+comment in the code WHERE the results of fitting 
+
+comment - what are the parameters stored in plotfun[k] and tryfun[k]
+
+In the HELP_FILES  there is a much simpler version of the main task -> loop_fit.C
+   one_fit_2022.C    and  loop_fit_2022.C
+   simplefit.C  is a stripped versiob of one_fit_2022.C with shorter names etc
+   simplefit.C  is also copied to this directory
+
+   these files should help you to understand more about the methods
+   
+--------------------------------
+At the end of the Fragments_loop_fit.C.txt  there is the part about
+      The following  four lines are added to do  the the reporting  
+      of all the  resulting fitted parameters 
+      containing also
+      ....    for(int I=0;I<8;I++) printf(" %7.2f ",nparams[row][I]);
+
+if you run also makerootfuncs.C it will create the same format of a list
+Explain what is the same and what different in those two lists
+Add as comments if suitable
+

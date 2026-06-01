@@ -1,0 +1,64 @@
+
+// Experiment with lines and markers
+
+TCanvas * WALKS; TLine *AA; 
+
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+
+double xx1, yy1, xx2, yy2;
+
+xx1=-10; yy2=10;
+AA=new TLine(xx1, yy1, xx2, yy2);
+AA->Draw() ; 
+
+AA=new TLine(0,0,5,5);
+AA->Draw() ;      // There are 2 lines
+                  // the first AA can not be accessed
+                  // O.K. for a static drawing
+
+WALKS->Modified();
+
+AA->SetX1(-5);
+WALKS->Modified();
+
+AA->SetX1(-5);AA->SetY1(9);AA->SetX1(3);AA->SetY2(-7);
+WALKS->Modified();
+
+//Could you define a function which would move lines?
+//Something like this:
+//    void MoveLine( TLine * B,double x1,double y1,double x2, double y2)
+
+//And it should contain something like this:
+
+//            B->SetX1(x1);B->SetY1(y1);B->SetX2(x2);B->SetY2(y2);
+
+// Allways say    WALKS->Modified();  when you want to see the change
+// Changes: Sometimes they come automatically, sometimes when you click:
+// The changes allways apply when you call TCanvas::Modified() 
+
+AA->Delete();   //  we are fed up!!
+
+
+==================================
+
+//  Markers  Point marked by a graphical object
+//  29 is a nice star
+//  31 is an 8-fold line star etc ....
+//
+CC=new TCanvas("CC","CC",700,50,500,500);
+CC->Range(-12,-12,12,12);
+TMarker *m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetMarkerSize(3);
+CC->Modified();
+m->SetX(5);
+m->SetY(5);
+CC->Modified();
+m->SetX(0);m->SetY(0);
+
+CC->Modified();
+
+//    What about 
+//    void MarkMove( TMarker *mpoint, double x, double y) 
+

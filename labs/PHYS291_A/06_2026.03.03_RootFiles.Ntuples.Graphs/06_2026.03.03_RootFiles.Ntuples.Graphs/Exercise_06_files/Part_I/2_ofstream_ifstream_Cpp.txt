@@ -1,0 +1,23 @@
+
+
+// WRITE TO FILE   ofstream, open  <<  use
+
+
+double x,y,z;
+x=1.0; y=2.0; z=3.0;
+
+ofstream m_out;
+m_out.open("testout.txt");
+m_out << x<< " " << y << " " << z  << endl;
+cout << x<< " " << y << " " << z  << endl;
+m_out.close();
+
+   ifstream m_in;
+   m_in.open("testin.txt");
+   double x,y,z;
+      m_in >> x >> y >> z;
+      cout << x<< " " << y << " " << z  << endl;
+   m_in.close();
+}
+
+

@@ -1,0 +1,46 @@
+GLOSSARY
+
+C++ inputs
+The default INSTREAM (input file in C) is "cin"
+normally cin is the terminal (standart input)
+   cin >> number;
+
+If the INSTREAM should be a file:
+
+   ifstream Fin;      //  we also used  m_in - there can be many streams
+   Fin.open("small.dat.txt");  // This means  use  small.dat.txt as input
+
+   Fin >> number;
+   Fin >> num1 >> num2 >> num3 >> num4;    
+
+when this reading is in a loop - to break the loop:
+
+    if ( !Fin.good()) break;   // (! is negation )
+
+Thus this means:  if INSTREAM Fin is NOT good, stop the loop
+
+
+NEXT TOPIC:  root files     basic.root  hsimple.root  etc
+
+   TFile *ffold = new TFile("hsimple.root");    // must exist
+   TFile *ffnew = new TFile("basicY.root","RECREATE");
+   TFile *modf = new TFile("basicY.root","UPDATE");
+
+the keyword new
+   new is C++ standard to create object of class 
+   it does NOT mean that  hsimple.root  is NEW !!!
+   Actually, hsimple.root  is an old root file
+   while  basicY.root  is a new root file , because RECREATE option
+
+CAREFUL:   RECREATE   wipes away your data in your existing basicY.root
+
+Modifying by UPDATE  - you can add extra data
+          suppose you get 2 versions of the same object
+example
+  TFile * fil2 = new TFile("basicX.root","UPDATE"); 
+  fil2->ls();
+  fil2->Delete("mntuple;1");
+  fil2->ls();
+  fil2->Close();
+
+

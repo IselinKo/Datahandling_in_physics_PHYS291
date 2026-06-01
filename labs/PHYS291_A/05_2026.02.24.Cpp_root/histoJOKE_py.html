@@ -1,0 +1,44 @@
+#<html>
+#<body>  <pre>
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Slider
+
+# 1. Generate the static sample (1000 points, -4 to 5)
+rng = np.random.default_rng(42)
+sample = rng.normal(loc=0.5, scale=1.5, size=1000)
+sample = sample[(sample > -4) & (sample < 5)]
+
+# 2. Setup the "Canvas"
+fig, ax = plt.subplots(figsize=(8, 6))
+plt.subplots_adjust(bottom=0.25) # Make room for the slider
+
+# 3. Initial Plot
+initial_bins = 40 
+n, bins, patches = ax.hist(sample, bins=initial_bins, range=(-4, 5), 
+                           color='skyblue', edgecolor='white')
+ax.set_title("Interactive Re-binning")
+
+# 4. The Slider (The 'TSlider' equivalent)
+ax_slider = plt.axes([0.2, 0.1, 0.6, 0.03]) # [left, bottom, width, height]
+bin_slider = Slider(ax_slider, 'Bins', 5, 1000, valinit=initial_bins, valfmt='%d')
+
+# 5. The Update Logic
+def update(val):
+    num_bins = int(bin_slider.val)
+    ax.clear() # Clear the old histogram
+    ax.hist(sample, bins=num_bins, range=(-4, 5), 
+            color='skyblue', edgecolor='white')
+    ax.set_title(f"Interactive Re-binning: {num_bins} Bins")
+    fig.canvas.draw_idle()
+
+bin_slider.on_changed(update)
+
+plt.show()
+
+
+# </pre>
+
+
+

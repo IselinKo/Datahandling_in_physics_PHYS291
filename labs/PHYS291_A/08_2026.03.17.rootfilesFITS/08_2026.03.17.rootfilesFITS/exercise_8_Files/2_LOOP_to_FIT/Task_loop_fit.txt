@@ -1,0 +1,84 @@
+content of the directory 2_LOOP_to_FIT/
+
+makerootfuncs.C           generating six_hist.root   // not used unless ...
+six_hist.root             root file with 6 histogtams
+simplefit.C               simplified  version of one_fit.C 
+one_fit.C                 *** starting point here - can not be edited
+loop_fit.C                now identical to one_fit.C your task is to edit it
+Fragments_loop_fit.C.txt  shows parts of the file loop_fit.C
+fit_diff.C.txt            as above, but showing differnces
+Task_loop_fit.txt         your task, this file
+
+The file one_fit.C  does the job of reading and fitting one of the histograms
+in the root file six_hist.root 
+Inspect the one_fit.C and check that a histogram is picked by its name
+not by its "position" in the list
+( for getting the histogram, its name ( Names[k] ) rather than its position (k)
+  is used; Note that Names[k] is used to construct   HistName="LL_"+Names[k] 
+  a feature added just to add a bit of complexity to the task) 
+
+The program loop over all the Names[ ] and thus all the histograms is  present
+in one_fit.C, but is commented out, and only one k is processed
+
+There is  one_fit.C as your starting point (write-protected) - but there is also
+          loop_fit.C - on start a copy of one_fit.C - WORK ON THIS FILE
+          simplefit.C     which is about half of the size
+          simplefit.C has about 20% less lines, and much shorter NAMES
+          also some features are missing 
+          simplefit.C is easier to analyze - you should consult it too
+                  for getting a simpler view of the codes
+
+The task is to make a program loop_fit.C by modifying
+the program one_fit.C to take all the six histograms, make all the windows
+and all the fits, in principle simply by replacing the relevant variables
+(or objects, or pointers) by ARRAYS of the same type.
+         Actually, simplefit.C is obtained from  4_LOOP_WORKS/tryfit_2022.C
+         ( that is also here in the )
+         which is a simpler version of the file you should make
+         from 2022 - with a somewhat different aims
+
+
+In your task - producing loop_fit.C from one_fit.C
+Some of the object pointers in one_fit.C are already made to be arrays, 
+some names refer to just one pointer - and those changes are your task.
+(example: there is   
+                TF1 * plotfun[6];  done - but also  
+                TF1 * tryfun;      your task to change)
+
+A special feature are the parameters, the array of parameter values.
+Each of the function objects carries "their own" parameters inside itself,
+but the array   nparams[ ] is used to enter them, as in  twogaus->SetParameters(nparams);
+
+We recommend in here that since there will be twogaus[k]  we also use
+   double array nparams[k][ ]      leading to  twogaus[k]->SetParameters(nparams[k])
+For setting the parameters (before fit) a single array could be used (objects keep them)
+but it will be useful for a feature that you should include:
+   after the fit, the resulting parameters should be placed back to replace the 
+   starting values    
+
+This is rather complex work, so we have done it for you; 
+       this double array nparams[ ][ ]
+       is already present in this 2025 version of one_fit.C
+
+The file Fragments_loop_fit.C.txt  is taken from our solution of your task (our loop_fit.C) :
+it gives hints on how to modify  one_fit.C to become loop_fit.C
+( how prepared: we made our version of loop_fit.C  and extracted some fragments
+  There is also a file fit_diff.C.txt  obtained  by   using the utility diff (list differences)
+              diff loop_fit.C  one_fit.C > fit_diff.C.txt
+     (in fact, one can simply take one_fit.C and manually edit it (by removing and adding)
+         the differing lines; BUT DO NOT DO THAT - lots of work and you learn nothing
+         rather follow the fitFragment.C  and reconsider all of the changes )
+  
+Also included is makerootfuncs.C which made the file   six_hist.root
+This present version puts the histograms into a new  N_six_hist.root to  avoid a mess
+It might also be helpful since it reports the  used 6 sets of parameters
+in fact in the same format as the proposed last few lines of loop_fit.C 
+
+It will be very interesting to compare the data used to make the histograms
+with the data found from the fits.
+They can not be all of them the same, since they contain different totals.
+But what about the peak positions etc 
+See also in Do_Comments.txt
+
+
+

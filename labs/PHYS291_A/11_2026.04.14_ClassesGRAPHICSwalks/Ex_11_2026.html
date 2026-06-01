@@ -1,0 +1,2960 @@
+<html>
+<title>Exercise 11 Week  14.04.2026</title>
+<head>
+
+
+
+</head>
+
+
+<body style="font-family:monospace; font-size: 14pt; color:#000000">
+
+<a name="absTOP11">
+<big><b>PHYS291 - Exercise 11  - Week  14.04.2026 <br>
+Structures, Objects, Random Walk Graphics, Simple GUI 
+</b></big>
+
+
+
+<br><br>
+This week we shall start by working with classes ( of objects ) and we start<br>
+by extended what we have learnt about structures last exercise session.<br>
+In "part 0" we have a 2026 version of "part 1"; this is made for the lectures<br>
+and it is shorter and more systematical, while "part 1" has some additional points.<br>
+In the lab we should spend more time on "part 0" than on "part 1" - but both are useful.<br>
+Then we work with the class Time and class mammals (dogs and cats) introduced in<br>
+the lecture. There we look both at the compiled versions and versions run in root.
+<br>
+Further we will look at random walks and graphics to view such simulations, including<br>
+introduction to simple GUI and root timer functions. In the "random walk" a "particle" <br>
+makes random steps until it  accidently leaves the playground - in our version.<br>
+
+Finally we revisit the TNtuple and TTree from the last week.
+<br>
+
+<a name="TOP11">
+
+<br><hr>
+<big><b>This week's topics</b></big>
+<br><hr>
+
+
+<a href="#LABELn11_mm">
+0.  From struct to class 2026 version </a> - struct to class from PY to g++; 
+<br>
+
+
+<a href="#LABELn11_0">
+1.  From struct to class </a> - classes extending structures; 
+<a href="#LABEL_n11_1b">also see a discussion on planets and names</a><br>
+
+<a href="#LABELn11_1">
+2. Work with classes - Time interval class and Mammals (following the lectures)</a><br>
+
+
+<a href="#LABELn11_3">
+3. Random Numbers - Repetition - we have done most of it; Here as intro to next points 4,5
+</a><br>
+
+<a href="#LABELn11_4">
+4. Graphics for random walks - free drawing on canvas.
+   Buttons and Timers. (Using graphics - X11 )
+</a><br>
+
+<a href="#LABELn11_5">
+5. Random Walks  (Using graphics - X11 )
+</a><br>
+<a href="#LABE_11_Enter-key">
+6. ENTER_key driven simple ANIMATION </a>
+<br>
+<a href="#LABELn11_2">
+7. TNtuple and TTree - an extended explanation to parts of Exercise 10
+</a><br>
+<br>
+
+<b>Files:</b>
+<br>
+&nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#101010; background-color:#FFFFEE"
+cols="90" rows=" 28">
+0.  From struct to class 2026 -  with PY, to C to C++ using root and g++
+   ====  Directory  L_C_PY_CLASS
+
+1. From struct to class - struct student and class Student
+   ====  Directory CLASS_STUDENT
+
+2. Work with class Time and class Mammal (following the lecture)
+   ====  Directory   CLASSES  with CLASS_TIME and CLASS_MAMMALS 
+
+3. Random Numbers
+   ====  Directory RANDOM
+
+4. Graphics for random walks - free drawing on canvas
+   Buttons and Timers
+   ====  Directory LINES_TIMERS
+
+5. Random Walks
+   ====  Directory   WALKS
+
+6. ENTER-key driven ANIMATION - Graphics and terminal interactions
+   ====  Directory   ENTER_key_ANIMATION  
+
+7. TTree and TNtuple
+   ====  Directory SIMPLE_TTree
+
+</textarea><br>
+<!-- ------------------   tree.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; &nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 12pt; color:#000000; background-color:#FFFFEE"
+cols="90" rows="86">
+exercise_11_files
+├── 0_L_C_PY_CLASS/              ADDED 2026   see its own tree (15 files in 3 directories)
+│   ├── STRUCT_CLASS/
+│   ├── CPP_methods/
+│   ├── Gplusplus/
+│   └── tree_info.txt.html
+├── 1_CLASS_STUDENT/             part  0_L_C_PY_CLASS/ partly replaces this older version
+│   ├── 0_examples.txt
+│   ├── a_student_struct.C
+│   ├── b_student_class.C
+│   ├── c_student_defs.C
+│   ├── d_student_comments.C
+│   ├── structPlanet.txt
+│   └── z_student_class.C
+├── 2_CLASSES/
+│   ├── CLASS_MAMMALS/
+│   │   ├── 0_Inheritance_Exercise.txt
+│   │   ├── Makefile
+│   │   ├── mammal_not_virt.cpp
+│   │   ├── mammal_virt.cpp
+│   │   ├── mammals2019mod.cpp
+│   │   ├── mammals2019org.cpp
+│   │   ├── mammals_explored.txt
+│   │   └── test_virtual.txt
+│   └── CLASS_TIME/
+│       ├── Cplusplus/
+│       │   ├── Makefile
+│       │   ├── mytime3.cpp
+│       │   ├── mytime3.h
+│       │   └── usetime3.cpp
+│       ├── bool_time.C
+│       ├── classtime2.C
+│       └── study_Class_Time_in_ROOT.txt
+├── 3_RANDOM/
+│   ├── fnamGFUV.root
+│   ├── random_2_gaus.C
+│   ├── random_gaus.C
+│   ├── random_name_root.C
+│   ├── random_numbers.txt
+│   └── random_uniform.C
+├── 4_LINES_TIMERS/
+│   ├── 2026/
+│   │   ├── ON_COLORS.txt
+│   │   ├── ROOT_color_wheel.png
+│   │   ├── root_colors.png
+│   │   └── root_markers_v2.png
+│   ├── Graphics_Lines.txt
+│   ├── TCanvas_Marker_Key.C.txt
+│   ├── Timer_controller.C
+│   ├── controller.C
+│   ├── lines_and_markers.C
+│   └── simpleAnimation.txt
+├── 5_WALKS/
+│   ├── Random_Walk.C
+│   ├── ReallySilentRandom.C
+│   ├── StartBrownButton.C
+│   ├── fast.C
+│   ├── random_walks.txt
+│   ├── roundwalk.C
+│   ├── walkfunc.C
+│   ├── walkmain.C
+│   └── wmarker.C
+├── 6_ENTER_key_ANIMATION/
+│   ├── back_forth.C
+│   ├── back_forthGRAPH.C
+│   ├── back_forthGRAPHworks.C
+│   ├── readme.txt
+│   └── two_focus.C
+├── 7_SIMPLE_TTree/
+│   ├── exampl.txt
+│   ├── grow_TTree.C
+│   ├── look_TTree.C
+│   ├── look_charTree.C
+│   ├── make_TTree.C
+│   ├── make_charTree.C
+│   ├── simple_TTree.html
+│   ├── tntuple_ttree.txt
+│   └── tree1.root
+└── 8_EXTRA_11/
+    ├── graph_interact_fail.C
+    ├── main_only.cpp
+    ├── main_smain.cpp
+    ├── readme.txt
+    └── vgraph_interacDEF.C
+</textarea><br>
+<!-- ---------------------   tree.txt    END  TEXT ----------------- -->
+   
+ <a name="LABELn11_mm">
+ <br><hr><br>
+ <br><hr><b><BIG>
+0. From struct to class 2026 -  with PY, to C to C++ using root and g++
+</BIG></b>
+<br><br>
+<!-- ------------------   tree_info.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="41">
+This is a set of files illustrating the class/object and relation to struct of C/C++
+and how these interpreter versions can be (with minor changes) made to C++ compiled
+versions at the end
+
+In the L_C_PY_CLASS/  we go from Python class to C-struct to C++ class 
+                    with public members only; no private members
+
+In CPP_methods/   type C++ class from above gets also constructors and methods
+                  and the typical division into the 3 files is also shown
+                  all this is done in ROOT 
+
+in Gplusplus/   - refers to the g++ compiler; mainly same code as in CPP_methods/
+                  BUT COMPLETELY without the interpreters; compiled version!
+
+
+L_C_PY_CLASS/
+│
+├── STRUCT_CLASS/       structure to class, struct(C) vs class (python)
+│   ├── studs.py             python   class            python3  studs.py
+│   ├── studs.C              root C   struct           root  studs.C 
+│   ├── studs.cxx            root C++ class            root  studs.cxx
+│   ├── studsA.C           - studs.C    printing also size of one struct storage
+│   └── studsA.cxx         - studs.cxx  printing also size of one object storage
+│
+├── CPP_methods/        class from  studs.cxx   with methods and constructors
+│   ├── studgr.C             single file class definitions, main script, methods
+│   ├── studgr.CPP         - first of three conventional files dividing studgr.C   
+│   ├── studs.h            - the headers - class definition, methods prototypes
+│   └── studs.imp          - implementation of the method functions
+│
+└── Gplusplus/
+    ├── studgr.cpp       - contains  studgr.CPP of ROOT made to COMPILE
+    ├── studs.h          - the headers - class definition, methods prototypes
+    ├── studs.imp        - implementation of the method functions
+    └── Makefile         compiles; run as ./studgr
+
+In CPP_METHODS/ we use C++ strings, while in studs.cxx we use C-string char [ ]
+In Gplusplus/ the "void studgr()" of studgr.CPP from CPP_methods/ 
+   is replaced by "int main()"  in studgr.cpp (also added using namespace std)</textarea><br>
+<!-- ---------------------   tree_info.txt    END  TEXT ----------------- -->
+   
+   
+
+
+
+
+<br>
+
+<br>
+
+<br>
+  
+   
+<a name="LABELn11_0">
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+<hr>
+<br>
+<big><b>1. From struct to class</b></big><br>
+<br>
+ Last time we worked with structures, mainly rather abstract type.<br>
+ In this part we start with the class concepts - by first explorting<br>
+ a very simple structure - student - see a_student_struct.C <br>
+<br>
+ In a_student_struct.C  the structure is shown (the first 5 lines).<br>
+ In the rest of the file there are defined some functions to work<br>
+ with the structures. It is possible to access all three members,<br>
+ name, course and mark.<br>
+<br>
+ The same structure is made to a class in file b_student_class.C . <br>
+ The members of the structure (class Student) are private, it means <br>
+ they can be accessed only via the public functions. <br>
+ Why this - because the functions may be equiped with checks of the <br>
+ integrity of the date (see the condition on length of the name <br>
+ as an example).<br>
+<br>
+ The files <b>c_student_defs.C </b> and <b>d_student_comments.C </b>are variants <br>
+ of the same class. Note the difference, these are generally two alternative <br>
+ ways to specify the classes; note the Student::Student() in the last 2 files. <br>
+<br>
+Examples for you to explore are in file <b> 0_examples.txt </b>. Go through<br>
+all the lines of the file. <br>
+<br>
+ Your task is to provide the missing functions, indicated<br>
+ (see: Missing functions:   SetMark(char m)   string GetCourse()  char GetMark()<br>
+ at the end of the file)<br>
+<br>
+ Do this, i.e. modify the file b_student_class.C to have these missing "methods".<br>
+<br>
+The functions shown here and present in CLASS_STUDENT are: <br>
+
+ &nbsp;  &nbsp;  a_student_struct.C 
+  &nbsp;  &nbsp;  b_student_class.C   <br>
+   &nbsp;  &nbsp;   0_examples.txt    <br>
+  &nbsp;  &nbsp;  c_student_defs.C  
+ &nbsp;   &nbsp;  d_student_comments.C <br>
+ <br>
+<br>
+
+
+   
+   
+   
+   
+   
+   
+ Remember that each of the files is used by <br>
+    &nbsp;  &nbsp;    &nbsp;  &nbsp; <b> .L  a_student_struct.C </b> 
+      &nbsp;  &nbsp;    &nbsp;  &nbsp; etc <br>
+ see the   0_examples.txt   below
+<br>   
+<br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+a_student_struct.C
+</big>
+<br>
+<!-- ------------------   a_student_struct.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="22">
+struct student { 
+            string name;
+            string course;
+            char mark;
+};    
+//   The above defines the structure; We can construct some help functions
+//   Only the above is strictly needed;
+
+    void SetName(student *S, string N){
+                   if(N.length() > 4) S->name=N; else  cout<<"wrong name\n";};
+    void SetCourse(student *S, string C){
+                   S->course=C;        };
+    string GetName(student S){  
+                       return S.name;        };
+/*   Examples:  
+student A1;
+A1.name="Donald Duck";   // easy; But e.g. you can not implement checks
+A1.name="AB";            // Invalid name - we think
+student BB;
+SetName(&BB,"A B")       //  returns wrong name
+*/
+</textarea><br>
+<!-- ---------------------   a_student_struct.C    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+b_student_class.C
+</big>
+<br>
+<!-- ------------------   b_student_class.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="27">
+class Student {
+     private: 
+            string name;
+            string course;
+            char mark;
+     public:     
+             Student(){  name="---";   };  // create Just empty
+             Student(string N)           {   name=N;  };  // create w. name
+             Student(string N, string C ){ name=N; course=C; };
+             Student(string N, string C, char M){ name=N; course=C; mark=M;};
+             void SetName(string N){
+                   if(N.length() > 4) name=N; else  cout<<"wrong name\n"; };
+             void SetCourse(string C){
+                   course=C;        };
+             string GetName(){  
+                       return name;        };
+      };
+/*        Examples:
+Student AA;
+AA.SetName("Ann Aas");
+Student BB("Jan jansen","PHYS291",'C');
+cout << BB.GetName() << endl;
+
+Missing functions:   SetMark(char m)   string GetCourse()  char GetMark()
+
+*/
+</textarea><br>
+<!-- ---------------------   b_student_class.C    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+0_examples.txt
+</big>
+<br>
+<!-- ------------------   0_examples.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFFF"
+cols="100" rows="42">
+#  Take all this into ctrl-C
+#  and paste it ctrl-V into terminal which knows root; 
+#  it should run smoothly - this is a check
+#  Then work with details, line by line, explore the C-files etc
+root                #  only struct
+.L a_student_struct.C 
+student A;
+A.name="Siri Bu";
+cout << A.name << endl;
+.q
+root                 # struct and class compare
+.L a_student_struct.C
+.L b_student_class.C 
+student Y; Y.name="Siri Bu";
+Student J; J.SetName("Siri Bu");
+// Try  Student J3;  J3.name="Peter Smart"; // Gives error
+//      student J4;  J4.name="Peter Smart"; // works
+.q
+root                     # class - definition c_student_defs.C 
+.L c_student_defs.C 
+Student J;
+J.SetName("Per Ti")
+cout << J.GetName() << endl;
+// pointers and new
+Student * Z=new Student()
+Z->SetName("Jan Jansen")
+Z->GetName()
+Student * X=new Student("Siri Bu");
+cout << X->GetName() <<endl;
+.q
+root                     #  check the commented version
+.L d_student_comments.C 
+Student J;
+J.GetName()
+cout << J.GetName() << endl;    //  empty name
+J.SetName("Per Ti");            //  Per  named          
+cout << J.GetName() << endl;
+Student T("Siri Boe")
+cout << T.GetName() << endl;
+.q
+
+</textarea><br>
+<!-- ---------------------   0_examples.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+c_student_defs.C
+</big>
+<br>
+<!-- ------------------   c_student_defs.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFDDDD"
+cols="100" rows="28">
+class Student {              //  The methods are declared in the class
+     private:                //  But defined outside 
+            string name;
+            string course;
+            char mark;
+     public:
+             Student();
+             Student(string Name);
+             Student(string Name, string course);
+             void SetName(string Name);
+             void SetCourse(string Name);
+             void SetMark(char M);
+             string GetName();
+             string GetCourse();
+             char GetMark();
+             };                  // class definition finished
+Student::Student(){    
+    name="---";       }
+Student::Student(string Name){
+    name=Name;        }
+void Student::SetName(string inputname){
+    name=inputname;        }
+void Student::SetCourse(string inputname){
+    course=inputname;        }
+string Student::GetName(){  
+     return name;        }
+//   The same examples as in the other files
+</textarea><br>
+<!-- ---------------------   c_student_defs.C    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+ 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+d_student_comments.C
+</big>
+<br>
+<!-- ------------------   d_student_comments.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="29">
+class Student {
+     private: 
+            string name;                   //  same as struct
+            string course;
+            char mark;
+     public:
+             Student();                    //  creates Student
+             Student(string Name);         //  creates Student with given name
+             Student(string Name, string course);
+             void SetName(string Name);
+             void SetCourse(string Name);
+             void SetMark(char M);
+             string GetName();
+             string GetCourse();
+             char GetMark();
+             };                            // Class Student declared, not methods
+             //   Here follow the methods
+Student::Student(){         //  example   Student S1;
+    name="---";       }
+Student::Student(string Name){  //  example   Student S2("Jan Jansen");
+    name=Name;        }
+void Student::SetName(string inputname){  //  example  S1.SetName("Anne Aas");
+    name=inputname;        }
+void Student::SetCourse(string inputname){
+    course=inputname;        }
+string Student::GetName(){         // example   cout << S2.GetName << endl;
+     return name;        }
+
+</textarea><br>
+<!-- ---------------------   d_student_comments.C    END  TEXT ----------------- -->
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+<a name="LABEL_n11_1b">
+
+
+
+
+
+
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+structPlanet.txt      &nbsp;  &nbsp;  &nbsp;  &nbsp;  record of a discussion, knows its name etc
+</b></span><br>
+<!-- ------------------   structPlanet.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="120">
+Discussed:
+    struct
+    struct   with functions handling the structure (as methods of classe)
+    class with all members public  (just like struct)
+
+The Planet object knows its name (who_am_I)
+
+////////////////////////////////////////////////
+struct    -   data type allowing to construct composite data structures
+works in C   in C++    and in root
+
+////////////     follows code
+//a simple example: planets for "very simple" astronomy
+// define
+struct planet {char name[100]; double mass; double radius;};
+// use
+planet Venus;
+//         Venus.name is empty, Venus.radius is zero
+
+cout <<  Venus.name << endl;
+strcpy(Venus.name,"Venus");
+Venus.radius=0.55;          // of "some unit"
+cout <<  Venus.name << endl;
+cout <<  Venus.radius << endl;
+//
+//  define functions, need pointer to planet struct 
+// 
+void planetSetMass(planet* PL,double mass){PL->mass=mass;}
+void planetSetName(planet* PL,char* nam){strcpy(PL->name,nam);}
+void planetSetRadius(planet* PL,double rad){PL->radius=rad;}
+void planetShow(planet* PL){cout<<PL->name<<":  mass="<<PL->mass<<" radius="<<PL->radius<<endl;}
+
+planet Mars;
+planetSetName( &Mars, "Venus" );
+planetSetName( &Mars, "Mars" );
+planetSetMass( &Mars, 0.35 );
+planetSetMass( &Venus, 0.25 );
+planetSetRadius( &Venus, 0.7 );
+planetSetRadius( &Mars, 0.9 );
+planetShow( &Mars)
+planetShow( &Venus);
+//  
+//    This is struct   structure
+//
+
+/////////////////////////// next short code       /////////////////////
+//
+//       Here we explore classes NOT IN TEXTBOOK!!
+//
+//  This class PLANET is in fact just like the struct
+class PLANET { public: char name[100];double mass; double radius;};
+PLANET Earth;
+Earth.mass=0.55;
+strcpy(Earth.name,"Earth");
+//   use it:
+cout <<  Earth.name << endl;
+cout <<  Earth.radius << endl;
+
+///////////////////////   Next file code  ////////////////////
+//
+//
+//   Here all the members are PRIVATE, we need PUBLIC functions
+//                       to access the private "members"
+
+class PLANET { private: char name[100];double mass; double radius;
+               public: void SetName( char* nam ){strcpy(name,nam);}
+           void ShowName() {cout << name << endl;}
+      };
+PLANET Earth;
+Earth.SetName("Earth");
+Earth.ShowName();
+
+
+// These will break root
+Earth.mass=0.55;
+strcpy(Earth.name,"Earth")
+
+
+/////////// Next file code: approaching the textbook   //////////////
+
+class PLANET { 
+private: 
+  char name[100];double mass; double radius;
+public: 
+  void SetName( char* nam ){strcpy(name,nam);}
+        void ShowName(){cout << name << endl;}
+  void SetMass(double mas) {mass=mas;}
+  void ShowMass(){cout << mass << endl;}
+        void SetRadius(double rad) {radius=rad;}
+        void ShowRadius(){cout << mass << endl;}
+};
+PLANET Mars;
+Mars.SetName("Mars");  // This gives warning
+Mars.ShowName();
+
+Mars.SetName((char*)"mars");  // No warning here
+Mars.ShowName();
+
+/////////////////////////////////////////////
+//  This was first version, trying to avoid warnings
+//  Just for the record;  note the very compact code
+//
+class PLANET { private: char name[100];double mass; double radius;
+public: void SetName( char* nam ){strcpy(name,nam);}
+void ShowName(){cout << name << endl;}};
+
+PLANET Mars;
+Mars.SetName("Mars");
+Mars.ShowName();
+gErrorIgnoreLevel = kError;    // Trying stop warnings
+Mars.SetName("mars");
+gErrorIgnoreLevel = kFatal;      // does not help
+Mars.SetName("mars");
+Mars.SetName((const char*)"mars");
+Mars.SetName((char*)"mars");
+char name1[]="Mars";
+Mars.SetName(name1);
+
+
+</textarea><br>
+<!-- ---------------------   structPlanet.txt    END  TEXT ----------------- -->
+   
+
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    1 2020       ---------------------------------------- -->
+<br>
+<hr>
+<a name="LABELn11_1">
+<br><br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+
+
+
+<big><b>
+2. Work with classes (following the lectures)
+</b> </big><br><br>
+
+There are two parts in this topic:  The class Time and the class mammal with derived dog and cat.
+<br>
+In the Time case we work with the overloading of operators <br>
+In the mammal case we work with so called inheritance, i.e. with derived classes, <br>
+<br>
+ <br>
+
+ In the mammal case the C++ files contain the headers and implementations, all always in one file.
+ <br>
+ The files are  so constructed that they can be both compiled and run in root without <br>
+ any modifications needed.<br>
+ Illustrated are the replacement of "private" by "protected" and the "virtual" attribute for <br>
+ functions (methods) which are going to be modified in the derived class<br><br>
+ There are detailed descriptions in the provided files.
+
+
+<br><br>
+
+
+   
+ In the first case, the Time class, there are provided specialized root files, as discussed <br>
+ in the following file  (also here are detailed descriptions in the file package)  <br>
+   
+   
+   
+   
+<br><br>
+<span style="font-family:monospace;font-size: 14pt;  color:#000000">
+<b>
+study_Class_Time_in_ROOT.txt
+</b></span><br>
+<!-- ------------------   study_Class_Time_in_ROOT.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#FFFFD0"
+cols="100" rows="85">
+Working    with class time in root
+     for completeness:
+     In directory Cplusplus there are the standard C++ files of the type
+                  mytime.h mytime.cpp usetime.cpp  and the Makefile
+===================================================================
+you can test this quickly by
+
+root classtime2.C
+root bool_time.C
+
+// IT SHOULD NOT COMPLAIN OR CRASH
+
+// the file bool_time.C   implements also the  == Boolean operator
+// see below how to use it
+
+===================    FURTHER ============== 
+root
+.L classtime2.C
+
+// and now you can explore the class;
+
+// First:    classtime2();
+
+// Then take parts of the examples and run in root
+
+
+// e.g.
+    A.Reset();
+    B.Set(5, 40);
+    C.Set(2, 55);
+A=B+C;
+cout << "sum of intervals A = B + C: " << A << endl;
+
+or
+
+cout << A << endl;
+
+=====================================================
+
+Study the file!
+
+You will find these strange notations
+
+q+=1         means     q=q+1
+
+q=43
+q%=8        //   means q=q%8;     returns 3
+so  
+    hours=Tot_minutes/60;      // integers only
+    minutes = Tot_minutes%60;  // The remainder
+
+in the source you find
+     minutes %= 60;
+
+Try in root
+minutes=83
+minutes %= 60;           // returns 23; reminder
+minutes = minutes % 60;  // is the same
+
+According to this authors opinion, this variant of syntax
+is just a little bit crazy. It saves typing of one name
+and confuses nearly everybody in the begining.
+
+You are not obliged to use this notation!!!!  
+
+//======================================================
+.x bool_time.C
+Time D(3, 55);
+Time n=C+Time(1,0);
+cout << C << endl;
+Time n=C+Time(1,0);
+cout << ( D==n ) << endl;    // prints 1 for true
+cout << ( D==C ) << endl;    // prints 0 for false
+
+//  Note that there is no cout << (bool) giving true/false, only 1/0
+//  Note also that  cout <<  D==C  << endl;  CRASHES, parantheses necessary
+
+                cout <<   A == B  << endl;  crashes in root code
+                you  must use  cout <<  (A == B)  << endl;
+========================================================================
+In directory Cplusplus there are the standard C++ files of the type
+             mytime.h mytime.cpp usetime.cpp 
+</textarea><br>
+<!-- ---------------------   study_Class_Time_in_ROOT.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--           PART 3 in new 2020 version   -->
+<br>
+
+
+<!-- PART    3 in 2020       ---------------------------------------- -->
+<br>
+<hr>
+<a name="LABELn11_3">
+<br>
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+
+
+
+
+
+<big><b>
+
+3. Random Numbers      - mostly done before, but have a short look please!
+<br>
+   ====  Directory RANDOM
+</b> </big><br><br>
+
+
+<b> TASK:  Study the files in root interactively  </b>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+<br>   random_numbers.txt  <br>
+<!-- ----------------    random_numbers.txt   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 91">
+============================
+Random Numbers
+============================
+
+There are several Random Number Generators which can be selected.
+We are going to use just the default one this week
+
+gRandom  is root's pointer to the generator
+it is TRandom * gRandom; it is implicitely declared (do not do it!)
+
+gRandom->Rndm() returns a random number between 0 and 1 (try it!)
+
+Unless you do something, the sequence is always the same
+Try:
+root
+cout << gRandom->Rndm() << " "<< gRandom->Rndm() << " " << gRandom->Rndm() << " " <<endl;
+.q
+You see - allways
+0.999742 0.16291 0.282618 
+root
+cout << gRandom->Rndm() << " "<< gRandom->Rndm() << " " << gRandom->Rndm() << " " <<endl;
+.q
+ To get allways different sequence, you must add gRandom->SetSeed();
+root
+gRandom->SetSeed();
+cout << gRandom->Rndm() << " "<< gRandom->Rndm() << " " << gRandom->Rndm() << " " <<endl;
+.q
+
+Random Numbers
+If you get a sequence of uniformly distributed random numbers 
+and make their HISTOGRAM, you should get a simple horizontal line
+- if you sampled enough;
+
+Root gives you lots of options in addition to the uniform;
+
+
+============================
+Try som of these: 
+============================
+
+gRandom->SetSeed()
+....
+....
+gRandom->Rndm()
+gRandom->Rndm()
+
+
+gRandom->Integer(50)
+gRandom->Integer(50)
+gRandom->Integer(50)
+gRandom->Integer(50)
+gRandom->Integer(50)
+gRandom->Integer(50)
+
+
+gRandom->Uniform(-50.0,50.0)
+gRandom->Uniform(-50.0,50.0)
+gRandom->Uniform(-50.0,50.0)
+gRandom->Uniform(-50.0,50.0)
+gRandom->Uniform(-50.0,50.0)
+gRandom->Uniform(-50.0,50.0)
+gRandom->Gaus(4,2)
+....
+gRandom->Gaus(4,2)
+
+
+//  This is so called Lorentz or Breit-Wigner curve
+// Shape of natural lines (Line widths) - Gaussians are statistics/errors
+//
+MinF = new TF1("MinF","1.0/((x-[0])*(x-[0])+[1]*[1])",-3.0,3.0);
+MinF->SetParameters(0,0.5)
+MinF->GetRandom()
+MinF->GetRandom()
+MinF->GetRandom()
+MinF->GetRandom()
+MinF->GetRandom()
+MinF->GetRandom()
+
+Now you check histograms for some of them;
+Uniform 0.0 to 1.0 is Rndm() and tested below
+
+TH1F* hi1;     // we define the pointer, so that we can write
+               // many times for various cases ..... h1=new TH1F......
+h1=new TH1F("A","b",100,0.0,1.0);
+for(int i=0;i<1000000;i++){   h1->Fill(  gRandom->Rndm()  ) ;}
+h1->Draw();
+//  But you must remember:  
+h1->SetMinimum(0);   
+//  otherwise it is confusing - does not "look uniform" at all
+
+</textarea><br>
+
+
+<!-- ----------------    random_numbers.txt   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   random_uniform.C  <br>
+<!-- ----------------    random_uniform.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 15">
+{
+// Reuse this for various other distributions
+
+TH1F* hi1;     // we define the pointer, so that we can write
+               // many times for various cases ..... h1=new TH1F......
+
+h1=new TH1F("A","b",100,0.0,1.0);
+for(int i=0;i<10000000;i++){   h1->Fill(  gRandom->Rndm()  ) ;}
+h1->Draw();
+//  But you must remember:  
+h1->SetMinimum(0);   
+//  otherwise it is confusing - does not "look uniform" at all
+}
+
+</textarea><br>
+
+
+<!-- ----------------    random_uniform.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   random_name_root.C  <br>
+<!-- ----------------    random_name_root.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 11">
+{
+TString nam="fnam";
+gRandom->SetSeed();
+nam=nam+char(65+gRandom->Integer(26))+char(65+gRandom->Integer(26));
+nam=nam+char(65+gRandom->Integer(26))+char(65+gRandom->Integer(26));
+nam=nam+".root";
+TFile * ff=new TFile(nam,"UPDATE");
+gROOT->ProcessLine(".q");
+}
+
+</textarea><br>
+
+
+<!-- ----------------    random_name_root.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    4     in 2020  ---------------------------------------- -->
+<br>
+<hr>
+<a name="LABELn11_4">
+<br>
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+
+
+
+
+
+
+<big><b>
+4. Graphics for random walks - free drawing on canvas.
+   Buttons and Timers.
+
+</b> </big><br><br>
+   ====  Directory LINES_TIMERS
+   <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   lines_and_markers.C  <br>
+<!-- ----------------    lines_and_markers.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 60">
+{
+
+// USE LINE BY LINE
+// Check syntax by    
+//                 root lines_and_markers.C
+
+TCanvas * WALKS; TLine *AA; 
+
+  WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+   WALKS->Range(-12,-12,12,12);
+   double xold, yold, xnew, ynew;
+   xold=0.0; yold=0.0; xnew=4.0; ynew=-10.0;
+   AA=new TLine(xold, yold, xnew, ynew);
+    AA->Draw() ; 
+// leave the first line without its pointer
+// AA will now point to a new one
+
+   AA=new TLine(0,0,5,5);
+    AA->Draw() ; 
+// Now delete the second line
+    AA->Delete();
+ 
+////////////////    Markers //////////////////
+
+CC=new TCanvas("CC","CC",700,50,500,500);
+CC->Range(-12,-12,12,12);
+TMarker *m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetX(5);
+m->SetY(5);
+CC->Modified();
+m->SetMarkerSize(3);
+CC->Modified();
+m->SetMarkerStyle(21);
+CC->Modified();
+m->SetMarkerStyle(31);
+CC->Modified();
+m->SetY(10);
+CC->Modified();
+
+CC->Range(-12,-12,12,12);
+m->Draw();
+m->SetMarkerSize(3);
+CC->Modified();
+m->SetX(5);
+m->SetY(5);
+CC->Modified();
+m->SetX(0);m->SetY(0);
+CC->Modified();
+// leave the first marker without its pointer
+// m will now point to a new one
+m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetMarkerSize(3);
+CC->Modified();
+// Now delete the second marker
+m->Delete();
+}
+
+</textarea><br>
+
+
+<!-- ----------------    lines_and_markers.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   Graphics_Lines.txt  <br>
+<!-- ----------------    Graphics_Lines.txt   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 65">
+
+// Experiment with lines and markers
+
+TCanvas * WALKS; TLine *AA; 
+
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+
+double xx1, yy1, xx2, yy2;
+
+xx1=-10; yy2=10;
+AA=new TLine(xx1, yy1, xx2, yy2);
+AA->Draw() ; 
+
+AA=new TLine(0,0,5,5);
+AA->Draw() ;      // There are 2 lines
+                  // the first AA can not be accessed
+                  // O.K. for a static drawing
+
+WALKS->Modified();
+
+AA->SetX1(-5);
+WALKS->Modified();
+
+AA->SetX1(-5);AA->SetY1(9);AA->SetX1(3);AA->SetY2(-7);
+WALKS->Modified();
+
+//Could you define a function which would move lines?
+//Something like this:
+//    void MoveLine( TLine * B,double x1,double y1,double x2, double y2)
+
+//And it should contain something like this:
+
+//            B->SetX1(x1);B->SetY1(y1);B->SetX2(x2);B->SetY2(y2);
+
+// Allways say    WALKS->Modified();  when you want to see the change
+// Changes: Sometimes they come automatically, sometimes when you click:
+// The changes allways apply when you call TCanvas::Modified() 
+
+AA->Delete();   //  we are fed up!!
+
+
+==================================
+
+//  Markers  Point marked by a graphical object
+//  29 is a nice star
+//  31 is an 8-fold line star etc ....
+//
+CC=new TCanvas("CC","CC",700,50,500,500);
+CC->Range(-12,-12,12,12);
+TMarker *m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetMarkerSize(3);
+CC->Modified();
+m->SetX(5);
+m->SetY(5);
+CC->Modified();
+m->SetX(0);m->SetY(0);
+
+CC->Modified();
+
+//    What about 
+//    void MarkMove( TMarker *mpoint, double x, double y) 
+
+</textarea><br>
+
+
+<!-- ----------------    Graphics_Lines.txt   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   simpleAnimation.txt  <br>
+<!-- ----------------    simpleAnimation.txt   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 120">
+TCanvas * WALKS; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+
+
+TMarker *mk = new TMarker(1.0, 1.5, 29);
+mk->Draw();
+mk->SetMarkerSize(3); WALKS->Update(); WALKS->Modified();
+
+// without the  WALKS->Upda.... You must click on the canvas
+// So far, so good. 
+
+double xx, yy;   // are zero by C++
+
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();
+mk->SetX(xx);mk->SetY(yy); 
+// Perhaps nothing happens;
+// Add WALKS->Update();WALKS->Modified();
+WALKS->Update();WALKS->Modified();
+
+//  O.K. Now we can move randomly
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();
+mk->SetX(xx);mk->SetY(yy); 
+WALKS->Update();WALKS->Modified();
+
+//   PUT IT IN A FUNCTION - best on ONE LINE
+void movve(double x, double y){mk->SetX(x);mk->SetY(y);WALKS->Update();WALKS->Modified();}
+
+
+//  Now easier, faster
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm(); movve(xx,yy);
+
+// You easily repeat (paste) many times, eventually star disappears
+
+xx=0;yy=0;movve(xx,yy);
+
+
+//  BETTER - new function randstep:
+
+void randstep(){xx=xx+gRandom->Rndm(); yy=yy+gRandom->Rndm();movve(xx,yy);}
+randstep();
+randstep();
+//   ...   It walks away .... dx, dy allways positive
+randstep();
+randstep()
+randstep();
+
+//  New function - from -0.5 to 0.5
+void rando(){xx=xx+gRandom->Rndm()-0.5;yy=yy+gRandom->Rndm()-0.5;movve(xx,yy);}
+
+rando();
+rando();
+rando();       // do that many times
+
+// getline() below waits for Enter
+// hit enter 4 to 5 times - no motion
+for(int kk=0;kk<4;kk++){ rando();string E; getline(cin,E);} 
+
+// the above does not draw; missing is      gSystem->ProcessEvents();
+
+for(int kk=0;kk<100;kk++){ rando();gSystem->ProcessEvents();string E; getline(cin,E);}
+
+
+// NOW RESTART ROOT
+
+TCanvas * WALKS; TLine *AA; 
+WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+WALKS->Range(-12,-12,12,12);
+TMarker *m = new TMarker(1.0, 1.5, 29);
+m->Draw();
+m->SetMarkerSize(3);
+double xx, yy;
+
+void movve(double x, double y){m->SetX(x);m->SetY(y);WALKS->Update();WALKS->Modified();}
+
+movve(9,9);
+
+void rando(){xx=xx+gRandom->Rndm()-0.5;yy=yy+gRandom->Rndm()-0.5;movve(xx,yy);}
+rando();
+rando();
+rando();
+rando();
+
+//   Simple use of TTimer:
+
+TTimer *animTimer;
+animTimer=new TTimer();
+
+animTimer->SetTime(100);    //    (100 millisec)
+
+animTimer->SetCommand("rando()");
+animTimer->TurnOn();
+
+O.K. it walks; when it walks out, type in 
+xx=0;yy=0;
+
+
+xx=0;yy=5;
+animTimer->SetTime(0);       // This goes fast! 
+
+xx=0;yy=0;
+animTimer->SetTime(2000);    // send it to sleep, 2 seconds between steps!!
+xx=0;yy=0;
+
+animTimer->SetTime(1);   //  goes very fast ( changing speed while it moves)
+//  use this to get it back
+xx=0;yy=0;
+
+//  Make it automatic:   if abs(xx) or abs(yy)  larger than 12, put it back to 0,0
+//  It must be in function rando(); either restart OR 
+//  make rando2() 
+//  and     animTimer->SetCommand("rando2()");
+
+</textarea><br>
+
+
+<!-- ----------------    simpleAnimation.txt   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   controller.C  <br>
+<!-- ----------------    controller.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 28">
+
+TCanvas  * Canv_Control;
+TButton  *stop_button; 
+TButton  *go_button; 
+int tot=0;  
+void do_the_work();
+
+void controller() {
+
+Canv_Control=new TCanvas("Canv_Control","Controls",30,30,200,200);
+stop_button = new TButton("STOP", "exit_here()",0.1,0.1,0.8,0.3);
+    stop_button->Draw(); 
+go_button = new TButton("GO", "do_the_work()",0.1,0.5,0.8,0.7);
+   go_button->Draw();
+}
+
+void exit_here() {
+        cout << "exiting root by running\ngROOT->ProcessLine(\".q\")\n";
+        gROOT->ProcessLine(".q");
+}
+
+void do_the_work(){
+ tot++;
+ cout << "one_more step  " << tot << endl;
+}
+
+
+</textarea><br>
+
+
+<!-- ----------------    controller.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   Timer_controller.C  <br>
+<!-- ----------------    Timer_controller.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 33">
+//  With SetTime(3000)  the timer waits 3 sec = 3000 millisec
+//  With SetTime(1)     the program runs fast(1 millisec per step)
+//  Change to  1 or 10 or 10000
+//
+//  Push STOP - then you can .g in the command
+//
+TTimer *timer;    
+TCanvas  * Canv_Control;
+TButton  *stop_button; 
+TButton  *go_button; 
+int tot=0;  
+
+
+void Timer_controller() {
+
+Canv_Control=new TCanvas("Canv_Control","Controls",30,30,200,200);
+stop_button = new TButton("STOP", "timer->TurnOff()",0.1,0.1,0.8,0.3);
+    stop_button->Draw(); 
+go_button = new TButton("GO", "timer->TurnOn()",0.1,0.5,0.8,0.7);
+   go_button->Draw();
+timer = new TTimer(1); 
+   timer->SetCommand("do_the_work()");
+   timer->SetTime(1);  //  SetTime(1);   SetTime(3000); 
+   timer->TurnOn();    
+}
+
+void do_the_work(){
+ tot++;
+ cout << "one_more step  " << tot << endl;
+}
+
+
+</textarea><br>
+
+
+<!-- ----------------    Timer_controller.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    5   - Random walk       ---------------------------------------- -->
+<br>
+<hr>
+<a name="LABELn11_5">
+<br>
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+
+
+
+
+
+<big><b>
+5. Random Walks   
+</b> </big><br><br>
+   ====  Directory   WALKS
+   <br>
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   random_walks.txt  <br>
+<!-- ----------------    random_walks.txt   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 60">
+============================
+WHY RANDOM WALKS
+============================
+
+1. Brownian motion studies
+2. Diffusion simulations
+3. "robot" searching for an object
+   what is more efficient? Systematic sweep or random walk 
+   (which type?)
+
+A simple question: Can we make some models?
+Completely random direction, random length
+Or distribution ...
+
+
+============================
+WHAT IS HERE, What to do
+============================
+
+1. Documented random walk code; arbitrary random steps
+root Random_Walk.C
+
+2. goes mainly perpendicular to previous move
+(Gaussian random around pi/2
+Must remember previous angle
+
+root roundwalk.C
+
+3. divide into parts - for possible future modular 
+   applications - this might be generally useful
+
+root
+.L walkmain.C
+.L walkfunc.C
+roundwalk();
+
+4. ##  Adding a marker to the paths
+root wmarker.C
+
+5. added switching off the graphics
+   In the FAST mode there is no drawing and no reporting
+
+root fast.C
+=====================================================
+
+Follow the changes; two files are compared by command
+diff file1.txt file2.txt 
+
+diff Random_Walk.C roundwalk.C 
+diff roundwalk.C wmarker.C 
+diff wmarker.C fast.C 
+
+=======================================================
+6. StartBrownButton.C  is just a test of the graphics
+   Can we make 400 particles to move?
+   Just simulated by thick lines
+   Some students wanted to try particle collisions
+   in one of the earlier courses.
+   Now the timer is set to zero; try setting it to 10,20,40
+</textarea><br>
+
+
+<!-- ----------------    random_walks.txt   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   Random_Walk.C  <br>
+<!-- ----------------    Random_Walk.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 100">
+void one_step();  void go_steps(); void go_fast(); void do_step(); void new_walk();
+void quit_root(); 
+ 
+   TCanvas * CONTROLS;
+   TCanvas * WALKS; TLine *AA;  TCanvas * STEPS; TH1F * Steps;
+   TButton     *step_button; TButton      *go_button;
+   TButton     *fast_button; TButton      *quit_button; 
+   TTimer *timer;    //  The timer is a device to make autonomous processes
+ 
+   double Lim; int isteps; double L1;double L2;
+   double xold, yold, xnew, ynew;
+   int no_of_walks;
+
+void Random_Walk()
+{
+   gRandom->SetSeed();
+   L1=1.0; L2=1.0;             //  Step Length parmeters
+   no_of_walks=0; isteps=0;
+   xold = 0.0;  Lim=12.0;
+   yold = 0.0;
+   WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+   WALKS->Range(-Lim,-Lim,Lim,Lim);
+   CONTROLS=new TCanvas("CONTROLS","Controls",30,30,150,200);    
+   STEPS=new TCanvas("STEPS","STEPS",710,30,600,500);
+   Steps=new TH1F("Steps","No of steps",100,0.0,400);
+   Steps->Draw();
+   timer = new TTimer(0); 
+   xnew=0.0; ynew=0.0;
+   xold=xnew; yold=ynew;
+
+   CONTROLS->cd();     //   Little canvas for buttons         
+   step_button = new TButton("STEPS", "one_step()",0.1,0.75,0.85,0.95);
+   go_button = new TButton("GO", "go_steps()",0.1,0.50,0.85,0.70);
+   fast_button = new TButton("FAST", "go_fast()",0.1,0.25,0.85,0.45);
+   quit_button = new TButton("QUIT", "quit_root()",0.1,0.025,0.85,0.225);
+         step_button->Draw();     go_button->Draw();
+          quit_button->Draw();    fast_button->Draw();
+   go_steps();   
+  }
+void do_step(){        //    single step; draw the path line
+   double dx,dy;
+   WALKS->cd();           //    Will Draw to the walk-canvas 
+   isteps++;
+    double lenn=L1+L2*gRandom->Rndm();      // step parameters
+    double angl=2.0*3.14159*gRandom->Rndm();
+    dy = lenn*sin(angl);                    // step coordinates
+    dx = lenn*cos(angl);
+    xnew=xold+dx; ynew=yold+dy;
+    AA=new TLine(xold, yold, xnew, ynew);   // The line made by new
+    AA->Draw() ;                            
+    xold=xnew; yold=ynew;
+}
+void step_walk(){      //  series of steps; draw each step => WALKS->Modified();
+     do_step();
+    WALKS->Modified();
+    WALKS->Update();
+     if (!(( xold > -Lim && xold < Lim  ) && (  yold > -Lim && yold < Lim    )) ){
+     new_walk(); }    //  if NOT inside, escaped; new walk
+}
+void new_walk() {   // after escape - start a new walk; and report the previous
+   WALKS->Clear(); WALKS->Range(-Lim,-Lim,Lim,Lim);
+    no_of_walks++;
+   xnew=0.0; ynew=0.0;
+   xold=xnew; yold=ynew;
+   printf(" walk %d.  tok  %d random steps to  escape\n",no_of_walks,isteps);
+   Steps->Fill((Float_t) isteps);
+   STEPS->cd();
+   Steps->Draw();  
+   STEPS->Modified();
+   STEPS->Update();  
+    isteps=0; 
+}
+void many_steps_walk(){   //   series of steps;  draw only when all steps finished
+  while (( xold > -Lim && xold < Lim  ) && (  yold > -Lim && yold < Lim    )){     
+    do_step();    
+    }
+   WALKS->Modified();
+   WALKS->Update();
+    new_walk();
+}
+void one_step(){                // timer repetion OFF, make one step
+          timer->TurnOff();  
+          step_walk();
+}
+void go_steps(){                // timer on; each step drawn
+     timer->SetCommand("step_walk()");
+     timer->SetTime(4);
+      timer->TurnOn();
+}        
+void go_fast(){                 // timer on, only each whole walk drawn
+     timer->SetCommand("many_steps_walk()");
+     timer->SetTime(0);
+      timer->TurnOn();
+}           
+void quit_root() { gROOT->ProcessLine(".q"); }  
+
+
+
+
+</textarea><br>
+
+
+<!-- ----------------    Random_Walk.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   fast.C  <br>
+<!-- ----------------    fast.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#E0E0FF"
+cols="90" rows=" 109">
+void one_step();  void go_steps(); void go_fast(); void do_step(); void new_walk();
+void quit_root(); 
+ 
+   TCanvas * CONTROLS;    TMarker *m;
+   TCanvas * WALKS; TLine *AA;  TCanvas * STEPS; TH1F * Steps;
+   TButton     *step_button; TButton      *go_button;
+   TButton     *fast_button; TButton      *quit_button; 
+   TTimer *timer;    //  The timer is a device to make autonomous processes
+   int DRAW =1; 
+   double Lim; int isteps; double L1;double L2;
+   double xold, yold, xnew, ynew;
+   int no_of_walks; double oldangle;
+
+void fast()
+{
+   gRandom->SetSeed();
+   L1=1.0; L2=1.0;             //  Step Length parmeters
+   no_of_walks=0; isteps=0;
+   xold = 0.0;  Lim=12.0;
+   yold = 0.0;    
+   WALKS=new TCanvas("WALKS","WALKS",200,30,500,500);   
+   WALKS->Range(-Lim,-Lim,Lim,Lim);
+   m = new TMarker(0.0, 0.0, 31);
+   m->SetMarkerSize(2); m->SetMarkerColor(kBlue);
+   m->Draw();
+   CONTROLS=new TCanvas("CONTROLS","Controls",30,30,150,200);    
+   STEPS=new TCanvas("STEPS","STEPS",710,30,600,500);
+   Steps=new TH1F("Steps","No of steps",100,0.0,400);
+   Steps->Draw();
+   timer = new TTimer(0); 
+   xnew=0.0; ynew=0.0;
+   xold=xnew; yold=ynew;
+
+   CONTROLS->cd();     //   Little canvas for buttons         
+   step_button = new TButton("STEPS", "one_step()",0.1,0.75,0.85,0.95);
+   go_button = new TButton("GO", "go_steps()",0.1,0.50,0.85,0.70);
+   fast_button = new TButton("FAST", "go_fast()",0.1,0.25,0.85,0.45);
+   quit_button = new TButton("QUIT", "quit_root()",0.1,0.025,0.85,0.225);
+         step_button->Draw();     go_button->Draw();
+          quit_button->Draw();    fast_button->Draw();
+   go_steps();   
+  }
+void do_step(){        //    single step; draw the path line
+   double dx,dy;
+   WALKS->cd();           //    Will Draw to the walk-canvas 
+   isteps++;
+    double lenn=L1+L2*gRandom->Rndm();      // step parameters
+    // double angl=2.0*3.14159*gRandom->Rndm();
+    double angl=oldangle+gRandom->Gaus(1.5,1.0);
+    dy = lenn*sin(angl);                    // step coordinates
+    dx = lenn*cos(angl);
+    oldangle=angl;
+    xnew=xold+dx; ynew=yold+dy;
+    if( DRAW ){
+    AA=new TLine(xold, yold, xnew, ynew);   // The line made by new
+    AA->Draw() ;   
+    m->SetX(xnew); m->SetY(ynew);   }                      
+    xold=xnew; yold=ynew;
+}
+void step_walk(){      //  series of steps; draw each step => WALKS->Modified();
+     do_step();
+     if( DRAW ){
+    WALKS->Modified();
+    WALKS->Update(); }
+     if (!(( xold > -Lim && xold < Lim  ) && (  yold > -Lim && yold < Lim    )) ){
+     new_walk(); }    //  if NOT inside, escaped; new walk
+}
+void new_walk() {   // after escape - start a new walk; and report the previous
+   WALKS->Clear(); WALKS->Range(-Lim,-Lim,Lim,Lim);
+    no_of_walks++;
+   xnew=0.0; ynew=0.0;
+   xold=xnew; yold=ynew; m->Draw();
+    if(DRAW){
+   printf(" walk %d.  tok  %d random steps to  escape\n",no_of_walks,isteps);}
+   Steps->Fill((Float_t) isteps);
+   STEPS->cd();
+   Steps->Draw();  
+   STEPS->Modified();
+   STEPS->Update();  
+    isteps=0; 
+}
+void many_steps_walk(){   //   series of steps;  draw only when all steps finished
+  while (( xold > -Lim && xold < Lim  ) && (  yold > -Lim && yold < Lim    )){     
+    do_step();    
+    }
+    if(DRAW){
+   WALKS->Modified();
+   WALKS->Update();}
+    new_walk();
+}
+void one_step(){                // timer repetion OFF, make one step
+          DRAW=1;
+          timer->TurnOff();  
+          step_walk();
+}
+void go_steps(){                // timer on; each step drawn
+     timer->SetCommand("step_walk()");
+      DRAW=1;
+     timer->SetTime(4);
+      timer->TurnOn();
+}        
+void go_fast(){                 // timer on, only each whole walk drawn
+      DRAW=0;
+     timer->SetCommand("many_steps_walk()");
+     timer->SetTime(0);
+      timer->TurnOn();
+}           
+void quit_root() { gROOT->ProcessLine(".q"); }  
+</textarea><br>
+
+
+<!-- ----------------    fast.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   StartBrownButton.C  <br>
+<!-- ----------------    StartBrownButton.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 67">
+
+// Demonstration of fast point redrawing in root 
+// 400 points drawn 2000 times 
+void more_walk();   void StartBrownButton();
+TButton     *stop_button; TButton      *go_button;
+TCanvas * CONT;
+
+  TCanvas  *CC;;   
+
+  TLine * AA;  
+
+   double Lim=12.0; int i=0;
+   double xold, yold;
+   TTimer *timer; 
+
+
+void StartBrownButton()
+{
+
+  {
+   timer = new TTimer(0);  
+   CC=new TCanvas("CC","CC",700,50,500,500);
+   CONT=new TCanvas("CONT","Controls",10,50,100,100);
+    
+   CC->cd();  
+   TAttLine (45, 6, 6);
+   AA= new TLine(0,0,0,0);
+   CC->Range(-12,-12,12,12);
+   xold=0; yold=0;
+   AA=new TLine(xold, yold, xold+0.1, yold+0.1);
+   AA->SetLineWidth(0);
+   AA->Draw();
+     
+     CONT->cd();     //   Little canvas for buttons
+     stop_button = new TButton("STOP", "timer->TurnOff()",0.1,0.1,0.85,0.45);
+      go_button = new TButton("GO", "timer->TurnOn()",0.1,0.55,0.85,0.85);   
+     
+     stop_button->Draw();       go_button->Draw();
+   }   
+   timer->SetCommand("more_walk()");
+   timer->SetTime(0);
+   timer->TurnOn();   
+
+
+  }
+void more_walk(){   
+   
+ CC->Clear();
+ CC->cd();
+   i=0;
+   xold=0; yold=0;
+  while (  i<400 )
+  { i++;
+   double xold=-12+24*gRandom->Rndm();
+   double yold=-12+24*gRandom->Rndm();
+ 
+   AA=new TLine(xold, yold, xold+0.35, yold);
+   AA->SetLineWidth(10);
+   AA->Draw() ; 
+  }
+   CC->Modified();
+   CC->Update(); 
+ 
+}
+
+
+</textarea><br>
+
+
+<!-- ----------------    StartBrownButton.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+<a name="LABE_11_Enter-key">
+  
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+
+<br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+<b>6. Cycling through graphics displays - waiting for ENTER</b><br><br>
+Directory ENTER_key_ANIMATION/
+</big>
+<br>
+<!-- ------------------   readme.txt    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="42">
+
+Cycling through graphics displays - waiting for ENTER
+or - ENTER-key driven animation
+
+Sometimes we need a simple means to show a sequence of situations.
+A typical simple approach is
+      draw / show / print case1 ; wait for ENTER (or wait for a click)
+      draw / show / print case2 ; wait for ENTER 
+      etc
+
+wait for ENTER is realised by getline(cin,lin);  (string lin; C++ string)
+
+Here we made a toy doing this in terminal
+case1            X    case3              case2 X
+              X             X   X   X              X
+           X                                           X
+as you hit ENTER repeatedly - a sort of rotation appears
+Just a toy    root back_forth.C     hit ENTER forever
+back_forth.C
+
+But if we want to show for example many functions in a TCanvas
+show function 1  wait for ENTER  show function 2    etc
+We Draw three functions and wait for ENTER
+back_forthGRAPH.C
+is simply made from  back_forth.C replacing the prints by 3 functions
+
+Only one problem - it does not work. Line by line everything works
+The problem is that all the non-graphic processing must be done before
+any graphics.  There is a solution: add this call: 
+                                 gSystem->ProcessEvents();
+But there is more - the updating of the graphics is not guaranteed.
+Thus we need to add  Displ->Modified(); Displ->Update(); before calling gSystem
+
+back_forthGRAPHworks.C    is behaving as expected
+
+We can use ENTER on the terminal, naturally
+But in ROOT also the graphics can wait for events, ENTER is one of them
+I have prepared an otherwise meaningless demonstration of a moving star
+gedit two_focus.C                     and
+root  two_focus.C                 repeats itself for ever - stop by CTRL-C
+
+</textarea><br>
+<!-- ---------------------   readme.txt    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+<br><br>
+<big>
+<p style="font-family:monospace;  color:#000000">
+back_forth.C
+</big>
+<br>
+<!-- ------------------   back_forth.C    TEXT    BEGIN    ------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E0E0FF"
+cols="100" rows="16">
+{
+TString T1="\t\t\t\tX\n\t\t\tX\n\t\tX\n\tX\nX\n";
+TString T2="X\n\tX\n\t\tX\n\t\t\tX\n\t\t\t\tX\n";
+TString T3="\n\nX\tX\tX\tX\tX\n";
+string lin; 
+for(;;){system("clear");cout << T1;
+          getline(cin,lin);
+        system("clear");cout << T3;
+          getline(cin,lin);
+        system("clear");cout << T2;
+          getline(cin,lin);
+        system("clear");cout << T3;
+         getline(cin,lin);
+       } 
+}
+</textarea><br>
+<!-- ---------------------   back_forth.C    END  TEXT ----------------- -->
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PART    2 in ex 11 in 2020 COPIED from EX. 10  ---------------------------------------- -->
+<br>
+<hr>
+<a name="LABELn11_2">
+<br>
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br>
+<br><big>
+<b>
+7. Some more on TNtuple and TTree </b> </big>
+
+<br><br>
+The following part is an extension
+of  the topic 6 of Exercise 10.<br>
+<br>
+Here is an additional text on the TNtuple and TTree included as
+<b>tntuple_ttree.txt</b> in the files
+
+
+
+
+
+<br>
+<!-- ---------------------------   tntuple_ttree.txt    TEXT    BEGIN    ----------------------------- -->
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#000000; background-color:#E8E8FF"
+cols="90" rows="92">
+
+Additional comments on TNtuple and TTree objects
+
+TTree is the most important object type for data storing in root files.
+Lots of particle physics data exist i the form of root files.
+We have used root files also for storing histograms.
+
+This is about TTree objects and related TNtuple objects
+
+TNtuple is defined with names of "branches - example x y z here
+It can be simply "Fill()"-ed - just like histogram
+
+In addition, it can be filled from a file
+
+TNtuple * extuple= new TNtuple("extup","Example ntuple","x:y:z");
+float x,y,z;
+extuple->Fill(x,y,z);
+extuple->Fill(1,2,3);
+cout << extuple->GetEntries() << endl;
+
+
+int nlines;
+//  TNtuple * extuple= new TNtuple("extup","Example ntuple","x:y:z");
+nlines = extuple->ReadFile("exampl.txt","x:y:z"); 
+//   it turns out that for TNtuple, you can write extuple->ReadFile("exampl.txt");
+
+cat exampl.txt 
+12.0  4.0   6.0
+1.0   1.9   2.0
+3.0   4.0   5.0
+
+extuple->Fill(x,y,z);
+nlines = extuple->ReadFile("exampl.txt","x:y:z");  // adds 3 lines
+nlines = extuple->ReadFile("exampl.txt");          // adds 3 lines
+extuple->Fill(x,y,z);                      // adds 1 line
+
+extuple->Print();     // diagnostic info
+
+TTree is much more flexible - and therefore requires quite complex description
+The ROOT documentation must cover all the possibilities - and therefore can not
+be "pedagogical"
+We can not explore all the functionality of TTree objects. 
+
+Most important for us is that there is not such a simple and compact defining 
+statement as for the TNtuple
+TNtuple * geotuple= new TNtuple("geotuple","Example ntuple","alt:posx:posy:time:valu");
+
+No, for the TTree there is only possible this:
+
+TTree * ExTree = new TTree("ExTree","Example TTree"); 
+There are no other possibilities, just simple object initialization.
+
+The "branches" must be defined each by one statement, which specifies also
+how they can be filled. This by specifying an ADDRESS from where to fetch the 
+data.
+
+There is one exception - for a very simple tree which basically is like the
+ntuple
+//  TREE using TTree::ReadFile(filename) i.e. extree->ReadFile("example.txt")
+TTree * ExTree = new TTree("ExTree","TREE using ReadFile(filename)"); 
+nlines = ExTree->ReadFile("exampl.txt","varx:vary:varz");
+// could be also ExTree->ReadFile("exampl.txt","a:b:c"); for example
+// unlike for TNtuple where the varable names MUST be included
+
+For all other cases, it must be done as in the examples.
+The "good news" is that the things which can be put into the branches
+are all from simple numbers, over character strings to complex objects
+or structures.
+
+This is shown in the examples 
+make_TTree.C, make_charTree.C  ( grow_TTree.C  adds to extra data )
+
+The branches are defined before the filling can start by
+float PPx;  char Names[50];
+tch->Branch("str",Names,"str/C");  
+tch->Branch("px",&PPx,"px/F");
+//     If all the variables are assigned the wanted values, fill the tree
+tch->Fill();
+
+The opposite process of fetching the data from the tree after it has been
+fetched from the root file is done like this:
+
+float PPx;  char Names[50];  //   as when filling
+                             //   Branch replaced by SetBranchAddress
+   tch->SetBranchAddress("px",&Ppx);
+   tch->SetBranchAddress("str",Texts);  //  Texts is a pointer
+
+tch->GetEntry(i);       // this is usually in a loop for(i= ;i< ;i++)
+
+Details are illustrated and can be understood from the files
+make_TTree.C,   make_charTree.C 
+look_TTree.C  look_charTree.C
+</textarea><br>
+<!-- -----------------------------   tntuple_ttree.txt    END  TEXT ---------------------------- -->
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+The following part is copied from Exercise 10. It should be an extension<br>
+possibly more clear than the Exercise 10 part 6.
+<br><br>
+<big><b>
+Tree filling via branch interface TTree with simple branches  </b> </big><br><br>
+   ==== FOLDER SIMPLE_TTree <br><br>
+
+<b>Work with simple TTree structures - simple branches </b>
+<br><br> 
+There are many possible structures  of TTree. <br><br>
+Here we look at the simplest, close to the TNtuple;<br>
+but allowing storing any single variables, also char strings<br>
+<br><br>
+Here are make_TTree.C, look_TTree.C grow_TTree.C<br>
+and      make_charTree.C  look_charTree.C<br>
+
+In these files, for illustrating the filling, we use a terminal input.<br>
+<br>
+In the last exercise session (Ex. 10, point 5,   March 30th, 2023 ) <br>
+in the part <b>TTree and TNtuple using nlines ....</b> 
+
+we discussed also a file reading mechanism <br>
+(Ex. 10, point 5, TTree and TNtuple using nlines = TTi->ReadFile(FILENAME) )
+<!-- of the previous part 2 (<a href="#LABEL10_2">
+TTree and TNtuple using nlines ...... </a>)
+TTree and TNtuple using nlines = TTi->ReadFile(FILENAME)
+<br>
+<b>TASK: modify all the 5 files to read from file tmpfile3.txt and similar</b>
+<br> -->
+
+<br>
+
+<br>   make_TTree.C  <br>
+<!-- ----------------    make_TTree.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 42">
+{   
+    //     make_TTree.C
+    // Constructing a simple tree with simple-variable branches
+
+   TTree *t1 = new TTree("t1","TTree with simple variables");
+
+//         PPx, PPy, PPz,     EEv 
+//         are "the interface" to the branches
+//         The names are arbitrary; the type is important
+
+   float PPx, PPy, PPz;     int EEv;
+
+   t1->Branch("px",&PPx,"px/F");    // Branch defined through
+   t1->Branch("py",&PPy,"py/F");    // its "outer" interface
+   t1->Branch("pz",&PPz,"pz/F");    // F,I,D type specification
+   t1->Branch("ev",&EEv,"ev/I");
+   int quest=1;
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      t1->Fill()
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 3 numbers: \n";
+      cin >> PPx >> PPy >> PPz;     // Data are placed in 
+      EEv = i;                      // the "interface"
+      t1->Fill();                   // Data copied to the tree
+                                    // to all branches
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;            // This only for demo
+   }
+   // Here: when the tree is constructed it can be stored
+   // You can change  the title
+   t1->SetTitle("changed title: My TTree N"); // or comment out
+   TFile *f = new TFile("tree1.root","UPDATE");
+   f->ls();   // before the TTree Write
+   // The tree knows how to be written to the file
+   t1->Write();        // or use f->WriteTObject(t1); 
+   f->WriteTObject(t1); 
+// f->Close();         // happens automatically when root exits
+   f->ls();    // after the TTree Write
+}
+
+</textarea><br>
+
+
+<!-- ----------------    make_TTree.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   look_TTree.C  <br>
+<!-- ----------------    look_TTree.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 30">
+{ 
+   // inspect the TTree generated by make_TTree.C 
+   // saved in the root file     tree1.root
+
+   TFile *f = new TFile("tree1.root");
+   TTree *t1 = (TTree*)f->Get("t1");
+//         MMx, MMy, MMz,     IIv 
+//         are "the interface" to the branches  
+//         here they have different names; they are arbitrary
+//         NOT CONNECTED with  the TTree 
+   Float_t MMx, MMy, MMz;   int MMv;
+
+   t1->SetBranchAddress("px",&MMx);  //t1->Branch("px",&PPx,"px/F");
+   t1->SetBranchAddress("py",&MMy);
+   t1->SetBranchAddress("pz",&MMz);
+   t1->SetBranchAddress("ev",&MMv);
+   //read all entries 
+   int nentries = t1->GetEntries();  // How many "levels" in the tree
+
+   for (int i=0; i<nentries; i++) {
+   
+      t1->GetEntry(i);     // copy i-th level to the interface       
+      printf(" %4d %10.4f %10.4f %10.4f\n", MMv, MMx, MMy, MMz);
+   }
+   new TBrowser ();
+   t1->StartViewer();   // You can also use the 
+                        // TBrowser and Tree Viewer
+   
+}
+</textarea><br>
+
+
+<!-- ----------------    look_TTree.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   grow_TTree.C  <br>
+<!-- ----------------    grow_TTree.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#101010; background-color:#FFFFE0"
+cols="90" rows=" 45">
+{   
+    //     grow_TTree.C   
+    //        use parts of make_TTree.C and look_TTree.C
+    //  Adding extra ENTRIES an eisting tree with simple-variable branches
+
+   TFile *f = new TFile("tree1.root","UPDATE");
+   //   TTree *t1 = new TTree("t1","TTree with simple variables");
+   //        instead fetch the existing
+   TTree *t1 = (TTree*)f->Get("t1");
+   
+//         PPx, PPy, PPz,     EEv 
+//         are "the interface" to the branches
+//         The names are arbitrary; the type is important
+
+   float PPx, PPy, PPz;     int EEv;
+
+   t1->Branch("px",&PPx,"px/F");    // Branch defined through
+   t1->Branch("py",&PPy,"py/F");    // its "outer" interface
+   t1->Branch("pz",&PPz,"pz/F");    // F,I,D type specification
+   t1->Branch("ev",&EEv,"ev/I");
+   int quest=1;
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      t1->Fill()
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 3 numbers: \n";
+      cin >> PPx >> PPy >> PPz;     // Data are placed in 
+      EEv = i;                      // the "interface"
+      t1->Fill();                   // Data copied to the tree
+                                    // to all branches
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;            // This only for demo
+   }
+   // Here: when the tree is MODIFIED it can be stored
+   // You should change  the title
+   t1->SetTitle("Extended Previous TTree "); 
+   cout << "File content before t1->Write() \n";
+   f->ls();   // before the TTree Write
+
+   t1->Write();        // or use f->WriteTObject(t1); 
+   cout << "list after  t1->Write() \n";
+   f->ls();    // after the TTree Write
+}
+
+</textarea><br>
+
+
+<!-- ----------------    grow_TTree.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   make_charTree.C  <br>
+<!-- ----------------    make_charTree.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 37">
+{
+   //  make_charTree.C  the same as  make_TTree.C
+   //  Some of the branches can be C-strings   char aName[ ]
+   //  NOTE:   Names  does not need &Names, 
+   //          it is already an address (pointer)
+   
+   TTree *tch = new TTree("tch","Tree with char");
+//         PPx, Names, EEv 
+//         are "the interface" to the branches
+   Float_t PPx;
+   char Names[50]; 
+   int EEv;
+
+   tch->Branch("px",&PPx,"px/F");      // Branch defined through
+   tch->Branch("str",Names,"str/C");   // its "outer" interface
+   tch->Branch("ev",&EEv,"ev/I");      // F I  C  type 
+                       // F float   D double  I int    C char
+                       
+   //  Data are placed to next level of the tree by TTree::Fill()
+   //  as many times as needed                      tch->Fill()
+   // fill the tree
+   for (Int_t i=0; i<10000; i++) {
+      cout << "enter 1 numbers and a single word string \n";
+      cin >> PPx >> Names;
+      EEv = i;
+      tch->Fill();
+      cout << "Fill more? Stop=0 ... ";
+      cin >> quest;
+      if (!quest) break;
+   }
+   TFile *f = new TFile("tree1.root","UPDATE");
+   f->ls();   
+   tch->Write();
+// f->Close();
+}
+
+</textarea><br>
+
+
+<!-- ----------------    make_charTree.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>   look_charTree.C  <br>
+<!-- ----------------    look_charTree.C   TEXT    BEGIN    ----------------------------- -->
+ 
+ 
+<br>
+&nbsp; <textarea readonly style=
+"font-family:monospace; font-size: 14pt; color:#505050; background-color:#FFF0F0"
+cols="90" rows=" 26">
+{ 
+   //       look_charTree.C      modification of  look_TTree.C   
+   //    reeds a tree  constructed by 
+   //       make_charTree.C 
+
+   TFile *f = new TFile("tree1.root");
+   TTree *tch = (TTree*)f->Get("tch");
+   //         Ux, Texts, EEv 
+   //         are "the interface" to the branches
+   Float_t Ux;
+   Int_t Eev;
+   char Texts[300];    //  Texts is a pointer, thus NOT &Texts
+   
+   tch->SetBranchAddress("px",&Ppx);
+   tch->SetBranchAddress("str",Texts);  //  Texts is a pointer
+   tch->SetBranchAddress("ev",&Eev);    //  thus NOT &Texts
+
+
+   int nentries = (int) tch->GetEntries();
+   for (int i=0; i<nentries; i++) {
+      tch->GetEntry(i);    // copy i-th level to the interface 
+                           // including the string in Texts[] 
+      printf(" %4d %10.4f %s \n", Eev, Ux, Texts);
+   }
+}
+</textarea><br>
+
+
+<!-- ----------------    look_charTree.C   TEXT    END      ----------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<a href="#TOP11">Top of the text - links</a> 
+&nbsp;&nbsp;&nbsp;
+  <a href="#absTOP11">Top of the page</a>
+<br><br>
+<br><hr>
+
+
+
+
+
+
+
+<a href="#LABELn11_mm">
+0.  From struct to class 2026 version </a> - struct to class from PY to g++; 
+<br>
+
+
+<a href="#LABELn11_0">
+1.  From struct to class </a> - classes extending structures; 
+<a href="#LABEL_n11_1b">also see a discussion on planets and names</a><br>
+
+<a href="#LABELn11_1">
+2. Work with classes - Time interval class and Mammals (following the lectures)</a><br>
+
+
+<a href="#LABELn11_3">
+3. Random Numbers - Repetition - we have done most of it; Here as intro to next points 4,5
+</a><br>
+
+<a href="#LABELn11_4">
+4. Graphics for random walks - free drawing on canvas.
+   Buttons and Timers. (Using graphics - X11 )
+</a><br>
+
+<a href="#LABELn11_5">
+5. Random Walks  (Using graphics - X11 )
+</a><br>
+<a href="#LABE_11_Enter-key">
+6. ENTER_key driven simple ANIMATION </a>
+<br>
+<a href="#LABELn11_2">
+7. TNtuple and TTree - an extended explanation to parts of Exercise 10
+</a><br>
+<br>
+
+
+<br><br>
+<br><hr>
+
+
+  <a href="#absTOP11">Top of the page</a>
+<br><br>
+<br><hr>
+
+
+   
+   
+   
+   
+   
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
