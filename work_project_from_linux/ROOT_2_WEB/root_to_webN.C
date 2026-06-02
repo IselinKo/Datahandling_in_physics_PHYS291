@@ -61,7 +61,7 @@ latx=latx+"<br><br>\n";
   fprintf(outfil, "<br><b> Histograms at constant time </b> \n");
   fprintf(outfil, "<br><br>\n");
   
-  fprintf(outfil,"This section presents two-dimensional hi stograms of brain slices generated in ROOT, where color represents activity level. x, y, and t coordinates remains constant, while z cordinate increases for each new plot. This creates the effect of scrolling through the brain volume, similar to the visualization used in CT imaging.\n");
+  fprintf(outfil,"This section presents two-dimensional histograms of brain slices generated in ROOT, where color represents activity level. x, y, and t coordinates remains constant, while z cordinate increases for each new plot. This creates the effect of scrolling through the brain volume, similar to the visualization used in CT imaging.\n");
   fprintf(outfil, "<br><br>\n");
   
 //                           Making the graphics

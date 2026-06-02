@@ -1,0 +1,55 @@
+
+#show "fprintf(outfil,\"" : ""
+#show ";" : ""
+#show "\n\"\)\;" : ""
+
+fprintf(outfil,"<br><b><big>Project PHYS291 - Iselin Kongsmark</big></b> \n");
+
+// Text width fixed by a TABLE TRICK 
+
+fprintf(outfil,"<br>This project's objective is to visualize fMRI data representing brain activity in the Default Mode Network (DMN). In this report there are two main visualizations: first one where time is constant while varying spatial coordinates, and another one with constant spatial coordinates while varying time.\n");
+fprintf(outfil,"<br><br>\n");
+ 
+fprintf(outfil,"<br><b>About the data and the preprocessing steps </b> \n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"The raw data is stored in a NIfTI (.nii) file, with dimensions x, y, z, and t, forming voxels enlisting the activity levels over time. The voxels represent a brain volume of 2 mm$\^2$ and there are 0.72 seconds between each scan. \n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"Using the Python package NiBabel, the data was sampled and converted to a text file (CSV). If one were to include all of the data in the text file, the resulting text file would have a size of multiple GB, which would be excessive for this project. Sampling was therefore performed to reduce computational time and processing requirements, while still retaining sufficient data quality for visualization purposes. Every other data point in x, y, and z axis was sampled, and the time axis was reduced to the first 42 time stamps. This results in about 30 seconds of scans.\n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"The text file was next converted into a ROOT file, using the TTree structure which is efficient for plotting in ROOT. \n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"<br><b> Histograms at constant time </b> \n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"This section presents two-dimensional histograms of brain slices generated in ROOT, where color represents activity level. First we will take a look at some examples for different values of z, before a scrolling animation is displayed. In these plots the x, y, and t coordinates remains constant. The program "plot_2Dhist.C" is designed to let the user plug in a z value of their choice. However, for the "Root_to_webN.C" producing this html report, that feature had to be enabled. \n");
+
+fprintf(outfil,"The plots show brain cross sections at z = 20, 40 and 60 for time t=0. The colorbar indicates the absolute relative deviation from the mean activity level in the brain. Yellow zones are therefore either a much more active or much less active than the average voxel intensity. This is calculated using the following formula: \n");
+  
+fprintf(outfil," $$ \\bar{I} = |\\frac{ I - \\text{Global mean}} {\\text{Global mean}} | \\cdot 100 $$\n");
+
+fprintf(outfil,"where "Global mean" is the mean of all voxel intensities at all time instances. Looking ath the relative deviation highlights the areas notable intensities.  \n");
+
+fprintf(outfil,"To counteract sparse voxel density caused by sampling and to create smoother plots, the intensity was averaged for nearby slices and ROOT's build in smooting function was utilized. \n");
+
+fprintf(outfil,"In the images above, some areas are lit up more than the surrounding tissue. For future projects, it would be interesting to explore wether these areas match the regions one expects to be active during DMN.\n");
+
+fprintf(outfil,"In the following animation, the z coordinate increases for each new plot. This creates the effect of scrolling through the brain volume, similar to the visualization used in CT imaging. The animation was created by looping over the same function that produced the plots over. \n");
+
+fprintf(outfil,"<br><b>Scrolling through all brain slices at t=0:</b><br>\n");
+
+
+fprintf(outfil,"<br><b>Histograms with time evolution </b> \n");
+fprintf(outfil,"<br><br>\n");
+
+fprintf(outfil,"Now time evolution will be incorporated to display how activity changes over time. The user to be able to choose the x, y, and z cut-off points before plotting. Depending on the time available for the project, the user input will either be provided through the terminal or through a graphical user interface.  \n");
+
+
+fprintf(outfil,"<br><b>Time evolution of brain slices z=20, 40, 60:</b><br>\n");
+
+
+
+A three-dimensional visualization will be created to display how activity changes over time. The user to be able to choose the x, y, and z cut-off points before plotting. Depending on the time available for the project, the user input will either be provided through the terminal or through a graphical user interface. 
