@@ -1,0 +1,71 @@
+The root script  
+                    root_to_webN.C 
+
+makes some images and presents them in the index.html
+prints the text and formulas in $$ latex syntax $$
+creates some links in the index.html
+
+explore this macro/script, especially the system calls
+(they are simply linux commands - starting programs, making index etc)
+Use of local python webserver
+       why:   static html can not use MathJax for the latex
+              also, applying this in your project will unify the submissions
+              restores the use of webservers as a part of the PHYS291
+Use of our programs  txtbox_white  etc  to insert code
+       Because of this you can run this package on our machines only
+       unless you fetch to and unzip at your private/outer linux/mac
+       you need root anyway
+
+This demonstration is run by   Makefile   so that
+in this directory you type
+
+     make 
+
+when you are done, you can type
+
+     make clean
+
+or you can just stop the webserver by
+
+     make stop
+
+======================================================================
+About the little web
+======================================================================
+At the end of the code root_to_webN.C there are some mysterious system calls
+which add the html code in text-field to be viewed as the source
+
+also start the local server
+also start the relevant firefox page
+
+and the source of root_to_webN.C  is also shown in another text-field
+
+======================================================================
+The result of one version of this you can see at 
+          https://folk.uib.no/nfylk/web2022/   (click link above)
+Up to last year - 2024 - you could access that directory yourself
+
+Due to "progress" you can not any more, only L.K. can enter the folk.uib.no 
+(actually also some other old men can use folk.uib.no)
+(The "progress" consists in increased security and increased stupidity, both)
+(   ....   whose stupidity and ignorance - ask chatGPT  .... )
+
+So this year (2025 and later)  root_to_webN.C  starts a local webserver
+which you can view locally 
+and also  directs the firefox to the address
+
+          http://127.0.0.1:8000/
+=======================================================================
+
+You can see that the images are placed differently
+
+You should:  
+
+1. adjust the ROOT code to get better images 
+2. choose some more interesting functions
+3. use more than three functions
+4. Adjust the latex parts - to suit your needs
+   ========================================================
+5. explore a bit more in your own way the local server
+   ========================================================
+
