@@ -3,9 +3,9 @@
 
 TCanvas* c500 = new TCanvas("c500","Drawing to the WEB",10,10,600,600);
 
-   char * fnames[50];      //  we could have 50 images, this takes little space
-   for(int k=0;k<50;k++) fnames[k]=new char[14];
-   for(int k=0;k<50;k++) sprintf(fnames[k],"pict%d.png",k);
+   char * fnames[100];      
+   for(int k=0;k<100;k++) fnames[k]=new char[30];
+   for(int k=0;k<100;k++) sprintf(fnames[k],"pict%d.png",k);
 
 ///////////////
 
@@ -106,7 +106,6 @@ I += 3;
    fprintf(outfil,"<br><br>\n");
    
    fprintf(outfil," $$ \\bar{I} = |\\frac{ I - \\text{Global mean}} {\\text{Global mean}} | \\cdot 100 $$\n");
-   fprintf(outfil,"<br><br>\n");
 
    fprintf(outfil," where $I$ is the voxel intensity and the global mean is taken over all voxels and all time points. Yellow zones indicate voxels whose intensity deviates most strongly from the global mean, regardless of direction. Blue zones are close to the global mean intensity. \n");
    fprintf(outfil,"<br><br>\n");
@@ -170,7 +169,8 @@ system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png");
    fprintf(outfil,"<br><br>\n");
 
    fprintf(outfil, "If there was more time for this project, a better normalization strategy would be beneficial. The method used here divides by the global mean intensity across all voxels and time points. While this highlights voxels that deviate strongly from the overall average, it does not capture the temporal dynamics within individual voxels. A more suitable approach for detecting BOLD activation would be to normalize each voxel's time series by its own temporal mean, giving the relative signal change over time for that voxel. This would make it possible to observe how individual brain regions fluctuate around their own baseline, which is the gold standard in fMRI activation analysis.\n");
-   
+   fprintf(outfil,"<br><br>\n");
+
 
    fprintf(outfil, "<br><b>References</b><br><br>\n");
    fprintf(outfil, "[1] Kamel, R. J. (Ed.). <i>Fundamentals of Medical Physics: Principles and Applications.</i> 1st ed. AkiNik Publications, 2024. DOI: <a href=\"https://doi.org/10.22271/ed.book.2841\">https://doi.org/10.22271/ed.book.2841</a><br><br>\n");
