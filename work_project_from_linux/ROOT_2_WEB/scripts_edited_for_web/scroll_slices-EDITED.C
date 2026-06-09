@@ -1,4 +1,4 @@
-/// edited version of scroll_slices.C for using in root_to_webN.C
+lot/// edited version of scroll_slices.C for using in root_to_webN.C
 
 
 void scroll_slices()

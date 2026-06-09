@@ -1,5 +1,6 @@
 {
 // this file creates a time evolution of one brain slice
+// RUN IN ROOT
 
 TFile *f = new TFile("fmri_val1_t42.root");
 TTree *tree = (TTree*)f->Get("brain");
@@ -46,6 +47,7 @@ for (int t = 0; t < 42; t++)
     h->GetXaxis()->SetTitle("x");
     h->GetYaxis()->SetTitle("y");
     h->GetZaxis()->SetTitle("Intensity - Absolute Relative Deviation");
+    h->GetZaxis()->SetTitleOffset(1.6);
     h->SetStats(0);
     
     h->Smooth();
