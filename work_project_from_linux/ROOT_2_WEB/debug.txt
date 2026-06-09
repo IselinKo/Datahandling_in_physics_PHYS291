@@ -1,0 +1,252 @@
+-rw-r--r-- 1 henrik henrik 61640 Jun  9 16:27 combined_00.png
+-rw-r--r-- 1 henrik henrik 61063 Jun  9 16:28 combined_01.png
+-rw-r--r-- 1 henrik henrik 61375 Jun  9 16:28 combined_02.png
+-rw-r--r-- 1 henrik henrik 61874 Jun  9 16:28 combined_03.png
+-rw-r--r-- 1 henrik henrik 62751 Jun  9 16:28 combined_04.png
+-rw-r--r-- 1 henrik henrik 62181 Jun  9 16:28 combined_05.png
+-rw-r--r-- 1 henrik henrik 62651 Jun  9 16:28 combined_06.png
+-rw-r--r-- 1 henrik henrik 62955 Jun  9 16:28 combined_07.png
+-rw-r--r-- 1 henrik henrik 61881 Jun  9 16:28 combined_08.png
+-rw-r--r-- 1 henrik henrik 62084 Jun  9 16:28 combined_09.png
+-rw-r--r-- 1 henrik henrik 62799 Jun  9 16:28 combined_10.png
+-rw-r--r-- 1 henrik henrik 62018 Jun  9 16:28 combined_11.png
+-rw-r--r-- 1 henrik henrik 61466 Jun  9 16:28 combined_12.png
+-rw-r--r-- 1 henrik henrik 61962 Jun  9 16:28 combined_13.png
+-rw-r--r-- 1 henrik henrik 61536 Jun  9 16:28 combined_14.png
+-rw-r--r-- 1 henrik henrik 62696 Jun  9 16:28 combined_15.png
+-rw-r--r-- 1 henrik henrik 61243 Jun  9 16:28 combined_16.png
+-rw-r--r-- 1 henrik henrik 62243 Jun  9 16:28 combined_17.png
+-rw-r--r-- 1 henrik henrik 61200 Jun  9 16:28 combined_18.png
+-rw-r--r-- 1 henrik henrik 61323 Jun  9 16:28 combined_19.png
+-rw-r--r-- 1 henrik henrik 61500 Jun  9 16:28 combined_20.png
+-rw-r--r-- 1 henrik henrik 61219 Jun  9 16:28 combined_21.png
+-rw-r--r-- 1 henrik henrik 61357 Jun  9 16:28 combined_22.png
+-rw-r--r-- 1 henrik henrik 61952 Jun  9 16:28 combined_23.png
+-rw-r--r-- 1 henrik henrik 62340 Jun  9 16:28 combined_24.png
+-rw-r--r-- 1 henrik henrik 62335 Jun  9 16:28 combined_25.png
+-rw-r--r-- 1 henrik henrik 62354 Jun  9 16:28 combined_26.png
+-rw-r--r-- 1 henrik henrik 61245 Jun  9 16:28 combined_27.png
+-rw-r--r-- 1 henrik henrik 62333 Jun  9 16:28 combined_28.png
+-rw-r--r-- 1 henrik henrik 61360 Jun  9 16:28 combined_29.png
+-rw-r--r-- 1 henrik henrik 61637 Jun  9 16:28 combined_30.png
+-rw-r--r-- 1 henrik henrik 61184 Jun  9 16:28 combined_31.png
+-rw-r--r-- 1 henrik henrik 61248 Jun  9 16:28 combined_32.png
+-rw-r--r-- 1 henrik henrik 62250 Jun  9 16:28 combined_33.png
+-rw-r--r-- 1 henrik henrik 61331 Jun  9 16:28 combined_34.png
+-rw-r--r-- 1 henrik henrik 61755 Jun  9 16:28 combined_35.png
+-rw-r--r-- 1 henrik henrik 61548 Jun  9 16:28 combined_36.png
+-rw-r--r-- 1 henrik henrik 61969 Jun  9 16:28 combined_37.png
+-rw-r--r-- 1 henrik henrik 61633 Jun  9 16:28 combined_38.png
+-rw-r--r-- 1 henrik henrik 62564 Jun  9 16:28 combined_39.png
+-rw-r--r-- 1 henrik henrik 61921 Jun  9 16:28 combined_40.png
+-rw-r--r-- 1 henrik henrik 61365 Jun  9 16:28 combined_41.png
+combined_00.png
+combined_01.png
+combined_02.png
+combined_03.png
+combined_04.png
+combined_05.png
+combined_06.png
+combined_07.png
+combined_08.png
+combined_09.png
+combined_10.png
+combined_11.png
+combined_12.png
+combined_13.png
+combined_14.png
+combined_15.png
+combined_16.png
+combined_17.png
+combined_18.png
+combined_19.png
+combined_20.png
+combined_21.png
+combined_22.png
+combined_23.png
+combined_24.png
+combined_25.png
+combined_26.png
+combined_27.png
+combined_28.png
+combined_29.png
+combined_30.png
+combined_31.png
+combined_32.png
+combined_33.png
+combined_34.png
+combined_35.png
+combined_36.png
+combined_37.png
+combined_38.png
+combined_39.png
+combined_40.png
+combined_41.png
+-rw-r--r-- 1 henrik henrik 85432 Jun  9 16:34 combined_00.png
+-rw-r--r-- 1 henrik henrik 85614 Jun  9 16:34 combined_01.png
+-rw-r--r-- 1 henrik henrik 84687 Jun  9 16:34 combined_02.png
+-rw-r--r-- 1 henrik henrik 85198 Jun  9 16:34 combined_03.png
+-rw-r--r-- 1 henrik henrik 85754 Jun  9 16:34 combined_04.png
+-rw-r--r-- 1 henrik henrik 85368 Jun  9 16:34 combined_05.png
+-rw-r--r-- 1 henrik henrik 84869 Jun  9 16:34 combined_06.png
+-rw-r--r-- 1 henrik henrik 85133 Jun  9 16:34 combined_07.png
+-rw-r--r-- 1 henrik henrik 85236 Jun  9 16:34 combined_08.png
+-rw-r--r-- 1 henrik henrik 84782 Jun  9 16:34 combined_09.png
+-rw-r--r-- 1 henrik henrik 84692 Jun  9 16:34 combined_10.png
+-rw-r--r-- 1 henrik henrik 85471 Jun  9 16:34 combined_11.png
+-rw-r--r-- 1 henrik henrik 85122 Jun  9 16:34 combined_12.png
+-rw-r--r-- 1 henrik henrik 85460 Jun  9 16:34 combined_13.png
+-rw-r--r-- 1 henrik henrik 85177 Jun  9 16:34 combined_14.png
+-rw-r--r-- 1 henrik henrik 84894 Jun  9 16:34 combined_15.png
+-rw-r--r-- 1 henrik henrik 85488 Jun  9 16:35 combined_16.png
+-rw-r--r-- 1 henrik henrik 85179 Jun  9 16:35 combined_17.png
+-rw-r--r-- 1 henrik henrik 84952 Jun  9 16:35 combined_18.png
+-rw-r--r-- 1 henrik henrik 84831 Jun  9 16:35 combined_19.png
+-rw-r--r-- 1 henrik henrik 85043 Jun  9 16:35 combined_20.png
+-rw-r--r-- 1 henrik henrik 85379 Jun  9 16:35 combined_21.png
+-rw-r--r-- 1 henrik henrik 85166 Jun  9 16:35 combined_22.png
+-rw-r--r-- 1 henrik henrik 84666 Jun  9 16:35 combined_23.png
+-rw-r--r-- 1 henrik henrik 85485 Jun  9 16:35 combined_24.png
+-rw-r--r-- 1 henrik henrik 85399 Jun  9 16:35 combined_25.png
+-rw-r--r-- 1 henrik henrik 85920 Jun  9 16:35 combined_26.png
+-rw-r--r-- 1 henrik henrik 84569 Jun  9 16:35 combined_27.png
+-rw-r--r-- 1 henrik henrik 84892 Jun  9 16:35 combined_28.png
+-rw-r--r-- 1 henrik henrik 85864 Jun  9 16:35 combined_29.png
+-rw-r--r-- 1 henrik henrik 85569 Jun  9 16:35 combined_30.png
+-rw-r--r-- 1 henrik henrik 85263 Jun  9 16:35 combined_31.png
+-rw-r--r-- 1 henrik henrik 85548 Jun  9 16:35 combined_32.png
+-rw-r--r-- 1 henrik henrik 85175 Jun  9 16:35 combined_33.png
+-rw-r--r-- 1 henrik henrik 85202 Jun  9 16:35 combined_34.png
+-rw-r--r-- 1 henrik henrik 85758 Jun  9 16:35 combined_35.png
+-rw-r--r-- 1 henrik henrik 85951 Jun  9 16:35 combined_36.png
+-rw-r--r-- 1 henrik henrik 85850 Jun  9 16:35 combined_37.png
+-rw-r--r-- 1 henrik henrik 85719 Jun  9 16:35 combined_38.png
+-rw-r--r-- 1 henrik henrik 86042 Jun  9 16:35 combined_39.png
+-rw-r--r-- 1 henrik henrik 86284 Jun  9 16:35 combined_40.png
+-rw-r--r-- 1 henrik henrik 86269 Jun  9 16:35 combined_41.png
+combined_00.png
+combined_01.png
+combined_02.png
+combined_03.png
+combined_04.png
+combined_05.png
+combined_06.png
+combined_07.png
+combined_08.png
+combined_09.png
+combined_10.png
+combined_11.png
+combined_12.png
+combined_13.png
+combined_14.png
+combined_15.png
+combined_16.png
+combined_17.png
+combined_18.png
+combined_19.png
+combined_20.png
+combined_21.png
+combined_22.png
+combined_23.png
+combined_24.png
+combined_25.png
+combined_26.png
+combined_27.png
+combined_28.png
+combined_29.png
+combined_30.png
+combined_31.png
+combined_32.png
+combined_33.png
+combined_34.png
+combined_35.png
+combined_36.png
+combined_37.png
+combined_38.png
+combined_39.png
+combined_40.png
+combined_41.png
+-rw-r--r-- 1 henrik henrik 97833 Jun  9 16:38 combined_00.png
+-rw-r--r-- 1 henrik henrik 97810 Jun  9 16:38 combined_01.png
+-rw-r--r-- 1 henrik henrik 96968 Jun  9 16:38 combined_02.png
+-rw-r--r-- 1 henrik henrik 97479 Jun  9 16:38 combined_03.png
+-rw-r--r-- 1 henrik henrik 98076 Jun  9 16:38 combined_04.png
+-rw-r--r-- 1 henrik henrik 97558 Jun  9 16:38 combined_05.png
+-rw-r--r-- 1 henrik henrik 97296 Jun  9 16:38 combined_06.png
+-rw-r--r-- 1 henrik henrik 97502 Jun  9 16:38 combined_07.png
+-rw-r--r-- 1 henrik henrik 97385 Jun  9 16:38 combined_08.png
+-rw-r--r-- 1 henrik henrik 97076 Jun  9 16:38 combined_09.png
+-rw-r--r-- 1 henrik henrik 96878 Jun  9 16:38 combined_10.png
+-rw-r--r-- 1 henrik henrik 97532 Jun  9 16:38 combined_11.png
+-rw-r--r-- 1 henrik henrik 97256 Jun  9 16:38 combined_12.png
+-rw-r--r-- 1 henrik henrik 97424 Jun  9 16:38 combined_13.png
+-rw-r--r-- 1 henrik henrik 97173 Jun  9 16:38 combined_14.png
+-rw-r--r-- 1 henrik henrik 97051 Jun  9 16:38 combined_15.png
+-rw-r--r-- 1 henrik henrik 97218 Jun  9 16:38 combined_16.png
+-rw-r--r-- 1 henrik henrik 97198 Jun  9 16:38 combined_17.png
+-rw-r--r-- 1 henrik henrik 96685 Jun  9 16:38 combined_18.png
+-rw-r--r-- 1 henrik henrik 96678 Jun  9 16:38 combined_19.png
+-rw-r--r-- 1 henrik henrik 97039 Jun  9 16:38 combined_20.png
+-rw-r--r-- 1 henrik henrik 97226 Jun  9 16:38 combined_21.png
+-rw-r--r-- 1 henrik henrik 96916 Jun  9 16:38 combined_22.png
+-rw-r--r-- 1 henrik henrik 96660 Jun  9 16:38 combined_23.png
+-rw-r--r-- 1 henrik henrik 97283 Jun  9 16:38 combined_24.png
+-rw-r--r-- 1 henrik henrik 97329 Jun  9 16:38 combined_25.png
+-rw-r--r-- 1 henrik henrik 97610 Jun  9 16:38 combined_26.png
+-rw-r--r-- 1 henrik henrik 96282 Jun  9 16:38 combined_27.png
+-rw-r--r-- 1 henrik henrik 96758 Jun  9 16:38 combined_28.png
+-rw-r--r-- 1 henrik henrik 97826 Jun  9 16:38 combined_29.png
+-rw-r--r-- 1 henrik henrik 97660 Jun  9 16:39 combined_30.png
+-rw-r--r-- 1 henrik henrik 97192 Jun  9 16:39 combined_31.png
+-rw-r--r-- 1 henrik henrik 97519 Jun  9 16:39 combined_32.png
+-rw-r--r-- 1 henrik henrik 97197 Jun  9 16:39 combined_33.png
+-rw-r--r-- 1 henrik henrik 97287 Jun  9 16:39 combined_34.png
+-rw-r--r-- 1 henrik henrik 97644 Jun  9 16:39 combined_35.png
+-rw-r--r-- 1 henrik henrik 98079 Jun  9 16:39 combined_36.png
+-rw-r--r-- 1 henrik henrik 97617 Jun  9 16:39 combined_37.png
+-rw-r--r-- 1 henrik henrik 97535 Jun  9 16:39 combined_38.png
+-rw-r--r-- 1 henrik henrik 97813 Jun  9 16:39 combined_39.png
+-rw-r--r-- 1 henrik henrik 98055 Jun  9 16:39 combined_40.png
+-rw-r--r-- 1 henrik henrik 98020 Jun  9 16:39 combined_41.png
+combined_00.png
+combined_01.png
+combined_02.png
+combined_03.png
+combined_04.png
+combined_05.png
+combined_06.png
+combined_07.png
+combined_08.png
+combined_09.png
+combined_10.png
+combined_11.png
+combined_12.png
+combined_13.png
+combined_14.png
+combined_15.png
+combined_16.png
+combined_17.png
+combined_18.png
+combined_19.png
+combined_20.png
+combined_21.png
+combined_22.png
+combined_23.png
+combined_24.png
+combined_25.png
+combined_26.png
+combined_27.png
+combined_28.png
+combined_29.png
+combined_30.png
+combined_31.png
+combined_32.png
+combined_33.png
+combined_34.png
+combined_35.png
+combined_36.png
+combined_37.png
+combined_38.png
+combined_39.png
+combined_40.png
+combined_41.png

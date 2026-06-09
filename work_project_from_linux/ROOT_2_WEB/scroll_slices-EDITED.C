@@ -1,3 +1,6 @@
+/// edited version of scroll_slices.C for using in root_to_webN.C
+
+
 void scroll_slices()
 {
     TFile *f = new TFile("fmri_val1_t42.root");

@@ -1,3 +1,5 @@
+// edited version of plot_2Dhist.C for using in root_to_webN.C
+
 // this file creates a 2d plot of a brain slice
 void plot_2Dhist(TCanvas* c, TTree* tree, Double_t mean, int slice = 40)
 {

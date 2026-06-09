@@ -54,7 +54,7 @@ fprintf(outfil,"<br><b><big>Project PHYS291 - Iselin Kongsmark</big></b> \n");
    fprintf(outfil,"<br><b>Preprocessing steps </b> \n");
    fprintf(outfil,"<br><br>\n");
 
-   fprintf(outfil,"The raw fMRI data is stored in a NIfTI (.nii) file, with dimensions x, y, z, and t. Each voxel contains the recorded activity level at a given spatial location and time point. The voxels represent a spatial resolution of 2 mm$\^3$ and the time resolution is 0.72 seconds between each scan. \n");
+   fprintf(outfil,"The raw fMRI data is stored in a NIfTI (.nii) file, with dimensions x, y, z, and t. Each voxel contains the recorded activity level at a given spatial location and time point. The voxels represent a spatial resolution of 2 mm$^3$ and the time resolution is 0.72 seconds between each scan. \n");
    fprintf(outfil, "<br><br>\n");
 
    fprintf(outfil,"Using the Python package NiBabel, the data was sampled and converted to a text file (CSV). Including all data points would result in a file of several GB, which is excessive for this project. A sampling interval of 2 was therefore applied along the x, y, and z axes, and the time axis was truncated to the first 42 time points. This corresponds to approximately 30 seconds of scan data.\n");
@@ -75,7 +75,6 @@ fprintf(outfil,"<br><b><big>Project PHYS291 - Iselin Kongsmark</big></b> \n");
    TF1 *func;  TString FUNC;
    
 //////// from plot_2Dhist.C
-
 TFile *f = new TFile("fmri_val1_t42.root");
 TTree *tree = (TTree*)f->Get("brain");
 //Find global mean intensity
@@ -144,6 +143,8 @@ system("rm frame_*.png");  // clean up frames after GIF is made
    fprintf(outfil,"<br><br>\n");
 
 // --- time evolution of slice, save frames, make GIF ---
+system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png"); //cleanup from previous runs (just in case)
+
 for (int t = 0; t < 42; t++)
 {
     plot_2Dhist(c500, tree, mean, 20, t);
@@ -156,9 +157,12 @@ for (int t = 0; t < 42; t++)
     c500->Print(Form("frameC_%02d.png", t));
 
     // stitch the three side by side into one combined frame
-    system(Form("convert frameA_%02d.png frameB_%02d.png frameC_%02d.png +append combined_%02d.png", t, t, t, t));
+    // resizing because of memory error for animation
+    system(Form("convert frameA_%02d.png frameB_%02d.png frameC_%02d.png +append -resize 1200x combined_%02d.png", t, t, t, t));
+    system(Form("ls -la combined_%02d.png >> debug.txt 2>&1", t));
 }
-system("convert -delay 72 -loop 0 combined_*.png timeev_animation.gif");
+
+system("convert -delay 72 -loop 0 $(ls combined_*.png | sort) timeev_animation.gif");
 system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png");
 
    fprintf(outfil, "<img src=\"timeev_animation.gif\" style=\"width:98%%\"><br>\n");
@@ -184,7 +188,7 @@ system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png");
 
    fclose(outfil);
    
-   system("echo \"<br><br><b>The root macro root_to_webN.C producing all this </b>\" >> index.html");
+   system("echo \"<br><br><b>The root macro root_to_webN.C producing this HTML report and plots </b>\" >> index.html");
    system("txtbox_white root_to_webN.C");
    system("cat root_to_webN.C.html >> index.html");
    system("txtbox_white about_html_2.txt");

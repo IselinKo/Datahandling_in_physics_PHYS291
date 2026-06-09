@@ -1,3 +1,5 @@
+/// edited version of plot_time_ev_2D.C for using in root_to_webN.C
+
 void plot_time_ev_2D(int slice = 40)
 {
 // this file creates a time evolution of one brain slice
