@@ -1,5 +1,7 @@
 // this file creates a 2d plot of a brain slice
+// Run in ROOT
 
+void plot_2Dhist()
 {
 TFile *f = new TFile("fmri_val1_t42.root");
 TTree *tree = (TTree*)f->Get("brain");
@@ -29,10 +31,13 @@ tree->Draw(
 TH2F *h = (TH2F*)gDirectory->Get("h");
 
 h->SetTitle(Form("Brain Slice z=%d",slice));
+h->SetMinimum(0);
+h->SetMaximum(1);
 
 h->GetXaxis()->SetTitle("x");
 h->GetYaxis()->SetTitle("y");
 h->GetZaxis()->SetTitle("Intensity - Absolute Relative Deviation");
+h->GetZaxis()->SetTitleOffset(1.6);
 
 h->Smooth();
 h->SetStats(0);

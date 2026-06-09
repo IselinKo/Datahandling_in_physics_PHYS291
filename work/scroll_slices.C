@@ -1,3 +1,5 @@
+// This scrips scrolls through all brain slices
+// RUN IN ROOT
 {
     TFile *f = new TFile("fmri_val1_t42.root");
     TTree *tree = (TTree*)f->Get("brain");
@@ -31,6 +33,7 @@
         h->GetXaxis()->SetTitle("x");
         h->GetYaxis()->SetTitle("y");
         h->GetZaxis()->SetTitle("Intensity - Absolute Relative Deviation");
+        h->GetZaxis()->SetTitleOffset(1.6);
 
         h->Smooth();
         h->SetStats(0);
