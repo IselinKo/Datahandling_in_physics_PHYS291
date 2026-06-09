@@ -159,7 +159,6 @@ for (int t = 0; t < 42; t++)
     // stitch the three side by side into one combined frame
     // resizing because of memory error for animation
     system(Form("convert frameA_%02d.png frameB_%02d.png frameC_%02d.png +append -resize 1200x combined_%02d.png", t, t, t, t));
-    system(Form("ls -la combined_%02d.png >> debug.txt 2>&1", t));
 }
 
 system("convert -delay 72 -loop 0 $(ls combined_*.png | sort) timeev_animation.gif");
@@ -193,10 +192,7 @@ system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png");
    system("cat root_to_webN.C.html >> index.html");
    system("txtbox_white about_html_2.txt");
    system("firefox  index.html  &");
-   system("cp nswap swap");
-   system("cp animate.fil animate.html");
    system("python3 -m http.server 8000 &");
-   system("./swap &");
    sleep(1);
    system("firefox  http://127.0.0.1:8000/  &");
 }
@@ -222,6 +218,7 @@ h->SetMaximum(1);
 h->GetXaxis()->SetTitle("x");
 h->GetYaxis()->SetTitle("y");
 h->GetZaxis()->SetTitle("Intensity - Absolute Relative Deviation");
+h->GetZaxis()->SetTitleOffset(1.6);
 
 h->Smooth();
 h->SetStats(0);
