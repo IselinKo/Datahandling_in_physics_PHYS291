@@ -2,7 +2,9 @@ WHAT THIS PROJECT DIRECTORY CONTAIN
 
 In the main folder you find the root_to_webN.C file, which is the main script. This produces the HTML report, the plots and animations of the project.
 
-You also find the data stored in a root file "fmri_val1_t42.root", as well as the finished animations as .gif
+You also find the data stored in a root file "fmri_val1_t42.root", as well as the finished animations as .gifs and images as .pngs.
+
+The index.html is the report. To render the LaTeX properly, open with webserver (see below).
 
 There are three folders inside this directory. Here is a list of what they contain:
 - scripts_conversion_of_data: scripts to convert the raw NifTy data file --> CSV file --> ROOT. Note that the raw data was not included to save space.
@@ -12,16 +14,24 @@ There are three folders inside this directory. Here is a list of what they conta
 --------------------
 PRODUCING THE HTML REPORT
 
-This project is produced by writing 
+This project is produced by writing:
 make
 in the terminal from the main project folder. This will run the ROOT_to_webN.C file that produces the HTML report and the plots/animations.
 
-OBS: it does take a couple of minutes to run, as there are a lot of plots to draw. Even if it seems to freeze, just have some patience. 
+OBS: This takes a couple of minutes to run, as there are a lot of plots to draw.
 
--------------
+--------------------
+VIEW THE REPORT
+To view the report, run the following in the terminal:
+
+python3 -http.server 8000
+firefox http://127.0.0.1:8000/
+
+
+-------------------
 VIEWING THE PLOTS INDIVIDUALLY AND CHOOSE YOUR OWN Z-VALUES
 
-These original scripts for plotting is in the folder "scrips_plotting"
+The original scripts for plotting can be found in the folder "scrips_plotting"
 - plot_2Dhist.C
 - scroll_slices.C
 - plot_time_ev_2D.C
