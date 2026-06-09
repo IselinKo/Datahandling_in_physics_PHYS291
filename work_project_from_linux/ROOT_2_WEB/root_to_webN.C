@@ -78,6 +78,7 @@ fprintf(outfil,"<br><b><big>Project PHYS291 - Iselin Kongsmark</big></b> \n");
 
 TFile *f = new TFile("fmri_val1_t42.root");
 TTree *tree = (TTree*)f->Get("brain");
+//Find global mean intensity
 tree->Draw("intensity>>htemp", "", "goff");
 TH1F *htemp = (TH1F*)gDirectory->Get("htemp");
 Double_t mean = htemp->GetMean();
@@ -143,7 +144,6 @@ system("rm frame_*.png");  // clean up frames after GIF is made
    fprintf(outfil,"<br><br>\n");
 
 // --- time evolution of slice, save frames, make GIF ---
-int frameCount2 = 0;
 for (int t = 0; t < 42; t++)
 {
     plot_2Dhist(c500, tree, mean, 20, t);
@@ -171,13 +171,10 @@ system("rm frameA_*.png frameB_*.png frameC_*.png combined_*.png");
    fprintf(outfil, "If there was more time for this project, a better normalization strategy would be beneficial. The method used here divides by the global mean intensity across all voxels and time points. While this highlights voxels that deviate strongly from the overall average, it does not capture the temporal dynamics within individual voxels. A more suitable approach for detecting BOLD activation would be to normalize each voxel's time series by its own temporal mean, giving the relative signal change over time for that voxel. This would make it possible to observe how individual brain regions fluctuate around their own baseline, which is the gold standard in fMRI activation analysis.\n");
    fprintf(outfil,"<br><br>\n");
 
-
    fprintf(outfil, "<br><b>References</b><br><br>\n");
    fprintf(outfil, "[1] Kamel, R. J. (Ed.). <i>Fundamentals of Medical Physics: Principles and Applications.</i> 1st ed. AkiNik Publications, 2024. DOI: <a href=\"https://doi.org/10.22271/ed.book.2841\">https://doi.org/10.22271/ed.book.2841</a><br><br>\n");
    fprintf(outfil, "[2] Menon, V. (2023). 20 years of the default mode network: A review and synthesis. <i>Neuron</i>, 111(16), 2469-2487. <a href=\"https://doi.org/10.1016/j.neuron.2023.04.023\">https://doi.org/10.1016/j.neuron.2023.04.023</a><br><br>\n");
 
-   //// ----------
-   
    fprintf(outfil,"</td></tr></table><br>\n");
  
 
@@ -207,12 +204,12 @@ c-> SetRightMargin(0.18);
 
 // create histogram
 tree->Draw(
-    "y:x >> h(32,-10,100,32,-5,120)",
+    Form("y:x >> h_%d_%d(32,-10,100,32,-5,120)", slice, t),
     Form("abs((intensity-%f)/%f) *(abs(z-%d)<2 && t==%d)", mean, mean, slice, t),
     "colz"
 );
+TH2F *h = (TH2F*)gDirectory->Get(Form("h_%d_%d", slice, t));
 
-TH2F *h = (TH2F*)gDirectory->Get("h");
 
 h->SetTitle(Form("Brain Slice z=%d   t=%d   (%.2f sec)", slice, t, t*0.72));
 h->SetMinimum(0);
@@ -225,6 +222,7 @@ h->GetZaxis()->SetTitle("Intensity - Absolute Relative Deviation");
 h->Smooth();
 h->SetStats(0);
 h->Draw("colz");
+gDirectory->Delete(Form("h_%d_%d;1", slice, t));
 
 }
 
